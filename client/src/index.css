@@ -259,24 +259,24 @@
     color: var(--text-muted);
   }
   .rjt-date-end {
-    color: #f43f5e;
-    font-weight: 600;
+    color: var(--text-soft);
+    font-weight: 500;
   }
   .dark .rjt-date-end {
-    color: #fb7185;
+    color: var(--text-soft);
   }
 
-  /* Vacancies */
+  /* Vacancies — neutral badge without blue hyperlink affordance */
   .rjt-vacancies {
-    @apply inline-block rounded-lg px-2.5 py-1 text-xs font-extrabold tabular-nums;
-    background: rgba(85, 88, 230, 0.1);
-    color: #5558e6;
-    border: 1px solid rgba(85, 88, 230, 0.2);
+    @apply inline-block rounded-md px-2.5 py-0.5 text-xs font-bold tabular-nums;
+    background: var(--bg-subtle);
+    color: var(--text-strong);
+    border: 1px solid var(--border-hairline);
   }
   .dark .rjt-vacancies {
-    background: rgba(109, 112, 240, 0.14);
-    color: #9699f5;
-    border-color: rgba(109, 112, 240, 0.25);
+    background: var(--bg-subtle);
+    color: var(--text-strong);
+    border-color: var(--border-hairline);
   }
   .rjt-vacancies-na {
     @apply text-xs;

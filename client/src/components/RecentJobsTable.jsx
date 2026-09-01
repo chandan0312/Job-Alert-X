@@ -14,11 +14,11 @@ import BrandIcon from './BrandIcon.jsx'
 function getStartDate(job) {
   const d = job.importantDates?.find(
     (r) =>
-      r.label.toLowerCase().includes('begin') ||
-      r.label.toLowerCase().includes('start') ||
-      r.label.toLowerCase().includes('open')
+      r.label?.toLowerCase().includes('begin') ||
+      r.label?.toLowerCase().includes('start') ||
+      r.label?.toLowerCase().includes('open')
   )
-  return d?.value || job.postedOn || '—'
+  return d?.value || job.postedOn || job.postedAt || '—'
 }
 
 /**
@@ -27,9 +27,9 @@ function getStartDate(job) {
 function getEndDate(job) {
   const d = job.importantDates?.find(
     (r) =>
-      r.label.toLowerCase().includes('last date') ||
-      r.label.toLowerCase().includes('close') ||
-      r.label.toLowerCase().includes('end date')
+      r.label?.toLowerCase().includes('last date') ||
+      r.label?.toLowerCase().includes('close') ||
+      r.label?.toLowerCase().includes('end date')
   )
   return d?.value || '—'
 }
@@ -40,16 +40,27 @@ function getEndDate(job) {
  */
 function bestEligibility(job) {
   if (job.eligibilityShort) return job.eligibilityShort
-  // Category-based fallback if eligibilityShort is missing
+  if (job.eligibility) {
+    return job.eligibility.length > 30 ? `${job.eligibility.slice(0, 28)}…` : job.eligibility
+  }
+  // Category-based fallback if eligibility is missing
   const cat = (job.category || '').toLowerCase()
   if (cat === 'railway')  return '10th / ITI / Diploma'
   if (cat === 'police')   return '12th Pass'
   if (cat === 'defence')  return '10+2 / PCM'
   if (cat === 'teaching') return 'B.Ed / Post Graduate'
+  if (cat === 'banking')  return 'Degree / Graduate'
+  if (cat === 'ssc')      return '10th / 12th / Graduate'
+  if (cat === 'upsc')     return 'Bachelor Degree'
   return 'Graduation'
 }
 
-export default function RecentJobsTable({ jobs = [], viewAllTo = '/latest/job' }) {
+export default function RecentJobsTable({
+  jobs = [],
+  viewAllTo = '/latest/job',
+  viewAllText = 'View All Jobs',
+  showFooter = true,
+}) {
   return (
     <div className="rjt-wrapper">
       {/* ── Table ── */}
@@ -76,67 +87,77 @@ export default function RecentJobsTable({ jobs = [], viewAllTo = '/latest/job' }
             </tr>
           </thead>
           <tbody>
-            {jobs.map((job, idx) => (
-              <tr key={job.id} className={`rjt-row ${idx % 2 === 1 ? 'rjt-row-alt' : ''}`}>
-                {/* Job / Org */}
-                <td className="rjt-td rjt-td-job">
-                  <div className="rjt-job-cell">
-                    <BrandIcon icon={job.logo.icon} color={job.logo.color} size={36} square />
-                    <div className="rjt-job-info">
-                      <Link to={`/job/${job.id}`} className="rjt-job-title">
-                        {job.title}
-                      </Link>
-                      <span className="rjt-job-org" title={job.org}>{job.org}</span>
-                    </div>
-                  </div>
-                </td>
-
-                {/* Start Date */}
-                <td className="rjt-td rjt-date">{getStartDate(job)}</td>
-
-                {/* End Date */}
-                <td className="rjt-td rjt-date rjt-date-end">{getEndDate(job)}</td>
-
-                {/* Posts / Vacancies */}
-                <td className="rjt-td">
-                  {job.vacancies ? (
-                    <span className="rjt-vacancies">
-                      {job.vacancies.toLocaleString('en-IN')}
-                    </span>
-                  ) : (
-                    <span className="rjt-vacancies-na">—</span>
-                  )}
-                </td>
-
-                {/* Eligibility */}
-                <td className="rjt-td rjt-eligibility">
-                  {bestEligibility(job)}
-                </td>
-
-                {/* Action */}
-                <td className="rjt-td rjt-td-center">
-                  <Link
-                    to={`/job/${job.id}`}
-                    className="rjt-apply-btn"
-                    aria-label={`Apply for ${job.title}`}
-                  >
-                    Apply Now
-                    <ArrowUpRight size={13} aria-hidden="true" />
-                  </Link>
+            {jobs.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="py-8 text-center text-xs text-ink-muted">
+                  No active notifications available yet.
                 </td>
               </tr>
-            ))}
+            ) : (
+              jobs.map((job, idx) => (
+                <tr key={job.id} className={`rjt-row ${idx % 2 === 1 ? 'rjt-row-alt' : ''}`}>
+                  {/* Job / Org */}
+                  <td className="rjt-td rjt-td-job">
+                    <div className="rjt-job-cell">
+                      <BrandIcon icon={job.logo?.icon || 'landmark'} color={job.logo?.color || '#5558e6'} size={36} square />
+                      <div className="rjt-job-info">
+                        <Link to={`/job/${job.id}`} className="rjt-job-title">
+                          {job.title}
+                        </Link>
+                        <span className="rjt-job-org" title={job.org}>{job.org}</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  {/* Start Date */}
+                  <td className="rjt-td rjt-date">{getStartDate(job)}</td>
+
+                  {/* End Date */}
+                  <td className="rjt-td rjt-date rjt-date-end">{getEndDate(job)}</td>
+
+                  {/* Posts / Vacancies */}
+                  <td className="rjt-td">
+                    {job.vacancies ? (
+                      <span className="rjt-vacancies">
+                        {Number(job.vacancies).toLocaleString('en-IN')}
+                      </span>
+                    ) : (
+                      <span className="rjt-vacancies-na">—</span>
+                    )}
+                  </td>
+
+                  {/* Eligibility */}
+                  <td className="rjt-td rjt-eligibility">
+                    {bestEligibility(job)}
+                  </td>
+
+                  {/* Action */}
+                  <td className="rjt-td rjt-td-center">
+                    <Link
+                      to={`/job/${job.id}`}
+                      className="rjt-apply-btn"
+                      aria-label={`Apply for ${job.title}`}
+                    >
+                      Apply Now
+                      <ArrowUpRight size={13} aria-hidden="true" />
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
 
       {/* ── View All footer ── */}
-      <div className="rjt-footer">
-        <Link to={viewAllTo} className="rjt-view-all">
-          View All Jobs
-          <ArrowUpRight size={15} />
-        </Link>
-      </div>
+      {showFooter && viewAllTo && jobs.length > 0 && (
+        <div className="rjt-footer">
+          <Link to={viewAllTo} className="rjt-view-all">
+            {viewAllText}
+            <ArrowUpRight size={15} />
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

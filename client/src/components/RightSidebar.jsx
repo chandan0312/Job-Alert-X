@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import ResultsCard from './ResultsCard.jsx'
 import AdmitCardsCard from './AdmitCardsCard.jsx'
+import AnswerKeysCard from './AnswerKeysCard.jsx'
+import SyllabusCard from './SyllabusCard.jsx'
 
 function QuickSearch() {
   const [q, setQ] = useState('')
@@ -47,6 +49,8 @@ export default function RightSidebar() {
       <QuickSearch />
       <ResultsCard />
       <AdmitCardsCard />
+      <AnswerKeysCard />
+      <SyllabusCard />
     </div>
   )
 }

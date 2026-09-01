@@ -16,6 +16,23 @@ async function start() {
   await initDb({ sync: true, alter: false })
   console.log(`[db] connected to ${env.db.name} at ${env.db.host}:${env.db.port}`)
 
+  // Safely ensure new columns exist without breaking existing tables
+  try {
+    const { sequelize } = await import('./models/index.js')
+    const qi = sequelize.getQueryInterface()
+    const desc = await qi.describeTable('jobs').catch(() => ({}))
+    if (desc && !desc.inTicker) {
+      await qi.addColumn('jobs', 'inTicker', {
+        type: sequelize.Sequelize.DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      })
+      console.log('[db] added inTicker column to jobs table')
+    }
+  } catch (err) {
+    console.warn('[db] column check notice:', err.message)
+  }
+
   const app = createApp()
   const server = app.listen(env.port, () => {
     console.log(`[api] Job Fynx API listening on http://localhost:${env.port}`)

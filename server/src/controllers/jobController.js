@@ -58,7 +58,7 @@ function searchClause(query) {
  * Query: ?category= &kind= &featured= &q= &limit= &offset=
  */
 export const list = asyncHandler(async (req, res) => {
-  const { category, kind, featured, q, limit, offset } = req.query
+  const { category, kind, featured, inTicker, q, limit, offset } = req.query
 
   const where = {}
   if (category) where.category = String(category).toLowerCase()
@@ -73,6 +73,9 @@ export const list = asyncHandler(async (req, res) => {
 
   const isFeatured = parseBool(featured)
   if (isFeatured !== undefined) where.featured = isFeatured
+
+  const isInTicker = parseBool(inTicker)
+  if (isInTicker !== undefined) where.inTicker = isInTicker
 
   const trimmed = String(q ?? '').trim()
   if (trimmed) Object.assign(where, searchClause(trimmed))
@@ -94,6 +97,30 @@ export const trending = asyncHandler(async (req, res) => {
     order: NEWEST_FIRST,
     limit: parseLimit(req.query.limit, undefined),
   })
+  res.json(serialize(rows))
+})
+
+/** GET /api/jobs/ticker — posts displayed in the moving header marquee ticker. */
+export const ticker = asyncHandler(async (req, res) => {
+  let rows = await Job.findAll({
+    where: { inTicker: true },
+    order: NEWEST_FIRST,
+    limit: parseLimit(req.query.limit, 10),
+  })
+  // Fallback to featured or recent if none marked as inTicker yet
+  if (rows.length === 0) {
+    rows = await Job.findAll({
+      where: { featured: true },
+      order: NEWEST_FIRST,
+      limit: parseLimit(req.query.limit, 10),
+    })
+  }
+  if (rows.length === 0) {
+    rows = await Job.findAll({
+      order: NEWEST_FIRST,
+      limit: parseLimit(req.query.limit, 10),
+    })
+  }
   res.json(serialize(rows))
 })
 
@@ -159,6 +186,7 @@ const WRITABLE = [
   'applications',
   'vacancies',
   'featured',
+  'inTicker',
   'logo',
   'importantDates',
   'fee',
@@ -270,4 +298,4 @@ export const stats = asyncHandler(async (req, res) => {
   res.json({ total, byKind })
 })
 
-export default { list, trending, recent, search, byId, registerView, create, update, remove, stats }
+export default { list, trending, ticker, recent, search, byId, registerView, create, update, remove, stats }

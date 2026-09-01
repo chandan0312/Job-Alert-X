@@ -7,6 +7,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Lock, Mail, ArrowRight, AlertCircle, Shield } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 import SarkariEmblem from '../components/SarkariEmblem.jsx'
+import SEOHead from '../components/SEOHead.jsx'
 
 export default function AdminLogin() {
   const { login, isAuthenticated } = useAuth()
@@ -45,6 +46,7 @@ export default function AdminLogin() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-page px-4 transition-colors duration-200 dark:bg-[#050814]">
+      <SEOHead title="Admin Login | Job Alert X" />
       {/* Background effects */}
       <div className="pointer-events-none absolute inset-0">
         {/* Radial gradient orbs */}
@@ -70,7 +72,7 @@ export default function AdminLogin() {
             <SarkariEmblem size={56} />
           </Link>
           <h1 className="text-2xl font-black tracking-tight text-ink dark:text-white">
-            Admin Portal
+            Job Alert X Admin Portal
           </h1>
           <p className="mt-1.5 text-sm text-ink-muted dark:text-slate-400">
             Sign in to manage Job Alert X

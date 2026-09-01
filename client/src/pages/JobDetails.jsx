@@ -15,8 +15,7 @@ import BrandIcon from '../components/BrandIcon.jsx'
 import TableView from '../components/TableView.jsx'
 import CategoryBox from '../components/CategoryBox.jsx'
 import SEOHead from '../components/SEOHead.jsx'
-import { getJobById, getJobsByCategory, getKindLabel } from '../services/api.js'
-import { categories } from '../data/seed.js'
+import { getJobById, getJobsByCategory, getKindLabel, getCategories } from '../services/api.js'
 
 function Stat({ icon: Icon, label, value }) {
   return (
@@ -34,19 +33,33 @@ export default function JobDetails() {
   const { id } = useParams()
   const [job, setJob] = useState(undefined) // undefined = loading, null = not found
   const [related, setRelated] = useState([])
+  const [categories, setCategories] = useState([])
+
+  // Load categories for metadata (name, icon, color)
+  useEffect(() => {
+    let active = true
+    getCategories()
+      .then((data) => active && setCategories(data || []))
+      .catch(() => {})
+    return () => { active = false }
+  }, [])
 
   useEffect(() => {
     let active = true
     setJob(undefined)
-    getJobById(id).then((data) => {
-      if (!active) return
-      setJob(data)
-      if (data) {
-        getJobsByCategory(data.category).then((list) => {
-          if (active) setRelated(list.filter((j) => j.id !== data.id).slice(0, 6))
-        })
-      }
-    })
+    getJobById(id)
+      .then((data) => {
+        if (!active) return
+        setJob(data || null)
+        if (data) {
+          getJobsByCategory(data.category)
+            .then((list) => {
+              if (active) setRelated((list || []).filter((j) => j.id !== data.id).slice(0, 6))
+            })
+            .catch(() => {})
+        }
+      })
+      .catch(() => active && setJob(null))
     return () => {
       active = false
     }

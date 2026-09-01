@@ -66,6 +66,9 @@ export default function defineJob(sequelize) {
       // Featured posts feed the home-page hero carousel ("Trending This Week").
       featured: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
 
+      // inTicker posts feed the moving header marquee ticker ("Live Announcements").
+      inTicker: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+
       // --- JSON (display-only) ---
       logo: DataTypes.JSON, //           { icon, color }
       importantDates: DataTypes.JSON, // [{ label, value }]

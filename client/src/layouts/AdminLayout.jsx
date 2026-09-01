@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from 'react'
 import { Outlet, NavLink, useLocation, Link } from 'react-router-dom'
+import { useTheme } from '../context/ThemeContext.jsx'
 import {
   LayoutDashboard,
   FileText,
@@ -14,6 +15,8 @@ import {
   Shield,
   Menu,
   X,
+  SunMedium,
+  MoonStar,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 import Header from '../components/Header.jsx'
@@ -66,6 +69,7 @@ function AdminNavItem({ item, onClick }) {
 
 export default function AdminLayout() {
   const { user, logout } = useAuth()
+  const { isDark, toggleTheme } = useTheme()
   const { pathname } = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -112,7 +116,7 @@ export default function AdminLayout() {
       >
         {/* Mobile close */}
         <div className="flex items-center justify-between border-b border-white/[0.08] px-4 py-3 lg:hidden">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Admin Panel</span>
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Job Alert X Admin</span>
           <button
             type="button"
             onClick={() => setMobileOpen(false)}
@@ -139,7 +143,7 @@ export default function AdminLayout() {
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto px-3 py-4">
           <p className="mb-2 px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
-            Admin Panel
+            Job Alert X Admin
           </p>
           <div className="space-y-1">
             {ADMIN_NAV.map((item) => (
@@ -147,6 +151,36 @@ export default function AdminLayout() {
             ))}
           </div>
         </nav>
+
+        {/* Theme toggle */}
+        <div className="border-t border-white/[0.08] p-2.5">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left transition-colors hover:bg-white/[0.07]"
+            aria-pressed={!isDark}
+          >
+            {isDark ? (
+              <MoonStar size={18} className="flex-shrink-0 text-indigo-400" />
+            ) : (
+              <SunMedium size={18} className="flex-shrink-0 text-amber-400" />
+            )}
+            <span className="text-[13px] font-medium text-slate-300">
+              {isDark ? 'Dark Mode' : 'Light Mode'}
+            </span>
+            <span
+              className={`ml-auto inline-flex h-5 w-10 items-center rounded-full p-0.5 transition-colors ${
+                isDark ? 'bg-slate-700' : 'bg-orange-500'
+              }`}
+            >
+              <span
+                className={`h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                  isDark ? 'translate-x-0' : 'translate-x-5'
+                }`}
+              />
+            </span>
+          </button>
+        </div>
 
         {/* Footer actions */}
         <div className="border-t border-white/[0.08] p-3 space-y-1">

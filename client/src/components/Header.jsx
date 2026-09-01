@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import { getTickerJobs } from '../services/api.js'
 import SarkariEmblem from './SarkariEmblem.jsx'
 
 function useClickOutside(ref, onOutside) {
@@ -28,55 +29,23 @@ export default function Header({ onMenuClick = () => {} }) {
   const { isDark, toggleTheme } = useTheme()
   const { user, isAuthenticated, logout, isAdmin } = useAuth()
   const [userOpen, setUserOpen] = useState(false)
+  const [tickerItems, setTickerItems] = useState([])
   const userRef = useRef(null)
 
   useClickOutside(userRef, () => setUserOpen(false))
 
-  // Live job ticker items
-  const tickerItems = [
-    {
-      id: 'ssc-cgl-2024',
-      badge: 'SSC CGL',
-      badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
-      title: '17,727 Posts Available — Combined Graduate Level 2026',
-      highlight: 'Apply Online',
-    },
-    {
-      id: 'rrb-technician-grade-1-2024',
-      badge: 'RRB Railway',
-      badgeColor: 'bg-orange-50 text-orange-700 border-orange-200',
-      title: '14,298 Technician Grade 1 & 3 Posts Notification Released',
-      highlight: 'New Notification',
-    },
-    {
-      id: 'up-police-constable-2024',
-      badge: 'UP Police',
-      badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-      title: '60,244 Constable Recruitment Exam Date & Center List Announced',
-      highlight: 'Exam Date Out',
-    },
-    {
-      id: 'ibps-po-mt-2024',
-      badge: 'IBPS PO/MT',
-      badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
-      title: '4,455 Probationary Officer Vacancies in Public Sector Banks',
-      highlight: 'Apply Now',
-    },
-    {
-      id: 'indian-navy-ssr-2024',
-      badge: 'Indian Navy',
-      badgeColor: 'bg-cyan-50 text-cyan-700 border-cyan-200',
-      title: '2,800 Agniveer SSR Batch Enrolment Application Active',
-      highlight: 'Active Link',
-    },
-    {
-      id: 'upsc-cse-2024',
-      badge: 'UPSC CSE',
-      badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
-      title: 'Civil Services Examination Prelims & Mains Schedule Released',
-      highlight: 'Official Notice',
-    },
-  ]
+  // Live job ticker items fetched directly from DB
+  useEffect(() => {
+    let active = true
+    getTickerJobs()
+      .then((data) => {
+        if (active && Array.isArray(data) && data.length > 0) {
+          setTickerItems(data)
+        }
+      })
+      .catch(() => {})
+    return () => { active = false }
+  }, [])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-[72px] bg-[#050814]/95 backdrop-blur-md px-2 py-2 sm:px-4 sm:py-2.5 transition-colors duration-200">
@@ -138,47 +107,55 @@ export default function Header({ onMenuClick = () => {} }) {
 
             {/* Right-to-Left Continuous Moving Ticker Track */}
             <div className="flex overflow-hidden w-full cursor-pointer select-none">
-              <div className="animate-marquee flex items-center gap-6 py-1">
+              <div className="animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none flex items-center gap-6 py-1">
                 {/* Loop 1 */}
-                {tickerItems.map((item, idx) => (
-                  <Link
-                    key={`t1-${idx}`}
-                    to={`/job/${item.id}`}
-                    className="group/item flex shrink-0 items-center gap-2 text-xs text-slate-200 hover:text-orange-400 transition-colors"
-                  >
-                    <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-300 border border-orange-500/30">
-                      {item.badge}
-                    </span>
-                    <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
-                      {item.title}
-                    </span>
-                    <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-400 group-hover/item:text-orange-300">
-                      [{item.highlight}]
-                      <ArrowRight size={12} className="transition-transform group-hover/item:translate-x-0.5" aria-hidden="true" />
-                    </span>
-                    <span className="text-slate-600 mx-2" aria-hidden="true">•</span>
-                  </Link>
-                ))}
-                {/* Loop 2 */}
-                {tickerItems.map((item, idx) => (
-                  <Link
-                    key={`t2-${idx}`}
-                    to={`/job/${item.id}`}
-                    className="group/item flex shrink-0 items-center gap-2 text-xs text-slate-200 hover:text-orange-400 transition-colors"
-                  >
-                    <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-300 border border-orange-500/30">
-                      {item.badge}
-                    </span>
-                    <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
-                      {item.title}
-                    </span>
-                    <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-400 group-hover/item:text-orange-300">
-                      [{item.highlight}]
-                      <ArrowRight size={12} className="transition-transform group-hover/item:translate-x-0.5" aria-hidden="true" />
-                    </span>
-                    <span className="text-slate-600 mx-2" aria-hidden="true">•</span>
-                  </Link>
-                ))}
+                {tickerItems.map((item, idx) => {
+                  const badge = item.badge || item.orgShort || item.org || item.category?.toUpperCase() || 'LIVE'
+                  const highlight = item.highlight || item.tagline || (item.vacancies ? `${Number(item.vacancies).toLocaleString('en-IN')} Posts` : 'Apply Online')
+                  return (
+                    <Link
+                      key={`t1-${item.id || idx}`}
+                      to={`/job/${item.id}`}
+                      className="group/item flex shrink-0 items-center gap-2 text-xs text-slate-200 hover:text-orange-400 transition-colors"
+                    >
+                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-300 border border-orange-500/30">
+                        {badge}
+                      </span>
+                      <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
+                        {item.title}
+                      </span>
+                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-400 group-hover/item:text-orange-300">
+                        [{highlight}]
+                        <ArrowRight size={12} className="transition-transform group-hover/item:translate-x-0.5" aria-hidden="true" />
+                      </span>
+                      <span className="text-slate-600 mx-2" aria-hidden="true">•</span>
+                    </Link>
+                  )
+                })}
+                {/* Loop 2 (for continuous smooth scroll) */}
+                {tickerItems.map((item, idx) => {
+                  const badge = item.badge || item.orgShort || item.org || item.category?.toUpperCase() || 'LIVE'
+                  const highlight = item.highlight || item.tagline || (item.vacancies ? `${Number(item.vacancies).toLocaleString('en-IN')} Posts` : 'Apply Online')
+                  return (
+                    <Link
+                      key={`t2-${item.id || idx}`}
+                      to={`/job/${item.id}`}
+                      className="group/item flex shrink-0 items-center gap-2 text-xs text-slate-200 hover:text-orange-400 transition-colors"
+                    >
+                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-300 border border-orange-500/30">
+                        {badge}
+                      </span>
+                      <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
+                        {item.title}
+                      </span>
+                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-400 group-hover/item:text-orange-300">
+                        [{highlight}]
+                        <ArrowRight size={12} className="transition-transform group-hover/item:translate-x-0.5" aria-hidden="true" />
+                      </span>
+                      <span className="text-slate-600 mx-2" aria-hidden="true">•</span>
+                    </Link>
+                  )
+                })}
               </div>
             </div>
           </div>

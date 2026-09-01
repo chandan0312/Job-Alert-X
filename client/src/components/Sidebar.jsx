@@ -14,13 +14,10 @@ import {
   MessageSquarePlus,
   Settings,
   LogOut,
-  SunMedium,
-  MoonStar,
   X,
   ChevronsLeft,
   ChevronsRight,
 } from 'lucide-react'
-import { useTheme } from '../context/ThemeContext.jsx'
 
 const MENU = [
   { to: '/', label: 'Discover', icon: Home, end: true, color: '#3b82f6' },          // blue
@@ -115,8 +112,6 @@ export default function Sidebar({
   collapsed = false,
   onToggleCollapse = () => {},
 }) {
-  const { isDark, toggleTheme } = useTheme()
-
   return (
     <>
       {/* Mobile backdrop */}
@@ -190,42 +185,6 @@ export default function Sidebar({
             ))}
           </div>
         </nav>
-
-        {/* Theme toggle inside sidebar */}
-        <div className="border-t border-white/[0.08] p-2.5">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className={`flex w-full items-center rounded-xl px-2.5 py-2 text-left transition-colors hover:bg-white/[0.07] ${
-              collapsed && !open ? 'justify-center' : 'gap-3'
-            }`}
-            aria-pressed={!isDark}
-          >
-            {isDark ? (
-              <MoonStar size={18} className="flex-shrink-0 text-indigo-400" />
-            ) : (
-              <SunMedium size={18} className="flex-shrink-0 text-amber-400" />
-            )}
-            {(!collapsed || open) && (
-              <>
-                <span className="text-[13px] font-medium text-slate-300">
-                  {isDark ? 'Dark Mode' : 'Light Mode'}
-                </span>
-                <span
-                  className={`ml-auto inline-flex h-5 w-10 items-center rounded-full p-0.5 transition-colors ${
-                    isDark ? 'bg-slate-700' : 'bg-orange-500'
-                  }`}
-                >
-                  <span
-                    className={`h-4 w-4 rounded-full bg-white shadow transition-transform ${
-                      isDark ? 'translate-x-0' : 'translate-x-5'
-                    }`}
-                  />
-                </span>
-              </>
-            )}
-          </button>
-        </div>
 
         {/* Collapse toggle — desktop only */}
         <div className="hidden border-t border-white/[0.08] p-2.5 lg:block">
