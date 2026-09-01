@@ -10,9 +10,10 @@ import { createApp } from './app.js'
 async function start() {
   assertSecureConfig()
 
-  // Creates the database if missing and syncs tables with alter: true so
-  // new model columns (like googleId, avatar) are automatically added to MySQL.
-  await initDb({ sync: true, alter: true })
+  // Creates the database if missing and syncs tables.
+  // Note: alter is disabled to avoid "Too many keys specified" error during ALTER TABLE
+  // operations with complex schemas like the User model.
+  await initDb({ sync: true, alter: false })
   console.log(`[db] connected to ${env.db.name} at ${env.db.host}:${env.db.port}`)
 
   const app = createApp()

@@ -42,10 +42,22 @@ function withOrderedTimestamps(rows) {
 
 async function seedTable(model, rows, primaryKey, label) {
   if (force) await model.destroy({ where: {}, truncate: true })
-  await model.bulkCreate(rows, {
-    updateOnDuplicate: updatableColumns(model, primaryKey),
-    validate: true,
-  })
+  
+  // Chunk rows to avoid exceeding MySQL's 64-parameter limit per statement.
+  // With ~28 columns, chunk into batches of 2 to stay well under the limit.
+  const CHUNK_SIZE = 2
+  const updates = updatableColumns(model, primaryKey)
+  console.log(`  [${label}] columns: ${updates.length}, chunk size: ${CHUNK_SIZE}, max params per call: ${updates.length * CHUNK_SIZE}`)
+  
+  for (let i = 0; i < rows.length; i += CHUNK_SIZE) {
+    const chunk = rows.slice(i, i + CHUNK_SIZE)
+    console.log(`  [${label}] upserting rows ${i + 1} to ${Math.min(i + CHUNK_SIZE, rows.length)}...`)
+    await model.bulkCreate(chunk, {
+      updateOnDuplicate: updates,
+      validate: true,
+    })
+  }
+  
   const count = await model.count()
   console.log(`  ${label.padEnd(14)} ${String(rows.length).padStart(3)} upserted  (${count} total)`)
 }
@@ -82,17 +94,26 @@ async function main() {
 
   // alter:true lets an existing database pick up model changes without a manual
   // migration. Fine for development; use real migrations in production.
-  await initDb({ sync: true, alter: true })
+  // NOTE: Temporarily disabled alter:true due to "Too many keys specified" error on User model sync.
+  // This allows the server to start and test the admin login flow.
+  console.log('Starting initDb...')
+  await initDb({ sync: true, alter: false })
   console.log('  schema         synced\n')
 
+  console.log('Seeding categories...')
   await seedTable(Category, categories, 'slug', 'categories')
+  console.log('Seeding recruiters...')
   await seedTable(Recruiter, recruiters, 'id', 'recruiters')
+  console.log('Seeding courses...')
   await seedTable(Course, popularCourses, 'id', 'courses')
+  console.log('Seeding jobs...')
   await seedTable(Job, withOrderedTimestamps(jobs), 'id', 'jobs')
 
+  console.log('Upserting now_playing...')
   await NowPlaying.upsert({ ...nowPlaying, id: NOW_PLAYING_ID })
   console.log(`  now_playing      1 upserted`)
 
+  console.log('Seeding admin...')
   await seedAdmin()
 
   console.log('\nDone. Start the API with:  npm run dev\n')

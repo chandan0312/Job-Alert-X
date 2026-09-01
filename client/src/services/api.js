@@ -1,5 +1,5 @@
-// ---------------------------------------------------------------------------
-// SarkariFynx — API service layer
+﻿// ---------------------------------------------------------------------------
+// SarkariFynx â€” API service layer
 // ---------------------------------------------------------------------------
 // During frontend development this returns seed data wrapped in promises so
 // components can `await` it exactly as they would a real network call.
@@ -79,7 +79,7 @@ export const saveJob = (payload) => {
 }
 
 // ---------------------------------------------------------------------------
-// Real HTTP API — used by Admin pages for authenticated operations.
+// Real HTTP API â€” used by Admin pages for authenticated operations.
 // ---------------------------------------------------------------------------
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000'
