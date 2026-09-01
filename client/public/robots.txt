@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /admin
+Disallow: /profile
+Disallow: /settings
+Disallow: /bookmarked
+
+# Sitemap files
+Sitemap: https://sarkarifynx.in/sitemap.xml

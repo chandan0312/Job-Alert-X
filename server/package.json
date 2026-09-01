@@ -1,0 +1,33 @@
+{
+  "name": "sarkari-fynx-server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "SarkariFynx — Government Jobs Portal (backend). Node + Express + MySQL (Sequelize).",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "seed": "node src/seed/seed.js",
+    "seed:reset": "node src/seed/seed.js --force",
+    "import:excel": "node scripts/import_excel.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "google-auth-library": "^11.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.24.2",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^6.0.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

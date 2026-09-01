@@ -1,0 +1,325 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Semantic design tokens. Light values on :root, dark overrides on .dark.
+     Tailwind maps these to `page`, `surface`, `ink`, `hairline`, etc. so
+     switching the .dark class on <html> re-themes text and surfaces. */
+  :root {
+    color-scheme: light;
+    --bg-page: #f6f7f9;
+    --bg-surface: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-subtle: #f1f3f7;
+    --border-hairline: rgba(15, 23, 42, 0.08);
+    --text-strong: #151827;
+    --text-soft: #3a3f52;
+    --text-muted: #667085;
+    --text-faint: #98a2b3;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --bg-page: #0a0f1c;
+    --bg-surface: #121a2c;
+    --bg-elevated: #18223a;
+    --bg-subtle: rgba(255, 255, 255, 0.05);
+    --border-hairline: rgba(255, 255, 255, 0.09);
+    --text-strong: #f2f5fb;
+    --text-soft: #cdd5e3;
+    --text-muted: #97a2b6;
+    --text-faint: #6a7690;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-page text-ink font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.brand.600');
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-hairline);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-xs font-bold tracking-wide text-ink-muted;
+  }
+
+  .card {
+    @apply rounded-2xl bg-surface shadow-card;
+    border: 1px solid var(--border-hairline);
+  }
+
+  /* ── Standardized Button Variants (Resolves Issues 3 & 21) ── */
+  .btn-primary {
+    @apply inline-flex min-h-[38px] items-center justify-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:bg-brand-700 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
+  }
+
+  .btn-primary-sm {
+    @apply inline-flex min-h-[40px] sm:min-h-[44px] items-center justify-center gap-1.5 rounded-lg bg-brand-600 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition-all hover:bg-brand-700 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400;
+  }
+
+  .btn-ghost {
+    @apply inline-flex min-h-[38px] items-center justify-center gap-2 rounded-xl border border-hairline bg-surface px-4 py-2 text-xs font-semibold text-ink-soft transition-colors hover:bg-subtle focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
+  }
+
+  .btn-accent {
+    @apply inline-flex min-h-[38px] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400;
+  }
+
+  .link-muted {
+    @apply inline-flex items-center gap-1 text-xs font-semibold text-brand-600 transition-colors hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300;
+  }
+
+  .section-title {
+    @apply text-base font-bold tracking-tight text-ink;
+  }
+
+  .admin-input {
+    @apply w-full rounded-xl border border-hairline bg-page py-3 px-4 text-[14px] text-ink placeholder:text-ink-faint transition-all focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-white dark:placeholder:text-slate-600 dark:focus:bg-white/[0.06];
+  }
+}
+
+@layer utilities {
+  /* ── Sidebar tooltip (shown on icon hover when collapsed) ── */
+  .sidebar-tooltip {
+    @apply pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-lg bg-slate-800 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-all duration-200;
+    transform: translateX(-4px);
+  }
+  .group:hover .sidebar-tooltip {
+    @apply pointer-events-auto opacity-100;
+    transform: translateX(0);
+  }
+
+  /* ── Header gradient + geometric dot-pattern overlay ── */
+  .header-gradient {
+    background: linear-gradient(135deg, #4649cc 0%, #5558e6 40%, #6d70f0 100%);
+    position: relative;
+  }
+  .header-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+  }
+
+  /* ── Dark-mode header gradient variant ── */
+  .dark .header-gradient {
+    background: linear-gradient(135deg, #0f1729 0%, #111c33 40%, #333782 100%);
+  }
+  .dark .header-gradient::before {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  }
+
+  /* ── Sidebar width transition ── */
+  .sidebar-transition {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .layout-transition {
+    transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Live Job Ticker Marquee ── */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 38s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+@layer components {
+  /* ─────────────────────────────────────────────────────────────────────────
+     RecentJobsTable — professional tabular job listing on Home page
+  ───────────────────────────────────────────────────────────────────────── */
+  .rjt-wrapper {
+    @apply overflow-hidden rounded-2xl border bg-surface shadow-card;
+    border-color: var(--border-hairline);
+  }
+
+  /* Table itself */
+  .rjt-table {
+    @apply w-full min-w-[720px] border-collapse;
+  }
+
+  /* Header row */
+  .rjt-head-row {
+    background: linear-gradient(90deg, #0d1326 0%, #111c33 60%, #0f1729 100%);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.18);
+  }
+
+  .rjt-th {
+    @apply px-4 py-3.5 text-left;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #94a3b8;
+    white-space: nowrap;
+  }
+
+  .rjt-th-job { @apply pl-5 pr-3; }
+  .rjt-th-center { @apply text-center; }
+
+  .rjt-th-inner {
+    @apply inline-flex items-center gap-1.5;
+  }
+
+  /* Body rows */
+  .rjt-row {
+    border-bottom: 1px solid var(--border-hairline);
+    transition: background 0.15s ease;
+  }
+  .rjt-row:last-child { border-bottom: none; }
+
+  .rjt-row:hover {
+    background: rgba(85, 88, 230, 0.045);
+  }
+
+  .rjt-row-alt {
+    background: rgba(255, 255, 255, 0.012);
+  }
+
+  .dark .rjt-row-alt {
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  /* Cells */
+  .rjt-td {
+    @apply px-4 py-3.5 align-middle text-xs;
+    color: var(--text-muted);
+  }
+  .rjt-td-job { @apply pl-5 pr-3; }
+  .rjt-td-center { @apply text-center; }
+
+  /* Job + Org cell */
+  .rjt-job-cell {
+    @apply flex items-center gap-3;
+  }
+  .rjt-job-info {
+    @apply flex min-w-0 flex-col gap-0.5;
+  }
+  .rjt-job-title {
+    @apply text-xs font-bold leading-snug;
+    color: var(--text-strong);
+    transition: color 0.15s;
+  }
+  .rjt-job-title:hover {
+    color: #f97316;
+  }
+  .rjt-job-org {
+    @apply text-xs font-medium;
+    color: var(--text-faint);
+  }
+
+  /* Category badge */
+  .rjt-badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold whitespace-nowrap;
+  }
+
+  /* Dates */
+  .rjt-date {
+    @apply text-xs tabular-nums whitespace-nowrap;
+    color: var(--text-muted);
+  }
+  .rjt-date-end {
+    color: #f43f5e;
+    font-weight: 600;
+  }
+  .dark .rjt-date-end {
+    color: #fb7185;
+  }
+
+  /* Vacancies */
+  .rjt-vacancies {
+    @apply inline-block rounded-lg px-2.5 py-1 text-xs font-extrabold tabular-nums;
+    background: rgba(85, 88, 230, 0.1);
+    color: #5558e6;
+    border: 1px solid rgba(85, 88, 230, 0.2);
+  }
+  .dark .rjt-vacancies {
+    background: rgba(109, 112, 240, 0.14);
+    color: #9699f5;
+    border-color: rgba(109, 112, 240, 0.25);
+  }
+  .rjt-vacancies-na {
+    @apply text-xs;
+    color: var(--text-faint);
+  }
+
+  /* Eligibility */
+  .rjt-eligibility {
+    @apply text-xs leading-snug;
+    max-width: 240px;
+    color: var(--text-muted);
+  }
+
+  /* Apply Now button (Unified Orange Primary CTA across portal - Issues 3 & 5) */
+  .rjt-apply-btn {
+    @apply inline-flex min-h-[36px] items-center gap-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-orange-500/25 transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400;
+  }
+
+  /* View All footer */
+  .rjt-footer {
+    @apply flex items-center justify-center border-t py-3;
+    border-color: var(--border-hairline);
+    background: linear-gradient(90deg, #0d1326 0%, #111c33 60%, #0f1729 100%);
+  }
+  .rjt-view-all {
+    @apply inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-[12.5px] font-bold transition-all;
+    color: #6d70f0;
+    background: rgba(85, 88, 230, 0.08);
+    border: 1px solid rgba(85, 88, 230, 0.2);
+  }
+  .rjt-view-all:hover {
+    background: rgba(85, 88, 230, 0.16);
+    color: #868bf8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
