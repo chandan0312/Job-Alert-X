@@ -20,8 +20,8 @@ export default function ExamsPage() {
     <div className="animate-fade-in">
       <SEOHead
         title="All Government Exams & Categories"
-        description="Explore all government exam categories including SSC, UPSC, Railway (RRB), Banking (IBPS), Defence, Police, and Teaching on SarkariFynx."
-        canonical="https://sarkarifynx.in/exams"
+        description="Explore all government exam categories including SSC, UPSC, Railway (RRB), Banking (IBPS), Defence, Police, and Teaching on Job Alert X."
+        canonical="https://jobalertx.com/exams"
       />
 
       <div className="mb-6">

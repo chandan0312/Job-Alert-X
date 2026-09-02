@@ -76,7 +76,7 @@ export default function Home() {
       <SEOHead
         title="Latest Govt Jobs, Sarkari Results, Admit Cards & Answer Keys"
         description="Check latest Sarkari Naukri, Online Application Forms, SSC, Railway, UPSC, Banking, Defence, Teaching jobs, Admit Cards, and Results on Job Alert X."
-        canonical="https://sarkarifynx.in/"
+        canonical="https://jobalertx.com/"
       />
 
       {/* Main column */}

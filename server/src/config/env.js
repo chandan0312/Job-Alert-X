@@ -43,9 +43,9 @@ export const env = {
 
   // Seed admin — only ever used by `npm run seed`.
   admin: {
-    email: process.env.ADMIN_EMAIL || 'admin@sarkarifynx.in',
+    email: process.env.ADMIN_EMAIL || 'admin@jobalertx.com',
     password: process.env.ADMIN_PASSWORD || 'admin12345',
-    name: process.env.ADMIN_NAME || 'SarkariFynx Admin',
+    name: process.env.ADMIN_NAME || 'Job Alert X Admin',
   },
 
   // Google OAuth. The Identity Services flow verifies an ID token against the

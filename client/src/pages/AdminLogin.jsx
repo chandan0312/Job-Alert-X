@@ -116,7 +116,7 @@ export default function AdminLogin() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@sarkarifynx.in"
+                  placeholder="admin@jobalertx.com"
                   autoComplete="email"
                   required
                   className="admin-input w-full pl-10"

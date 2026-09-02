@@ -68,8 +68,8 @@ export default function FeedbackPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-8 animate-fade-in py-4 sm:py-6">
       <SEOHead
-        title="Feedback & Suggestions | SarkariFynx"
-        description="Share your feedback, ideas, suggestions, and feature requests directly with the SarkariFynx portal administrators."
+        title="Feedback & Suggestions | Job Alert X"
+        description="Share your feedback, ideas, suggestions, and feature requests directly with the Job Alert X portal administrators."
       />
 
       {/* Header Banner */}
@@ -226,7 +226,7 @@ export default function FeedbackPage() {
             <div className="flex items-center justify-between border-t border-white/[0.06] pt-4">
               <div>
                 <p className="text-xs font-bold text-white">Rate Your Experience</p>
-                <p className="text-[11px] text-slate-500">How satisfied are you with SarkariFynx?</p>
+                <p className="text-[11px] text-slate-500">How satisfied are you with Job Alert X?</p>
               </div>
               <div className="flex items-center gap-1.5">
                 {[1, 2, 3, 4, 5].map((star) => (

@@ -112,7 +112,7 @@ export default function JobDetails() {
       <SEOHead
         title={`${job.title} — ${job.org}`}
         description={`${job.title} by ${job.org}. Check eligibility criteria, total vacancies (${job.vacancies || 'N/A'}), online application form, admit card and results on Job Alert X.`}
-        canonical={`https://sarkarifynx.in/job/${job.id}`}
+        canonical={`https://jobalertx.com/job/${job.id}`}
         jsonLd={jsonLd}
       />
 

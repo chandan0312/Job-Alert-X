@@ -8,4 +8,4 @@ Disallow: /settings
 Disallow: /bookmarked
 
 # Sitemap files
-Sitemap: https://sarkarifynx.in/sitemap.xml
+Sitemap: https://jobalertx.com/sitemap.xml

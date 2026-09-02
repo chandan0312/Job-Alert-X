@@ -104,7 +104,7 @@ export default function CategoryPage() {
       <SEOHead
         title={`${heading.title} — ${heading.subtitle}`}
         description={`Browse latest ${heading.title} notifications, exam dates, eligibility criteria, online application links and results on Job Alert X.`}
-        canonical={`https://sarkarifynx.in/${mode === 'category' ? `category/${slug}` : `latest/${kind}`}`}
+        canonical={`https://jobalertx.com/${mode === 'category' ? `category/${slug}` : `latest/${kind}`}`}
       />
 
       {/* Header */}

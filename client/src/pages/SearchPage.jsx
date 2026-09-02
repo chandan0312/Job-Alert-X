@@ -34,8 +34,8 @@ export default function SearchPage() {
     <div className="mx-auto max-w-3xl animate-fade-in">
       <SEOHead
         title={query ? `Search Results for "${query}"` : 'Search Sarkari Jobs & Results'}
-        description="Search thousands of government vacancies, answer keys, results and admit cards on SarkariFynx."
-        canonical="https://sarkarifynx.in/search"
+        description="Search thousands of government vacancies, answer keys, results and admit cards on Job Alert X."
+        canonical="https://jobalertx.com/search"
       />
 
       <h1 className="text-2xl font-extrabold tracking-tight text-ink">Search</h1>
