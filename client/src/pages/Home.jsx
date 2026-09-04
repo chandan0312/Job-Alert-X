@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import SectionHeader from '../components/SectionHeader.jsx'
 import HeroBanner from '../components/HeroBanner.jsx'
+import JobCategoryCards from '../components/JobCategoryCards.jsx'
 import RecentJobsTable from '../components/RecentJobsTable.jsx'
 import RightSidebar from '../components/RightSidebar.jsx'
 import SEOHead from '../components/SEOHead.jsx'
@@ -71,16 +72,47 @@ export default function Home() {
     return () => { active = false }
   }, [])
 
+  const homeSchemas = [
+    {
+      '@type': 'WebSite',
+      name: 'Job Alert X',
+      url: 'https://jobalertx.com/',
+      description: 'India\'s #1 Govt Jobs Notification and Sarkari Result Portal',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://jobalertx.com/search?q={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'Organization',
+      name: 'Job Alert X',
+      url: 'https://jobalertx.com/',
+      logo: 'https://jobalertx.com/favicon.svg',
+    },
+  ]
+
   return (
     <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_336px]">
       <SEOHead
-        title="Latest Govt Jobs, Sarkari Results, Admit Cards & Answer Keys"
-        description="Check latest Sarkari Naukri, Online Application Forms, SSC, Railway, UPSC, Banking, Defence, Teaching jobs, Admit Cards, and Results on Job Alert X."
+        title="Job Alert X — #1 Sarkari Result, Latest Govt Jobs, Admit Card & Answer Key"
+        description="Get instant Sarkari Result, Latest Govt Jobs 2026, Online Application Forms, Admit Cards, Answer Keys, and Exam Notifications for SSC, Railway RRB, Banking IBPS, Police, Defence and UPSC."
+        keywords="sarkari result, latest govt jobs, sarkari exam, sarkari naukri, govt jobs 2026, free job alert, online application form, admit card 2026, answer key, ssc cgl, railway rrb, ibps po, up police, upsc 2026"
         canonical="https://jobalertx.com/"
+        jsonLd={homeSchemas}
       />
 
       {/* Main column */}
-      <main className="min-w-0 space-y-9">
+      <main className="min-w-0 space-y-7">
+        {/* Page Primary Title (H1 for Search Engine Ranking) */}
+        <div className="flex flex-col gap-0.5 border-b border-hairline/60 pb-3">
+          <h1 className="text-xl sm:text-2xl font-black tracking-tight text-ink">
+            Sarkari Result &amp; Latest Govt Jobs 2026
+          </h1>
+          <p className="text-xs sm:text-[13px] font-medium text-ink-muted">
+            Instant updates for Online Application Forms, Admit Cards, Exam Dates &amp; Official Results.
+          </p>
+        </div>
         {/* 1. Trending / Hero Carousel */}
         <section>
           <SectionHeader title="Trending This Week" />
@@ -95,7 +127,12 @@ export default function Home() {
           )}
         </section>
 
-        {/* 2. Recently Posted Jobs (5 latest) */}
+        {/* 2. Job Categories in Professional Cards */}
+        <section>
+          <JobCategoryCards />
+        </section>
+
+        {/* 3. Recently Posted Jobs (5 latest) */}
         <section>
           <SectionHeader title="Recently Posted Jobs" viewAllTo="/latest/job" />
           {recentlyPosted === null ? (

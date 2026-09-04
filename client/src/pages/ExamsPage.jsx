@@ -16,12 +16,32 @@ export default function ExamsPage() {
     return () => { active = false }
   }, [])
 
+  const examsBreadcrumbs = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://jobalertx.com/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'All Exams & Categories',
+        item: 'https://jobalertx.com/exams',
+      },
+    ],
+  }
+
   return (
     <div className="animate-fade-in">
       <SEOHead
-        title="All Government Exams & Categories"
-        description="Explore all government exam categories including SSC, UPSC, Railway (RRB), Banking (IBPS), Defence, Police, and Teaching on Job Alert X."
+        title="All Government Exams, Recruitment Categories & Syllabus 2026"
+        description="Explore all government exam categories including SSC CGL/CHSL, UPSC CSE, Railway RRB NTPC, Banking IBPS/SBI, Defence, Police, and Teaching on Job Alert X."
+        keywords="sarkari exam, all govt exams 2026, ssc exams, railway exams, bank exams, upsc exams, defence recruitment, police jobs, job alert x"
         canonical="https://jobalertx.com/exams"
+        jsonLd={[examsBreadcrumbs]}
       />
 
       <div className="mb-6">

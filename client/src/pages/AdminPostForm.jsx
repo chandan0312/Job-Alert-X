@@ -15,6 +15,9 @@ import {
   Layers,
   Sparkles,
   ExternalLink,
+  Download,
+  Globe,
+  Link as LinkIcon,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 import { fetchJobById, createJob, updateJob, getCategories } from '../services/api.js'
@@ -29,6 +32,49 @@ const KIND_LABELS = {
   syllabus: 'Syllabus',
 }
 
+const KIND_ACTION_CONFIG = {
+  job: {
+    applyLabel: 'Apply Online Portal URL',
+    applyPlaceholder: 'https://example.gov.in/apply-online',
+    applyBtnText: 'Apply Online',
+    pdfLabel: 'Official Notification (PDF Attachment URL)',
+    pdfPlaceholder: 'https://example.gov.in/documents/notification.pdf',
+    pdfBtnText: 'Download Notification (PDF)',
+  },
+  'admit-card': {
+    applyLabel: 'Admit Card Download Portal URL',
+    applyPlaceholder: 'https://example.gov.in/download-admit-card',
+    applyBtnText: 'Download Admit Card',
+    pdfLabel: 'Exam Instructions / Notice (PDF Attachment URL)',
+    pdfPlaceholder: 'https://example.gov.in/documents/exam-notice.pdf',
+    pdfBtnText: 'Download Exam Notice (PDF)',
+  },
+  result: {
+    applyLabel: 'Result / Score Card Portal URL',
+    applyPlaceholder: 'https://example.gov.in/check-result',
+    applyBtnText: 'Check Result',
+    pdfLabel: 'Merit List / Cutoff (PDF Attachment URL)',
+    pdfPlaceholder: 'https://example.gov.in/documents/merit-list.pdf',
+    pdfBtnText: 'Download Merit List (PDF)',
+  },
+  'answer-key': {
+    applyLabel: 'Answer Key & Objection Portal URL',
+    applyPlaceholder: 'https://example.gov.in/answer-key-portal',
+    applyBtnText: 'Download Answer Key',
+    pdfLabel: 'Answer Key / Notice (PDF Attachment URL)',
+    pdfPlaceholder: 'https://example.gov.in/documents/official-answer-key.pdf',
+    pdfBtnText: 'Download Answer Key (PDF)',
+  },
+  syllabus: {
+    applyLabel: 'Syllabus & Exam Pattern Portal URL',
+    applyPlaceholder: 'https://example.gov.in/exam-scheme',
+    applyBtnText: 'View Exam Pattern',
+    pdfLabel: 'Official Syllabus (PDF Attachment URL)',
+    pdfPlaceholder: 'https://example.gov.in/documents/syllabus.pdf',
+    pdfBtnText: 'Download Syllabus (PDF)',
+  },
+}
+
 const DEFAULT_FORM = {
   title: '',
   org: '',
@@ -37,6 +83,10 @@ const DEFAULT_FORM = {
   kind: 'job',
   tagline: '',
   shortInfo: '',
+  detailedDescription: '',
+  applyUrl: '',
+  notificationPdfUrl: '',
+  officialWebsiteUrl: '',
   eligibility: '',
   vacancies: '',
   postedOn: '',
@@ -342,12 +392,28 @@ export default function AdminPostForm() {
             </div>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold text-ink-soft">Short Summary / Info</label>
+              <label className="mb-1.5 block text-xs font-semibold text-ink-soft">Short Overview / Summary</label>
               <textarea
                 rows={3}
                 value={form.shortInfo || ''}
                 onChange={setField('shortInfo')}
-                placeholder="Brief summary of eligibility, vacancies, and key dates shown on the post page..."
+                placeholder="Brief summary of eligibility, vacancies, and key dates shown on the post page and cards..."
+                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+              />
+            </div>
+
+            <div>
+              <div className="mb-1.5 flex items-center justify-between">
+                <label className="text-xs font-semibold text-ink-soft">
+                  Detailed Description / Full Notification Text
+                </label>
+                <span className="text-[11px] text-ink-faint">Supports multi-paragraph descriptions &amp; instructions</span>
+              </div>
+              <textarea
+                rows={6}
+                value={form.detailedDescription || ''}
+                onChange={setField('detailedDescription')}
+                placeholder="Enter detailed post guidelines, job responsibilities, selection process, syllabus overview, stage-by-stage instructions, or official notification excerpts..."
                 className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               />
             </div>
@@ -387,6 +453,106 @@ export default function AdminPostForm() {
                   </span>
                 </label>
               </div>
+            </div>
+          </div>
+
+          {/* Card 2: Direct Action Links & Official Attachments */}
+          <div className="card p-5 sm:p-6 space-y-4">
+            <div className="border-b border-hairline pb-3">
+              <h2 className="text-sm font-bold text-ink flex items-center gap-2">
+                <Download size={16} className="text-orange-500" />
+                Direct Action Links &amp; Official Downloads
+              </h2>
+              <p className="mt-0.5 text-[11.5px] text-ink-muted">
+                Provide live portal URLs and downloadable official PDF attachments for this {KIND_LABELS[form.kind] || 'notification'}.
+              </p>
+            </div>
+
+            {/* Primary Action Link (e.g. Apply Online / Check Result / Download Admit Card) */}
+            <div>
+              <div className="mb-1.5 flex items-center justify-between">
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-ink-soft">
+                  <ExternalLink size={13} className="text-brand-600" />
+                  {KIND_ACTION_CONFIG[form.kind]?.applyLabel || 'Apply Online Portal URL'}
+                </label>
+                {form.applyUrl && (
+                  <a
+                    href={form.applyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-600 hover:underline"
+                  >
+                    Test Link <ExternalLink size={10} />
+                  </a>
+                )}
+              </div>
+              <input
+                type="url"
+                value={form.applyUrl || ''}
+                onChange={setField('applyUrl')}
+                placeholder={KIND_ACTION_CONFIG[form.kind]?.applyPlaceholder || 'https://example.gov.in/apply'}
+                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+              />
+              <p className="mt-1 text-[11px] text-ink-faint">
+                Users will see a prominent "{KIND_ACTION_CONFIG[form.kind]?.applyBtnText || 'Apply Online'}" button taking them directly to this link.
+              </p>
+            </div>
+
+            {/* Official Notification PDF Attachment */}
+            <div>
+              <div className="mb-1.5 flex items-center justify-between">
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-ink-soft">
+                  <Download size={13} className="text-red-500" />
+                  {KIND_ACTION_CONFIG[form.kind]?.pdfLabel || 'Official Notification (PDF URL)'}
+                </label>
+                {form.notificationPdfUrl && (
+                  <a
+                    href={form.notificationPdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-red-600 dark:text-red-400 hover:underline"
+                  >
+                    Test Download <Download size={10} />
+                  </a>
+                )}
+              </div>
+              <input
+                type="url"
+                value={form.notificationPdfUrl || ''}
+                onChange={setField('notificationPdfUrl')}
+                placeholder={KIND_ACTION_CONFIG[form.kind]?.pdfPlaceholder || 'https://example.gov.in/documents/notification.pdf'}
+                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+              />
+              <p className="mt-1 text-[11px] text-ink-faint">
+                Direct URL to the official notification PDF. Allows users to view and download the official document directly.
+              </p>
+            </div>
+
+            {/* Official Website URL */}
+            <div>
+              <div className="mb-1.5 flex items-center justify-between">
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-ink-soft">
+                  <Globe size={13} className="text-blue-500" />
+                  Official Authority Website URL
+                </label>
+                {form.officialWebsiteUrl && (
+                  <a
+                    href={form.officialWebsiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    Visit Website <ExternalLink size={10} />
+                  </a>
+                )}
+              </div>
+              <input
+                type="url"
+                value={form.officialWebsiteUrl || ''}
+                onChange={setField('officialWebsiteUrl')}
+                placeholder="e.g. https://ssc.gov.in or https://upsc.gov.in"
+                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+              />
             </div>
           </div>
 
@@ -558,16 +724,36 @@ export default function AdminPostForm() {
                 </div>
 
                 {form.shortInfo && (
-                  <p className="mt-3 text-xs leading-relaxed text-ink-soft line-clamp-2 border-t border-hairline pt-3">
-                    {form.shortInfo}
-                  </p>
+                  <div className="mt-3 border-t border-hairline pt-3">
+                    <span className="text-[10.5px] font-bold uppercase tracking-wider text-ink-faint">Overview</span>
+                    <p className="mt-1 text-xs leading-relaxed text-ink-soft line-clamp-2">
+                      {form.shortInfo}
+                    </p>
+                  </div>
                 )}
 
-                <div className="mt-4 flex items-center justify-between border-t border-hairline pt-3">
+                {form.detailedDescription && (
+                  <div className="mt-2.5 rounded-lg border border-hairline bg-surface/60 p-2.5">
+                    <span className="text-[10.5px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Detailed Description</span>
+                    <p className="mt-1 text-[11px] leading-relaxed text-ink-muted line-clamp-3 whitespace-pre-line">
+                      {form.detailedDescription}
+                    </p>
+                  </div>
+                )}
+
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-hairline pt-3">
                   <span className="text-[11px] text-ink-muted">Posted: {form.postedOn || 'Just now'}</span>
-                  <span className="inline-flex items-center gap-1 rounded-lg bg-orange-500 px-3 py-1 text-xs font-bold text-white shadow-xs">
-                    Apply Online
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    {form.notificationPdfUrl && (
+                      <span className="inline-flex items-center gap-1 rounded-lg border border-red-500/30 bg-red-500/10 px-2.5 py-1 text-xs font-bold text-red-600 dark:text-red-300">
+                        <Download size={12} />
+                        PDF Notice
+                      </span>
+                    )}
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-orange-500 px-3 py-1 text-xs font-bold text-white shadow-xs">
+                      {KIND_ACTION_CONFIG[form.kind]?.applyBtnText || 'Apply Online'}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

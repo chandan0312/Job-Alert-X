@@ -99,12 +99,36 @@ export default function CategoryPage() {
     return list
   }, [jobs, filter, mode, search])
 
+  const categoryBreadcrumbs = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://jobalertx.com/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: heading.title,
+        item: `https://jobalertx.com/${mode === 'category' ? `category/${slug}` : `latest/${kind}`}`,
+      },
+    ],
+  }
+
+  const categoryKeywords = mode === 'category'
+    ? `${heading.title} jobs, ${heading.title} recruitment 2026, ${heading.subtitle}, sarkari result, admit card, eligibility, online application form, job alert x`
+    : `${heading.title} 2026, sarkari result ${heading.title}, latest ${heading.title} download, govt jobs, job alert x`
+
   return (
     <div className="animate-fade-in space-y-6">
       <SEOHead
-        title={`${heading.title} — ${heading.subtitle}`}
-        description={`Browse latest ${heading.title} notifications, exam dates, eligibility criteria, online application links and results on Job Alert X.`}
+        title={`${heading.title} (${heading.subtitle})`}
+        description={`Browse latest ${heading.title} notifications 2026. Get instant updates on upcoming vacancies, exam dates, eligibility criteria, online application forms, and results on Job Alert X.`}
+        keywords={categoryKeywords}
         canonical={`https://jobalertx.com/${mode === 'category' ? `category/${slug}` : `latest/${kind}`}`}
+        jsonLd={[categoryBreadcrumbs]}
       />
 
       {/* Header */}

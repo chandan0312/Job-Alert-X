@@ -35,6 +35,101 @@ function getEndDate(job) {
 }
 
 /**
+ * Known organization abbreviations for common Indian govt exam bodies
+ */
+const ORG_ABBREVIATIONS = {
+  'staff selection commission': 'SSC',
+  'institute of banking personnel selection': 'IBPS',
+  'railway recruitment board': 'RRB',
+  'railway recruitment cell': 'RRC',
+  'union public service commission': 'UPSC',
+  'reserve bank of india': 'RBI',
+  'state bank of india': 'SBI',
+  'bank of baroda': 'BOB',
+  'bank of india': 'BOI',
+  'central bank of india': 'Central Bank',
+  'punjab national bank': 'PNB',
+  'indian overseas bank': 'IOB',
+  'tamilnad mercantile bank': 'TMB',
+  'south indian bank': 'SIB',
+  'securities and exchange board of india': 'SEBI',
+  'central board of secondary education': 'CBSE',
+  'national testing agency': 'NTA',
+  'border security force': 'BSF',
+  'central reserve police force': 'CRPF',
+  'central industrial security force': 'CISF',
+  'indo-tibetan border police': 'ITBP',
+  'sashastra seema bal': 'SSB',
+  'defence research and development organisation': 'DRDO',
+  'indian space research organisation': 'ISRO',
+  'uttar pradesh public service commission': 'UPPSC',
+  'bihar public service commission': 'BPSC',
+  'rajasthan public service commission': 'RPSC',
+  'madhya pradesh public service commission': 'MPPSC',
+  'delhi subordinate services selection board': 'DSSSB',
+}
+
+/**
+ * Return a short, clean organization name
+ */
+export function getShortOrg(job) {
+  if (job.orgShort && job.orgShort.trim().length > 0 && job.orgShort.trim().length <= 16) {
+    return job.orgShort.trim()
+  }
+  const org = (job.org || '').trim()
+  const lower = org.toLowerCase()
+  if (ORG_ABBREVIATIONS[lower]) {
+    return ORG_ABBREVIATIONS[lower]
+  }
+  for (const [key, abbr] of Object.entries(ORG_ABBREVIATIONS)) {
+    if (lower.includes(key)) {
+      return abbr
+    }
+  }
+  if (org.length > 24) {
+    return `${org.slice(0, 22)}…`
+  }
+  return org
+}
+
+/**
+ * Clean & shorten job title for compact table display
+ */
+export function getShortTitle(job) {
+  let title = (job.title || '').trim()
+  if (!title) return 'Notification'
+
+  // If title begins with full organization name, strip it to avoid redundancy
+  const orgName = (job.org || '').trim()
+  if (orgName && title.toLowerCase().startsWith(orgName.toLowerCase())) {
+    const stripped = title.slice(orgName.length).trim().replace(/^[-–—:\s]+/, '')
+    if (stripped.length >= 14) {
+      title = stripped
+    }
+  }
+
+  // Remove boilerplate suffixes and application noise
+  title = title
+    .replace(/\s*-\s*Apply Online.*$/i, '')
+    .replace(/\s*Apply Online for.*$/i, '')
+    .replace(/\s*Online Application Form.*$/i, '')
+    .replace(/\s*Online Form.*$/i, '')
+    .replace(/\s*Centralized Employment Notice.*$/i, '')
+    .replace(/\s*Advt No[\s\S]*$/i, '')
+    .replace(/\s*Recruitment \d{4}\s*$/i, '')
+    .trim()
+
+  // Clean trailing dashes or commas
+  title = title.replace(/[-–—,;:]+$/, '').trim()
+
+  // Keep title concise (≤ 48 chars)
+  if (title.length > 46) {
+    return `${title.slice(0, 44)}…`
+  }
+  return title
+}
+
+/**
  * Return the shortest accurate eligibility string for card/table views.
  * Priority: eligibilityShort (pre-computed ≤28-char label) → category fallback.
  */
@@ -69,7 +164,7 @@ export default function RecentJobsTable({
           <thead>
             <tr className="rjt-head-row">
               <th className="rjt-th rjt-th-job">
-                <span className="rjt-th-inner"><Briefcase size={13} /> Job / Organization</span>
+                <span className="rjt-th-inner"><Briefcase size={13} /> Job / Org</span>
               </th>
               <th className="rjt-th">
                 <span className="rjt-th-inner"><CalendarDays size={13} /> Start Date</span>
@@ -99,12 +194,14 @@ export default function RecentJobsTable({
                   {/* Job / Org */}
                   <td className="rjt-td rjt-td-job">
                     <div className="rjt-job-cell">
-                      <BrandIcon icon={job.logo?.icon || 'landmark'} color={job.logo?.color || '#5558e6'} size={36} square />
+                      <BrandIcon icon={job.logo?.icon || 'landmark'} color={job.logo?.color || '#5558e6'} size={34} square />
                       <div className="rjt-job-info">
-                        <Link to={`/job/${job.id}`} className="rjt-job-title">
-                          {job.title}
+                        <Link to={`/job/${job.id}`} className="rjt-job-title" title={job.title}>
+                          {getShortTitle(job)}
                         </Link>
-                        <span className="rjt-job-org" title={job.org}>{job.org}</span>
+                        <span className="rjt-job-org" title={job.org}>
+                          {getShortOrg(job)}
+                        </span>
                       </div>
                     </div>
                   </td>

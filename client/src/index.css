@@ -8,15 +8,15 @@
      switching the .dark class on <html> re-themes text and surfaces. */
   :root {
     color-scheme: light;
-    --bg-page: #f6f7f9;
-    --bg-surface: #ffffff;
+    --bg-page: #f8fafc;
+    --bg-surface: rgba(255, 255, 255, 0.94);
     --bg-elevated: #ffffff;
-    --bg-subtle: #f1f3f7;
-    --border-hairline: rgba(15, 23, 42, 0.08);
-    --text-strong: #151827;
-    --text-soft: #3a3f52;
-    --text-muted: #667085;
-    --text-faint: #98a2b3;
+    --bg-subtle: #f1f5f9;
+    --border-hairline: #e2e8f0;
+    --text-strong: #0f172a;
+    --text-soft: #334155;
+    --text-muted: #475569;
+    --text-faint: #64748b;
   }
 
   .dark {
@@ -37,10 +37,17 @@
   }
 
   body {
-    @apply bg-page text-ink font-sans antialiased;
+    @apply text-ink font-sans antialiased;
     margin: 0;
     min-height: 100vh;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    background-color: var(--bg-page);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  /* Light mode: full-page subtle professional gradient background fixed in place */
+  html:not(.dark) body {
+    background: linear-gradient(160deg, #f0f9ff 0%, #f8fafc 45%, #f5f3ff 100%) fixed;
+    background-attachment: fixed;
   }
 
   :focus-visible {
@@ -134,6 +141,40 @@
     background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   }
 
+  /* ── Light-mode: top header — professional sky blue to lavender/purple gradient ── */
+  .light-header-bg {
+    background: linear-gradient(105deg, #e0f2fe 0%, #ede9fe 50%, #e0e7ff 100%);
+    border-bottom: 1px solid rgba(199, 210, 254, 0.7);
+    box-shadow: 0 2px 16px rgba(99, 102, 241, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+
+  /* ── Light-mode: inner header card (frosted glass over the gradient) ── */
+  .light-header-card {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 14px rgba(99, 102, 241, 0.06), 0 1px 2px rgba(15, 23, 42, 0.03);
+  }
+
+  /* ── Light-mode: left sidebar — clean, minimalistic sky blue to purple gradient ── */
+  .light-sidebar-bg {
+    background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 30%, #ede9fe 70%, #f5f3ff 100%);
+    border-right: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 2px 0 16px rgba(99, 102, 241, 0.06);
+  }
+
+  /* ── Light-mode: sidebar nav item — active state ── */
+  .light-nav-active {
+    background: rgba(255, 255, 255, 0.85);
+    color: #0f172a;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1), inset 0 0 0 1px rgba(255,255,255,0.9);
+  }
+  .light-nav-hover {
+    background: rgba(255, 255, 255, 0.50);
+    color: #0f172a;
+  }
+
   /* ── Sidebar width transition ── */
   .sidebar-transition {
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -181,6 +222,11 @@
 
   /* Header row */
   .rjt-head-row {
+    background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .dark .rjt-head-row {
     background: linear-gradient(90deg, #0d1326 0%, #111c33 60%, #0f1729 100%);
     border-bottom: 1px solid rgba(99, 102, 241, 0.18);
   }
@@ -190,8 +236,12 @@
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: #94a3b8;
+    color: #475569;
     white-space: nowrap;
+  }
+
+  .dark .rjt-th {
+    color: #94a3b8;
   }
 
   .rjt-th-job { @apply pl-5 pr-3; }
@@ -233,10 +283,10 @@
     @apply flex items-center gap-3;
   }
   .rjt-job-info {
-    @apply flex min-w-0 flex-col gap-0.5;
+    @apply flex min-w-0 max-w-[280px] sm:max-w-[340px] md:max-w-[420px] flex-col gap-0.5;
   }
   .rjt-job-title {
-    @apply text-xs font-bold leading-snug;
+    @apply text-xs font-bold leading-snug line-clamp-1;
     color: var(--text-strong);
     transition: color 0.15s;
   }
@@ -244,7 +294,7 @@
     color: #f97316;
   }
   .rjt-job-org {
-    @apply text-xs font-medium;
+    @apply text-xs font-medium truncate;
     color: var(--text-faint);
   }
 
@@ -310,6 +360,15 @@
   .rjt-view-all:hover {
     background: rgba(85, 88, 230, 0.16);
     color: #868bf8;
+  }
+
+  /* Hide scrollbar for slider/carousel */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 

@@ -54,18 +54,18 @@ function NavItem({ item, onNavigate, collapsed }) {
           'group relative flex items-center rounded-xl transition-all duration-200',
           collapsed ? 'justify-center px-0 py-2.5' : 'gap-3 px-3 py-2',
           isActive
-            ? 'bg-gradient-to-r from-orange-500/20 to-orange-500/5 text-white font-bold before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1 before:rounded-r-full before:bg-orange-500 before:shadow-[0_0_8px_#f97316]'
+            ? 'bg-gradient-to-r from-blue-600/35 to-orange-500/25 text-white font-bold before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1 before:rounded-r-full before:bg-gradient-to-b before:from-blue-400 before:to-orange-500 before:shadow-[0_0_8px_#f97316]'
             : 'text-slate-400 hover:bg-white/[0.07] hover:text-slate-200',
         ].join(' ')
       }
     >
       {({ isActive }) => (
         <>
-          {/* Colorful icon — uses item.color always, brightens on active */}
+          {/* Colorful icon on dark glass tile */}
           <span
             className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg transition-all duration-200 ${
               isActive
-                ? 'bg-orange-500 text-white shadow-md shadow-orange-500/40 ring-2 ring-orange-400/40'
+                ? 'bg-gradient-to-br from-blue-600 to-orange-500 text-white shadow-md shadow-orange-500/30 ring-2 ring-blue-400/30'
                 : 'bg-white/[0.05] border border-white/[0.06] group-hover:bg-white/[0.1]'
             }`}
           >
@@ -77,7 +77,11 @@ function NavItem({ item, onNavigate, collapsed }) {
             />
           </span>
           {!collapsed && (
-            <span className={`truncate text-xs ${isActive ? 'text-white font-bold' : 'font-medium text-slate-300 group-hover:text-white'}`}>
+            <span className={`truncate text-xs ${
+              isActive
+                ? 'text-white font-bold drop-shadow-[0_1px_2px_rgba(0,0,0,0.30)]'
+                : 'font-medium text-slate-300 group-hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.30)]'
+            }`}>
               {item.label}
             </span>
           )}
@@ -103,7 +107,7 @@ function NavItem({ item, onNavigate, collapsed }) {
 
 function SectionLabel({ children, collapsed }) {
   if (collapsed) return <div className="mx-auto my-2.5 h-px w-6 bg-white/10" />
-  return <p className="eyebrow px-3 pb-1.5 pt-4 !text-slate-400 font-semibold tracking-wider text-[10px] uppercase">{children}</p>
+  return <p className="px-3 pb-1.5 pt-4 font-bold tracking-wider text-[11px] uppercase text-slate-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.30)]">{children}</p>
 }
 
 export default function Sidebar({
@@ -123,20 +127,20 @@ export default function Sidebar({
         aria-hidden="true"
       />
 
-      {/* Left Sidebar Menu (Always Dark, below the fixed top header) */}
+      {/* Left Sidebar Menu (below the fixed top header) */}
       <aside
-        className={`sidebar-transition fixed top-[72px] bottom-0 left-0 z-30 flex flex-col border-r border-white/[0.08] bg-[#080d1e] shadow-xl transition-colors duration-200 lg:translate-x-0 ${
+        className={`sidebar-transition fixed top-[72px] bottom-0 left-0 z-30 flex flex-col shadow-xl transition-all duration-300 lg:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        } border-r border-white/[0.08] bg-[#080d1e]`}
         style={{ width: open ? '260px' : collapsed ? '72px' : '260px' }}
       >
         {/* Mobile close header */}
         <div className="flex items-center justify-between border-b border-white/[0.08] px-4 py-3 lg:hidden">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Navigation</span>
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-400 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">Navigation</span>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-white/10 hover:text-white"
+            className="rounded-lg p-1.5 transition-colors text-slate-400 hover:bg-white/10 hover:text-white"
             aria-label="Close menu"
           >
             <X size={18} />
@@ -191,14 +195,14 @@ export default function Sidebar({
           <button
             type="button"
             onClick={onToggleCollapse}
-            className={`flex w-full items-center rounded-xl px-2.5 py-2 text-slate-400 transition-colors hover:bg-white/[0.07] hover:text-slate-200 ${
+            className={`flex w-full items-center rounded-xl px-2.5 py-2 transition-colors text-slate-400 hover:bg-white/[0.07] hover:text-slate-200 ${
               collapsed ? 'justify-center' : 'gap-3'
             }`}
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
             {!collapsed && (
-              <span className="text-[13px] font-medium text-slate-300">Collapse Menu</span>
+              <span className="text-[13px] font-medium text-slate-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">Collapse Menu</span>
             )}
           </button>
         </div>

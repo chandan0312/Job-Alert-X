@@ -10,12 +10,45 @@ import {
   ExternalLink,
   ArrowRight,
   ChevronRight,
+  Globe,
+  FileText,
+  BookOpen,
+  CheckCircle2,
+  Sparkles,
 } from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
 import TableView from '../components/TableView.jsx'
 import CategoryBox from '../components/CategoryBox.jsx'
 import SEOHead from '../components/SEOHead.jsx'
 import { getJobById, getJobsByCategory, getKindLabel, getCategories } from '../services/api.js'
+
+const KIND_CONFIG = {
+  job: {
+    actionLabel: 'Apply Online',
+    pdfLabel: 'Download Notification (PDF)',
+    pdfSubtitle: 'Official Recruitment Notification & Guidelines',
+  },
+  'admit-card': {
+    actionLabel: 'Download Admit Card',
+    pdfLabel: 'Exam Instructions (PDF)',
+    pdfSubtitle: 'Official Examination Instructions & Notice',
+  },
+  result: {
+    actionLabel: 'Check Result',
+    pdfLabel: 'Download Merit List / Cutoff (PDF)',
+    pdfSubtitle: 'Official Selection & Cutoff List',
+  },
+  'answer-key': {
+    actionLabel: 'Download Answer Key',
+    pdfLabel: 'Official Key Notice (PDF)',
+    pdfSubtitle: 'Official Answer Key & Objection Guidelines',
+  },
+  syllabus: {
+    actionLabel: 'View Exam Pattern',
+    pdfLabel: 'Download Syllabus (PDF)',
+    pdfSubtitle: 'Official Examination Scheme & Detailed Syllabus',
+  },
+}
 
 function Stat({ icon: Icon, label, value }) {
   return (
@@ -88,12 +121,23 @@ export default function JobDetails() {
   }
 
   const category = categories.find((c) => c.slug === job.category)
+  const actionCfg = KIND_CONFIG[job.kind] || KIND_CONFIG.job
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
+  // Determine primary action URL (either applyUrl or the primary link)
+  const primaryActionUrl = job.applyUrl || job.links?.find((l) => l.primary && l.href && l.href !== '#')?.href
+
+  // Find expiration date from important dates if present
+  const lastDateEntry = job.importantDates?.find(
+    (d) => d.label?.toLowerCase().includes('last') || d.label?.toLowerCase().includes('close')
+  )
+  const validThroughDate = lastDateEntry?.value
+    ? new Date(lastDateEntry.value).toISOString().split('T')[0]
+    : new Date(Date.now() + 45 * 86400000).toISOString().split('T')[0]
+
+  const jobPostingSchema = {
     '@type': 'JobPosting',
     title: job.title,
-    description: job.shortInfo || job.tagline || job.title,
+    description: job.detailedDescription || job.shortInfo || job.tagline || job.title,
     identifier: {
       '@type': 'PropertyValue',
       name: job.org,
@@ -102,18 +146,60 @@ export default function JobDetails() {
     hiringOrganization: {
       '@type': 'Organization',
       name: job.org,
+      sameAs: job.officialWebsiteUrl || undefined,
     },
-    datePosted: new Date().toISOString().split('T')[0],
-    totalJobOpenings: job.vacancies || 1,
+    datePosted: job.postedOn || new Date().toISOString().split('T')[0],
+    validThrough: validThroughDate,
+    employmentType: 'FULL_TIME',
+    directApply: Boolean(primaryActionUrl),
+    applicantLocationRequirements: {
+      '@type': 'Country',
+      name: 'India',
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'IN',
+      },
+    },
+    totalJobOpenings: Number(job.vacancies) || 1,
   }
+
+  const breadcrumbSchema = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://jobalertx.com/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: category?.name || 'Govt Jobs',
+        item: `https://jobalertx.com/category/${job.category}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: job.title,
+        item: `https://jobalertx.com/job/${job.id}`,
+      },
+    ],
+  }
+
+  const keywords = `${job.title}, ${job.org}, ${job.orgShort || ''}, ${category?.name || ''} recruitment 2026, online application form, sarkari result, admit card, eligibility, last date, job alert x`
 
   return (
     <div className="animate-fade-in">
       <SEOHead
         title={`${job.title} — ${job.org}`}
-        description={`${job.title} by ${job.org}. Check eligibility criteria, total vacancies (${job.vacancies || 'N/A'}), online application form, admit card and results on Job Alert X.`}
+        description={`${job.title} recruitment by ${job.org}. Total vacancies: ${job.vacancies ? Number(job.vacancies).toLocaleString('en-IN') : 'Check Notification'}. Eligibility: ${job.eligibilityShort || 'Check Details'}. Apply online, download notification PDF, admit card and results on Job Alert X.`}
+        keywords={keywords}
         canonical={`https://jobalertx.com/job/${job.id}`}
-        jsonLd={jsonLd}
+        jsonLd={[jobPostingSchema, breadcrumbSchema]}
       />
 
       {/* Breadcrumb */}
@@ -127,8 +213,8 @@ export default function JobDetails() {
         <span className="text-ink-muted">{job.title}</span>
       </nav>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-        {/* Main */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_330px]">
+        {/* Main Content Column */}
         <main className="min-w-0 space-y-5">
           {/* Header card */}
           <header className="card p-5 sm:p-6">
@@ -153,15 +239,89 @@ export default function JobDetails() {
               {job.vacancies ? (
                 <Stat icon={Briefcase} label="Total Posts" value={job.vacancies.toLocaleString('en-IN')} />
               ) : null}
-              <Stat icon={CalendarDays} label="Posted" value={job.postedOn} />
+              <Stat icon={CalendarDays} label="Posted" value={job.postedOn || job.postedAt || 'Recent'} />
             </div>
+
+            {/* Quick Action Header Bar */}
+            {(primaryActionUrl || job.notificationPdfUrl || job.officialWebsiteUrl) && (
+              <div className="mt-5 flex flex-wrap items-center gap-2.5 border-t border-hairline pt-4">
+                {primaryActionUrl && (
+                  <a
+                    href={primaryActionUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:brightness-110 active:scale-[0.98]"
+                  >
+                    <span>{actionCfg.actionLabel}</span>
+                    <ExternalLink size={14} />
+                  </a>
+                )}
+
+                {job.notificationPdfUrl && (
+                  <a
+                    href={job.notificationPdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    className="inline-flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2.5 text-xs font-bold text-red-600 dark:text-red-400 shadow-xs transition-colors hover:bg-red-500/20 active:scale-[0.98]"
+                  >
+                    <Download size={15} />
+                    <span>{actionCfg.pdfLabel}</span>
+                  </a>
+                )}
+
+                {job.officialWebsiteUrl && (
+                  <a
+                    href={job.officialWebsiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-hairline bg-surface px-4 py-2.5 text-xs font-semibold text-ink-soft shadow-xs transition-colors hover:bg-subtle hover:text-ink active:scale-[0.98]"
+                  >
+                    <Globe size={14} className="text-blue-500" />
+                    <span>Official Website</span>
+                  </a>
+                )}
+              </div>
+            )}
           </header>
 
           {/* Overview */}
           {job.shortInfo && (
             <section className="card p-5 sm:p-6">
-              <h2 className="mb-2 text-[15px] font-bold text-ink">Overview</h2>
+              <div className="mb-3 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500">
+                  <FileText size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Notification Overview</h2>
+              </div>
               <p className="text-[14px] leading-relaxed text-ink-soft">{job.shortInfo}</p>
+            </section>
+          )}
+
+          {/* Detailed Description / Comprehensive Instructions */}
+          {job.detailedDescription && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-3 flex items-center justify-between border-b border-hairline pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400">
+                    <BookOpen size={15} />
+                  </span>
+                  <h2 className="text-[15px] font-bold text-ink">Detailed Information &amp; Instructions</h2>
+                </div>
+                {job.notificationPdfUrl && (
+                  <a
+                    href={job.notificationPdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-red-600 dark:text-red-400 hover:underline"
+                  >
+                    <Download size={13} /> Download Official PDF
+                  </a>
+                )}
+              </div>
+              <div className="whitespace-pre-line text-[14px] leading-relaxed text-ink-soft space-y-2">
+                {job.detailedDescription}
+              </div>
             </section>
           )}
 
@@ -201,7 +361,7 @@ export default function JobDetails() {
           {/* Eligibility */}
           {job.eligibility && (
             <section className="card p-5 sm:p-6">
-              <h2 className="mb-2 text-[15px] font-bold text-ink">Eligibility</h2>
+              <h2 className="mb-2 text-[15px] font-bold text-ink">Eligibility Criteria</h2>
               <p className="text-[14px] leading-relaxed text-ink-soft">{job.eligibility}</p>
             </section>
           )}
@@ -209,32 +369,94 @@ export default function JobDetails() {
 
         {/* Sidebar */}
         <aside className="min-w-0 space-y-5">
-          {/* Important links */}
-          <section className="card p-5">
-            <h2 className="mb-3 text-[14px] font-bold text-ink">Important Links</h2>
+          {/* Important links & Official Downloads Card */}
+          <section className="card p-5 space-y-4">
+            <div className="border-b border-hairline pb-3">
+              <h2 className="text-[14px] font-bold text-ink flex items-center gap-2">
+                <Download size={16} className="text-orange-500" />
+                Important Links &amp; Actions
+              </h2>
+              <p className="mt-0.5 text-[11.5px] text-ink-muted">
+                Official online portal links and downloadable notification files.
+              </p>
+            </div>
+
             <div className="space-y-2.5">
-              {job.links?.map((link) => {
-                const Icon = link.label.toLowerCase().includes('download')
-                  ? Download
-                  : link.label.toLowerCase().includes('website')
-                  ? ExternalLink
-                  : ArrowRight
+              {/* Prominent Apply / Action button */}
+              {primaryActionUrl && (
+                <a
+                  href={primaryActionUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary w-full justify-center text-xs font-bold gap-2 py-3 shadow-md shadow-brand-500/15"
+                >
+                  <span>{actionCfg.actionLabel}</span>
+                  <ExternalLink size={15} />
+                </a>
+              )}
+
+              {/* Dedicated Notification PDF Download Card / Button */}
+              {job.notificationPdfUrl && (
+                <a
+                  href={job.notificationPdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="group flex w-full items-center justify-between rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-left transition-all hover:bg-red-500/20 active:scale-[0.98]"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-500 text-white shadow-xs">
+                      <Download size={15} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-red-600 dark:text-red-300 truncate">
+                        {actionCfg.pdfLabel}
+                      </p>
+                      <p className="text-[10.5px] text-ink-muted truncate">Official PDF Attachment</p>
+                    </div>
+                  </div>
+                  <ExternalLink size={14} className="text-red-500 shrink-0 ml-1.5 transition-transform group-hover:translate-x-0.5" />
+                </a>
+              )}
+
+              {/* Official Authority Website Link */}
+              {job.officialWebsiteUrl && (
+                <a
+                  href={job.officialWebsiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-ghost w-full justify-between text-xs py-2.5 font-semibold"
+                >
+                  <span className="flex items-center gap-2">
+                    <Globe size={15} className="text-blue-500" />
+                    Official Website
+                  </span>
+                  <ExternalLink size={14} className="text-ink-faint" />
+                </a>
+              )}
+
+              {/* Additional custom links configured in post */}
+              {job.links?.filter((l) => l.href && l.href !== '#' && l.href !== primaryActionUrl && l.href !== job.notificationPdfUrl && l.href !== job.officialWebsiteUrl).map((link, idx) => {
+                const isDownload = link.label.toLowerCase().includes('download') || link.label.toLowerCase().includes('pdf')
+                const Icon = isDownload ? Download : ExternalLink
                 return (
                   <a
-                    key={link.label}
+                    key={`${link.label}-${idx}`}
                     href={link.href}
-                    onClick={(e) => e.preventDefault()}
-                    className={link.primary ? 'btn-primary w-full' : 'btn-ghost w-full'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ghost w-full justify-between text-xs py-2.5 font-semibold"
                   >
-                    {link.label}
-                    <Icon size={16} />
+                    <span className="truncate">{link.label}</span>
+                    <Icon size={14} className="text-ink-faint shrink-0" />
                   </a>
                 )
               })}
             </div>
-            <p className="mt-3 text-[11px] leading-relaxed text-ink-faint">
-              Links are for demonstration. Always apply via the official website.
-            </p>
+
+            <div className="rounded-xl border border-hairline bg-subtle/50 p-3 text-[11px] leading-relaxed text-ink-muted">
+              <span className="font-semibold text-ink">Official Verification Notice:</span> Always cross-check dates, vacancy distribution, and eligibility criteria on the official notification PDF before submitting applications.
+            </div>
           </section>
 
           {/* Related */}

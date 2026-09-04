@@ -14,14 +14,16 @@ const DEFAULT_DESCRIPTION =
  * @param {object} props
  * @param {string} props.title         — Page title (appended with site name)
  * @param {string} [props.description] — Meta description
+ * @param {string} [props.keywords]    — Meta keywords
  * @param {string} [props.canonical]   — Canonical URL
  * @param {string} [props.ogImage]     — Open Graph image URL
  * @param {string} [props.ogType]      — Open Graph type (default: website)
- * @param {object} [props.jsonLd]      — JSON-LD structured data object
+ * @param {object|object[]} [props.jsonLd] — JSON-LD structured data object or array
  */
 export default function SEOHead({
   title,
   description = DEFAULT_DESCRIPTION,
+  keywords,
   canonical,
   ogImage,
   ogType = 'website',
@@ -29,7 +31,9 @@ export default function SEOHead({
 }) {
   useEffect(() => {
     // Document title
-    const fullTitle = title ? `${title} | ${SITE_NAME} — Government Jobs Portal` : `${SITE_NAME} — Government Jobs Portal`
+    const fullTitle = title
+      ? `${title} | ${SITE_NAME}`
+      : `${SITE_NAME} — #1 Sarkari Result & Latest Govt Jobs`
     document.title = fullTitle
 
     // Helper to set/create a meta tag
@@ -45,6 +49,9 @@ export default function SEOHead({
 
     // Standard meta
     setMeta('name', 'description', description)
+    if (keywords) {
+      setMeta('name', 'keywords', keywords)
+    }
 
     // Open Graph
     setMeta('property', 'og:title', fullTitle)
@@ -73,7 +80,7 @@ export default function SEOHead({
       canonicalEl.remove()
     }
 
-    // JSON-LD
+    // JSON-LD (supports single object or array via @graph)
     const scriptId = 'seo-json-ld'
     let scriptEl = document.getElementById(scriptId)
     if (jsonLd) {
@@ -83,7 +90,10 @@ export default function SEOHead({
         scriptEl.type = 'application/ld+json'
         document.head.appendChild(scriptEl)
       }
-      scriptEl.textContent = JSON.stringify(jsonLd)
+      const payload = Array.isArray(jsonLd)
+        ? { '@context': 'https://schema.org', '@graph': jsonLd }
+        : jsonLd
+      scriptEl.textContent = JSON.stringify(payload)
     } else if (scriptEl) {
       scriptEl.remove()
     }
@@ -93,7 +103,7 @@ export default function SEOHead({
       const ldScript = document.getElementById(scriptId)
       if (ldScript) ldScript.remove()
     }
-  }, [title, description, canonical, ogImage, ogType, jsonLd])
+  }, [title, description, keywords, canonical, ogImage, ogType, jsonLd])
 
   return null
 }

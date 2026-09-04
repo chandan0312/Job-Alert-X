@@ -355,7 +355,19 @@ export default function AdminPosts() {
                             <p className="truncate font-bold text-ink group-hover:text-brand-600 transition-colors">
                               {post.title}
                             </p>
-                            <p className="truncate text-[11px] text-ink-muted">{post.org}</p>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                              <p className="truncate text-[11px] text-ink-muted">{post.org}</p>
+                              {post.notificationPdfUrl && (
+                                <span className="inline-flex items-center rounded bg-red-500/10 px-1.5 py-0.5 text-[9.5px] font-extrabold text-red-600 dark:text-red-400">
+                                  PDF
+                                </span>
+                              )}
+                              {post.applyUrl && (
+                                <span className="inline-flex items-center rounded bg-emerald-500/10 px-1.5 py-0.5 text-[9.5px] font-extrabold text-emerald-600 dark:text-emerald-400">
+                                  Link
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </td>

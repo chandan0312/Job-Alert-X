@@ -30,12 +30,32 @@ export default function SearchPage() {
     setParams(input.trim() ? { q: input.trim() } : {})
   }
 
+  const searchBreadcrumbs = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://jobalertx.com/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Search Jobs',
+        item: 'https://jobalertx.com/search',
+      },
+    ],
+  }
+
   return (
     <div className="mx-auto max-w-3xl animate-fade-in">
       <SEOHead
-        title={query ? `Search Results for "${query}"` : 'Search Sarkari Jobs & Results'}
-        description="Search thousands of government vacancies, answer keys, results and admit cards on Job Alert X."
+        title={query ? `Search Results for "${query}"` : 'Search Sarkari Jobs, Results & Admit Cards 2026'}
+        description="Search thousands of latest government vacancies, answer keys, results, eligibility guidelines and admit cards on Job Alert X."
+        keywords="sarkari job search, find govt jobs, search admit card, result search, job alert x"
         canonical="https://jobalertx.com/search"
+        jsonLd={[searchBreadcrumbs]}
       />
 
       <h1 className="text-2xl font-extrabold tracking-tight text-ink">Search</h1>

@@ -179,6 +179,10 @@ const WRITABLE = [
   'kind',
   'tagline',
   'shortInfo',
+  'detailedDescription',
+  'applyUrl',
+  'notificationPdfUrl',
+  'officialWebsiteUrl',
   'eligibility',
   'postedAt',
   'postedOn',
@@ -249,7 +253,19 @@ export const create = asyncHandler(async (req, res) => {
   payload.postedAt ??= 'Just now'
   payload.postedOn ??= 'Just now'
   payload.views ??= 0
-  payload.links ??= [{ label: 'Apply Online', href: '#', primary: true }]
+  if (!payload.links || payload.links.length === 0) {
+    const generatedLinks = []
+    if (payload.applyUrl) {
+      generatedLinks.push({ label: 'Apply Online', href: payload.applyUrl, primary: true })
+    }
+    if (payload.notificationPdfUrl) {
+      generatedLinks.push({ label: 'Download Notification (PDF)', href: payload.notificationPdfUrl, primary: false })
+    }
+    if (payload.officialWebsiteUrl) {
+      generatedLinks.push({ label: 'Official Website', href: payload.officialWebsiteUrl, primary: false })
+    }
+    payload.links = generatedLinks.length > 0 ? generatedLinks : [{ label: 'Apply Online', href: '#', primary: true }]
+  }
 
   const job = await Job.create({ ...payload, id })
   res.status(201).json(serialize(job))
@@ -266,6 +282,21 @@ export const update = asyncHandler(async (req, res) => {
   }
   if (payload.org !== undefined && !String(payload.org).trim()) {
     throw badRequest('`org` cannot be empty')
+  }
+
+  // If applyUrl / notificationPdfUrl / officialWebsiteUrl were updated and links wasn't explicitly provided, sync links
+  if (!payload.links && (payload.applyUrl !== undefined || payload.notificationPdfUrl !== undefined || payload.officialWebsiteUrl !== undefined)) {
+    const apply = payload.applyUrl !== undefined ? payload.applyUrl : job.applyUrl
+    const pdf = payload.notificationPdfUrl !== undefined ? payload.notificationPdfUrl : job.notificationPdfUrl
+    const site = payload.officialWebsiteUrl !== undefined ? payload.officialWebsiteUrl : job.officialWebsiteUrl
+
+    const generatedLinks = []
+    if (apply) generatedLinks.push({ label: 'Apply Online', href: apply, primary: true })
+    if (pdf) generatedLinks.push({ label: 'Download Notification (PDF)', href: pdf, primary: false })
+    if (site) generatedLinks.push({ label: 'Official Website', href: site, primary: false })
+    if (generatedLinks.length > 0) {
+      payload.links = generatedLinks
+    }
   }
 
   await job.update(payload)

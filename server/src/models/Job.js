@@ -49,6 +49,10 @@ export default function defineJob(sequelize) {
       },
       tagline: DataTypes.STRING(255),
       shortInfo: DataTypes.TEXT,
+      detailedDescription: DataTypes.TEXT,
+      applyUrl: DataTypes.STRING(1000),
+      notificationPdfUrl: DataTypes.STRING(1000),
+      officialWebsiteUrl: DataTypes.STRING(1000),
       eligibility: DataTypes.TEXT,
       // Short label for card/list views (≤ 28 chars), e.g. "B.Tech / B.E", "Any Graduate".
       // Full eligibility text is in `eligibility` above — shown only on the detail page.

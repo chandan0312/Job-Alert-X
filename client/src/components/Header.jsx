@@ -48,9 +48,9 @@ export default function Header({ onMenuClick = () => {} }) {
   }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[72px] bg-[#050814]/95 backdrop-blur-md px-2 py-2 sm:px-4 sm:py-2.5 transition-colors duration-200">
-      {/* Main Top Header Container (Always Dark) */}
-      <div className="relative mx-auto flex h-full w-full max-w-[1600px] items-center justify-between gap-3 rounded-2xl bg-[#080d1e] px-3 sm:px-4 border border-cyan-500/20 shadow-[0_0_20px_rgba(0,180,255,0.08)] backdrop-blur-2xl">
+    <header className="fixed top-0 left-0 right-0 z-50 h-[72px] px-2 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 bg-[#050814]/95 backdrop-blur-md">
+      {/* Main Top Header Container */}
+      <div className="relative mx-auto flex h-full w-full max-w-[1600px] items-center justify-between gap-3 rounded-2xl px-3 sm:px-4 transition-all duration-300 bg-[#080d1e] border border-cyan-500/20 shadow-[0_0_20px_rgba(0,180,255,0.08)] backdrop-blur-2xl">
         
         {/* === LEFT: BRAND LOGO + TITLE === */}
         <div className="flex shrink-0 items-center gap-2.5 sm:gap-3">
@@ -58,7 +58,7 @@ export default function Header({ onMenuClick = () => {} }) {
           <button
             type="button"
             onClick={onMenuClick}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors lg:hidden"
+            className="rounded-lg p-1.5 transition-colors lg:hidden text-slate-400 hover:bg-white/10 hover:text-white"
             aria-label="Open menu"
           >
             <Menu size={22} />
@@ -75,14 +75,14 @@ export default function Header({ onMenuClick = () => {} }) {
             <div className="flex flex-col">
               <div className="flex items-center text-[18px] sm:text-[20px] font-black tracking-wider leading-none">
                 <span className="text-white">JOB</span>
-                <span className="text-orange-500 ml-1.5 drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]">
+                <span className="ml-1.5 text-orange-500 drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]">
                   ALERT
                 </span>
-                <span className="text-purple-400 ml-1 drop-shadow-[0_0_8px_rgba(192,132,252,0.8)]">
+                <span className="ml-1 text-purple-500 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]">
                   X
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-[8.5px] sm:text-[9.5px] font-bold tracking-[0.16em] text-slate-400 mt-1">
+              <div className="flex items-center gap-1.5 text-[8.5px] sm:text-[9.5px] font-bold tracking-[0.16em] mt-1 text-slate-400">
                 <span>JOBS</span>
                 <span className="text-orange-500 text-[8px]">•</span>
                 <span>EXAMS</span>
@@ -116,19 +116,19 @@ export default function Header({ onMenuClick = () => {} }) {
                     <Link
                       key={`t1-${item.id || idx}`}
                       to={`/job/${item.id}`}
-                      className="group/item flex shrink-0 items-center gap-2 text-xs text-slate-200 hover:text-orange-400 transition-colors"
+                      className="group/item flex shrink-0 items-center gap-2 text-xs transition-colors text-slate-200 hover:text-orange-400"
                     >
-                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-300 border border-orange-500/30">
+                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">
                         {badge}
                       </span>
                       <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
                         {item.title}
                       </span>
-                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-400 group-hover/item:text-orange-300">
+                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-500 group-hover/item:text-orange-400">
                         [{highlight}]
                         <ArrowRight size={12} className="transition-transform group-hover/item:translate-x-0.5" aria-hidden="true" />
                       </span>
-                      <span className="text-slate-600 mx-2" aria-hidden="true">•</span>
+                      <span className="mx-2 text-slate-600" aria-hidden="true">•</span>
                     </Link>
                   )
                 })}
@@ -140,19 +140,19 @@ export default function Header({ onMenuClick = () => {} }) {
                     <Link
                       key={`t2-${item.id || idx}`}
                       to={`/job/${item.id}`}
-                      className="group/item flex shrink-0 items-center gap-2 text-xs text-slate-200 hover:text-orange-400 transition-colors"
+                      className="group/item flex shrink-0 items-center gap-2 text-xs transition-colors text-slate-200 hover:text-orange-400"
                     >
-                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-300 border border-orange-500/30">
+                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">
                         {badge}
                       </span>
                       <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
                         {item.title}
                       </span>
-                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-400 group-hover/item:text-orange-300">
+                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-500 group-hover/item:text-orange-400">
                         [{highlight}]
                         <ArrowRight size={12} className="transition-transform group-hover/item:translate-x-0.5" aria-hidden="true" />
                       </span>
-                      <span className="text-slate-600 mx-2" aria-hidden="true">•</span>
+                      <span className="mx-2 text-slate-600" aria-hidden="true">•</span>
                     </Link>
                   )
                 })}
@@ -166,10 +166,10 @@ export default function Header({ onMenuClick = () => {} }) {
           {/* Quick Feedback Button */}
           <Link
             to="/feedback"
-            className="group flex items-center gap-1.5 rounded-full bg-[#111628] px-3 py-2 text-slate-300 border border-white/10 hover:border-orange-500/40 hover:text-orange-300 transition-all shadow-sm"
+            className="group flex items-center gap-1.5 rounded-full px-3 py-2 transition-all shadow-sm bg-[#111628] text-slate-300 border border-white/10 hover:border-orange-500/40 hover:text-orange-300"
             title="Send Feedback or Suggestion"
           >
-            <MessageSquarePlus size={17} className="text-orange-400 transition-colors group-hover:text-orange-300" />
+            <MessageSquarePlus size={17} className="transition-colors text-orange-400 group-hover:text-orange-300" />
             <span className="hidden text-[12px] font-bold lg:inline">Feedback</span>
           </Link>
 
@@ -177,7 +177,7 @@ export default function Header({ onMenuClick = () => {} }) {
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111628] text-slate-300 border border-white/10 hover:border-amber-400/40 hover:text-amber-400 transition-all shadow-sm"
+            className="flex h-10 w-10 items-center justify-center rounded-full transition-all shadow-sm bg-[#111628] text-slate-300 border border-white/10 hover:border-amber-400/40 hover:text-amber-400"
             aria-label="Toggle theme"
           >
             {isDark ? <MoonStar size={17} className="text-indigo-400" /> : <Sun size={17} className="text-amber-400" />}
@@ -209,7 +209,7 @@ export default function Header({ onMenuClick = () => {} }) {
             )}
 
             {userOpen && isAuthenticated && (
-              <div className="absolute right-0 top-full mt-3 w-56 overflow-hidden rounded-xl border border-white/10 bg-[#0d1326] p-2 shadow-2xl backdrop-blur-xl animate-fade-in z-50">
+              <div className="absolute right-0 top-full mt-3 w-56 overflow-hidden rounded-xl border border-white/10 bg-[#0d1326] p-2 shadow-2xl backdrop-blur-xl animate-fade-in z-50 text-white">
                 <div className="px-3 py-2.5">
                   <div className="flex items-center justify-between">
                     <p className="text-[13px] font-bold text-white truncate">{user?.name || 'User'}</p>

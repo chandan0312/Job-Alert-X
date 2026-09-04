@@ -29,6 +29,34 @@ async function start() {
       })
       console.log('[db] added inTicker column to jobs table')
     }
+    if (desc && !desc.detailedDescription) {
+      await qi.addColumn('jobs', 'detailedDescription', {
+        type: sequelize.Sequelize.DataTypes.TEXT,
+        allowNull: true,
+      })
+      console.log('[db] added detailedDescription column to jobs table')
+    }
+    if (desc && !desc.applyUrl) {
+      await qi.addColumn('jobs', 'applyUrl', {
+        type: sequelize.Sequelize.DataTypes.STRING(1000),
+        allowNull: true,
+      })
+      console.log('[db] added applyUrl column to jobs table')
+    }
+    if (desc && !desc.notificationPdfUrl) {
+      await qi.addColumn('jobs', 'notificationPdfUrl', {
+        type: sequelize.Sequelize.DataTypes.STRING(1000),
+        allowNull: true,
+      })
+      console.log('[db] added notificationPdfUrl column to jobs table')
+    }
+    if (desc && !desc.officialWebsiteUrl) {
+      await qi.addColumn('jobs', 'officialWebsiteUrl', {
+        type: sequelize.Sequelize.DataTypes.STRING(1000),
+        allowNull: true,
+      })
+      console.log('[db] added officialWebsiteUrl column to jobs table')
+    }
   } catch (err) {
     console.warn('[db] column check notice:', err.message)
   }
