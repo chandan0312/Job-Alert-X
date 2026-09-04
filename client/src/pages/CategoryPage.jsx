@@ -36,7 +36,7 @@ export default function CategoryPage() {
   const mode = slug ? 'category' : 'kind'
 
   const [jobs, setJobs] = useState(null)
-  const [filter, setFilter] = useState('all')
+  const [filter, setFilter] = useState(mode === 'category' ? 'job' : 'all')
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState([])
 
@@ -52,9 +52,9 @@ export default function CategoryPage() {
   useEffect(() => {
     let active = true
     setJobs(null)
-    setFilter('all')
+    setFilter(mode === 'category' ? 'job' : 'all')
     setSearch('')
-    const load = mode === 'category' ? getJobsByCategory(slug) : getJobsByKind(kind)
+    const load = mode === 'category' ? getJobsByCategory(slug, undefined, 'all') : getJobsByKind(kind)
     load
       .then((data) => active && setJobs(data || []))
       .catch(() => active && setJobs([]))
@@ -75,11 +75,20 @@ export default function CategoryPage() {
   const facets = useMemo(() => {
     if (!jobs) return []
     if (mode === 'category') {
-      const present = [...new Set(jobs.map((j) => j.kind).filter(Boolean))]
-      return present.map((k) => ({ value: k, label: KIND_LABELS[k] || k }))
+      const order = ['job', 'admit-card', 'result', 'answer-key', 'syllabus']
+      return order
+        .map((k) => {
+          const count = jobs.filter((j) => j.kind === k).length
+          return { value: k, label: `${KIND_LABELS[k] || k} (${count})`, count }
+        })
+        .filter((f) => f.count > 0)
     }
     const present = [...new Set(jobs.map((j) => j.category).filter(Boolean))]
-    return present.map((c) => ({ value: c, label: categories.find((x) => x.slug === c)?.name || c }))
+    return present.map((c) => {
+      const count = jobs.filter((j) => j.category === c).length
+      const catName = categories.find((x) => x.slug === c)?.name || c
+      return { value: c, label: `${catName} (${count})`, count }
+    })
   }, [jobs, mode, categories])
 
   const visible = useMemo(() => {
@@ -193,7 +202,11 @@ export default function CategoryPage() {
           </p>
         </div>
       ) : (
-        <RecentJobsTable jobs={visible} showFooter={false} />
+        <RecentJobsTable
+          jobs={visible}
+          kind={mode === 'kind' ? kind : (filter === 'all' ? undefined : filter)}
+          showFooter={false}
+        />
       )}
     </div>
   )

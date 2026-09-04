@@ -117,19 +117,19 @@ export default function HeroBanner({ slides = [] }) {
           <div className="min-w-0 flex-1 animate-fade-in" key={job.id}>
             {/* Category tag & highlights */}
             <div className="mb-2 flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1 rounded-md bg-orange-500/20 px-2 py-0.5 text-[10.5px] font-extrabold text-orange-300 border border-orange-500/30">
+              <span className="inline-flex items-center gap-1 rounded-md bg-orange-500/20 px-2 py-0.5 text-xs font-extrabold text-orange-300 border border-orange-500/30">
                 <Flame size={12} className="text-orange-400" aria-hidden="true" />
                 Trending Opening
               </span>
-              <span className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wider text-slate-300">
+              <span className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-slate-300">
                 {job.category}
               </span>
               {job.tagline && (
-                <span className="text-[11px] font-medium text-slate-300 truncate max-w-[260px] hidden sm:inline">
+                <span className="text-xs font-medium text-slate-200 truncate max-w-[280px] hidden sm:inline">
                   {job.tagline}
                 </span>
               )}
-              <span className="text-[11px] text-slate-400 ml-auto mr-7 hidden sm:inline">
+              <span className="text-xs text-slate-300 ml-auto mr-7 hidden sm:inline">
                 {index + 1} / {count}
               </span>
             </div>
@@ -223,10 +223,10 @@ export default function HeroBanner({ slides = [] }) {
                 className="group/dot relative flex items-center justify-center p-0.5 transition-all"
               >
                 <span
-                  className={`block h-1.5 rounded-full transition-all duration-300 ${
+                  className={`block h-2 rounded-full transition-all duration-300 ${
                     isActive
-                      ? 'w-5 bg-gradient-to-r from-orange-500 to-amber-500 shadow-xs ring-1 ring-orange-400/40'
-                      : 'w-1.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 hover:scale-125'
+                      ? 'w-7 bg-gradient-to-r from-orange-500 to-amber-400 shadow-md shadow-orange-500/50 ring-2 ring-orange-400/50'
+                      : 'w-2 bg-slate-400 dark:bg-slate-500 hover:bg-slate-300 hover:scale-125'
                   }`}
                 />
               </button>

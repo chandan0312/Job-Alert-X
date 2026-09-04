@@ -18,27 +18,20 @@ export default function SyllabusCard({ viewAllTo = '/latest/syllabus' }) {
   return (
     <section className="card overflow-hidden">
       {/* ── Card Header ── */}
-      <div className="flex items-center justify-between border-b border-hairline px-4 py-3 bg-gradient-to-r from-[#0d1326] via-[#111c33] to-[#0f1729] text-white">
+      <div className="flex items-center justify-between border-b border-hairline px-4 py-3 bg-subtle/50 text-ink">
         <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-pink-500/20 text-pink-400 border border-pink-500/30 shadow-sm shadow-pink-500/20">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-pink-500/15 text-pink-600 dark:text-pink-400 border border-pink-500/25">
             <BookOpen size={15} aria-hidden="true" />
           </span>
           <div className="flex items-center gap-1.5">
-            <h2 className="text-xs sm:text-sm font-bold tracking-tight text-white">
+            <h2 className="text-xs sm:text-sm font-bold tracking-tight text-ink">
               Exam Syllabus
             </h2>
-            <span className="inline-flex items-center rounded-full bg-pink-500/20 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-pink-300 border border-pink-400/30">
+            <span className="inline-flex items-center rounded-full bg-pink-500/15 px-2 py-0.5 text-xs font-bold tracking-wider text-pink-700 dark:text-pink-300 border border-pink-500/25">
               PDF
             </span>
           </div>
         </div>
-
-        <Link
-          to={viewAllTo}
-          className="inline-flex items-center gap-1 text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors"
-        >
-          View All <ArrowRight size={13} aria-hidden="true" />
-        </Link>
       </div>
 
       {/* ── Content ── */}

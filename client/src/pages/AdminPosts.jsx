@@ -59,7 +59,7 @@ export default function AdminPosts() {
   const loadPosts = async () => {
     setLoading(true)
     try {
-      const data = await fetchJobs({ limit: 100 })
+      const data = await fetchJobs({ limit: 500 })
       setPosts(Array.isArray(data) ? data : [])
     } catch (err) {
       console.error('Failed to load posts:', err)

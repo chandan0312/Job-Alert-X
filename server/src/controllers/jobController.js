@@ -92,11 +92,18 @@ export const list = asyncHandler(async (req, res) => {
 
 /** GET /api/jobs/trending — featured posts for the home-page hero carousel. */
 export const trending = asyncHandler(async (req, res) => {
-  const rows = await Job.findAll({
-    where: { featured: true },
+  let rows = await Job.findAll({
+    where: { featured: true, kind: 'job' },
     order: NEWEST_FIRST,
     limit: parseLimit(req.query.limit, undefined),
   })
+  if (rows.length === 0) {
+    rows = await Job.findAll({
+      where: { kind: 'job' },
+      order: NEWEST_FIRST,
+      limit: parseLimit(req.query.limit, 6),
+    })
+  }
   res.json(serialize(rows))
 })
 

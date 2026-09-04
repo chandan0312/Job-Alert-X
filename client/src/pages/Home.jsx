@@ -44,28 +44,28 @@ export default function Home() {
       .then((data) => active && setRecentlyPosted(data || []))
       .catch(() => active && setRecentlyPosted([]))
 
-    // 3. Bank Jobs (3 latest)
-    getJobsByCategory('banking', 3)
+    // 3. Bank Jobs (3 latest recruitment jobs)
+    getJobsByCategory('banking', 3, 'job')
       .then((data) => active && setBankJobs(data || []))
       .catch(() => active && setBankJobs([]))
 
-    // 4. SSC Jobs (3 latest)
-    getJobsByCategory('ssc', 3)
+    // 4. SSC Jobs (3 latest recruitment jobs)
+    getJobsByCategory('ssc', 3, 'job')
       .then((data) => active && setSscJobs(data || []))
       .catch(() => active && setSscJobs([]))
 
-    // 5. Railway Jobs (3 latest)
-    getJobsByCategory('railway', 3)
+    // 5. Railway Jobs (3 latest recruitment jobs)
+    getJobsByCategory('railway', 3, 'job')
       .then((data) => active && setRailwayJobs(data || []))
       .catch(() => active && setRailwayJobs([]))
 
-    // 6. Defence Jobs (3 latest)
-    getJobsByCategory('defence', 3)
+    // 6. Defence Jobs (3 latest recruitment jobs)
+    getJobsByCategory('defence', 3, 'job')
       .then((data) => active && setDefenceJobs(data || []))
       .catch(() => active && setDefenceJobs([]))
 
-    // 7. UPSC Jobs (3 latest)
-    getJobsByCategory('upsc', 3)
+    // 7. UPSC Jobs (3 latest recruitment jobs)
+    getJobsByCategory('upsc', 3, 'job')
       .then((data) => active && setUpscJobs(data || []))
       .catch(() => active && setUpscJobs([]))
 
@@ -103,16 +103,45 @@ export default function Home() {
       />
 
       {/* Main column */}
-      <main className="min-w-0 space-y-7">
-        {/* Page Primary Title (H1 for Search Engine Ranking) */}
-        <div className="flex flex-col gap-0.5 border-b border-hairline/60 pb-3">
-          <h1 className="text-xl sm:text-2xl font-black tracking-tight text-ink">
-            Sarkari Result &amp; Latest Govt Jobs 2026
-          </h1>
-          <p className="text-xs sm:text-[13px] font-medium text-ink-muted">
-            Instant updates for Online Application Forms, Admit Cards, Exam Dates &amp; Official Results.
-          </p>
-        </div>
+      <main className="min-w-0 space-y-6">
+        {/* Creative Professional Headline Banner */}
+        <section className="group relative overflow-hidden rounded-2xl border border-hairline bg-gradient-to-r from-subtle/80 via-surface to-subtle/80 p-3.5 sm:p-4 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-orange-500/30 hover:shadow-md animate-fade-in">
+          {/* Subtle ambient light glow */}
+          <div className="pointer-events-none absolute -left-6 -top-6 h-28 w-28 rounded-full bg-orange-500/10 blur-xl transition-opacity group-hover:opacity-100" />
+          <div className="pointer-events-none absolute -right-6 -bottom-6 h-28 w-28 rounded-full bg-brand-500/10 blur-xl transition-opacity group-hover:opacity-100" />
+
+          <div className="relative flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <div className="mb-1 flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                <span className="text-[11px] font-extrabold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+                  Daily Verified Updates
+                </span>
+                <span className="text-[11px] text-ink-faint hidden sm:inline">• Central &amp; State Recruitment</span>
+              </div>
+
+              <h1 className="text-sm sm:text-base md:text-lg font-extrabold leading-snug tracking-tight text-ink">
+                <span className="bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-600 dark:from-orange-400 dark:via-amber-300 dark:to-purple-400 bg-clip-text text-transparent font-black">
+                  Latest Govt Jobs, Sarkari Naukri, Exams &amp; Results
+                </span>
+                <span className="mx-2 hidden text-hairline md:inline font-light" aria-hidden="true">|</span>
+                <span className="block text-xs sm:text-sm font-bold text-ink-muted mt-0.5 md:mt-0 md:inline tracking-normal">
+                  सरकारी नौकरी, भर्ती, परीक्षा एवं रिजल्ट
+                </span>
+              </h1>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-1.5 self-start sm:self-center">
+              <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-xs font-bold bg-brand-50 text-brand-700 dark:bg-brand-600/20 dark:text-brand-300 border border-brand-500/20 shadow-2xs">
+                2026 Live Forms
+              </span>
+            </div>
+          </div>
+        </section>
+
         {/* 1. Trending / Hero Carousel */}
         <section>
           <SectionHeader title="Trending This Week" />

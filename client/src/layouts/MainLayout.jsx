@@ -6,13 +6,8 @@ import Footer from '../components/Footer.jsx'
 
 export default function MainLayout() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
-    try {
-      return localStorage.getItem('sarkarifynx-sidebar-collapsed') === 'true'
-    } catch {
-      return false
-    }
-  })
+  // Expand sidebar by default on desktop so text labels are persistent (Issue 13)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const { pathname } = useLocation()
 
   // Close the mobile drawer + smoothly reset scroll whenever the route changes
@@ -22,15 +17,7 @@ export default function MainLayout() {
   }, [pathname])
 
   const handleToggleCollapse = () => {
-    setSidebarCollapsed((prev) => {
-      const next = !prev
-      try {
-        localStorage.setItem('sarkarifynx-sidebar-collapsed', String(next))
-      } catch {
-        /* ignore storage error */
-      }
-      return next
-    })
+    setSidebarCollapsed((prev) => !prev)
   }
 
   return (

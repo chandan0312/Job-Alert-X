@@ -73,7 +73,7 @@ export default function Header({ onMenuClick = () => {} }) {
             <SarkariEmblem size={44} />
 
             <div className="flex flex-col">
-              <div className="flex items-center text-[18px] sm:text-[20px] font-black tracking-wider leading-none">
+              <div className="flex items-center text-lg sm:text-xl font-black tracking-wider leading-none">
                 <span className="text-white">JOB</span>
                 <span className="ml-1.5 text-orange-500 drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]">
                   ALERT
@@ -82,7 +82,7 @@ export default function Header({ onMenuClick = () => {} }) {
                   X
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-[8.5px] sm:text-[9.5px] font-bold tracking-[0.16em] mt-1 text-slate-400">
+              <div className="flex items-center gap-1.5 text-xs font-semibold tracking-wider mt-1 text-slate-300">
                 <span>JOBS</span>
                 <span className="text-orange-500 text-[8px]">•</span>
                 <span>EXAMS</span>
@@ -118,7 +118,7 @@ export default function Header({ onMenuClick = () => {} }) {
                       to={`/job/${item.id}`}
                       className="group/item flex shrink-0 items-center gap-2 text-xs transition-colors text-slate-200 hover:text-orange-400"
                     >
-                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">
+                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">
                         {badge}
                       </span>
                       <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
@@ -142,7 +142,7 @@ export default function Header({ onMenuClick = () => {} }) {
                       to={`/job/${item.id}`}
                       className="group/item flex shrink-0 items-center gap-2 text-xs transition-colors text-slate-200 hover:text-orange-400"
                     >
-                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">
+                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">
                         {badge}
                       </span>
                       <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
@@ -170,7 +170,7 @@ export default function Header({ onMenuClick = () => {} }) {
             title="Send Feedback or Suggestion"
           >
             <MessageSquarePlus size={17} className="transition-colors text-orange-400 group-hover:text-orange-300" />
-            <span className="hidden text-[12px] font-bold lg:inline">Feedback</span>
+            <span className="hidden text-xs font-bold lg:inline">Feedback</span>
           </Link>
 
           {/* Theme Toggle Button */}
@@ -189,7 +189,7 @@ export default function Header({ onMenuClick = () => {} }) {
               <button
                 type="button"
                 onClick={() => setUserOpen((prev) => !prev)}
-                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#8b5cf6] via-[#7c3aed] to-[#4f46e5] px-3.5 py-2 text-[13px] font-bold text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/40 hover:brightness-110 transition-all"
+                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#8b5cf6] via-[#7c3aed] to-[#4f46e5] px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/40 hover:brightness-110 transition-all"
               >
                 {user?.avatar ? (
                   <img src={user.avatar} alt={user.name} className="h-5 w-5 rounded-full object-cover" />
@@ -201,7 +201,7 @@ export default function Header({ onMenuClick = () => {} }) {
             ) : (
               <Link
                 to="/login"
-                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 px-3.5 py-2 text-[13px] font-bold text-white shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 transition-all"
+                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 transition-all"
               >
                 <User size={15} className="text-white" />
                 <span>Sign In</span>

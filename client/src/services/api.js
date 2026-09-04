@@ -16,16 +16,28 @@ const memoryCache = new Map()
 const inFlightRequests = new Map()
 
 /**
- * Clear the client-side memory cache (called after mutations or manually).
+ * Clear the client-side memory and session cache (called after mutations or manually).
  */
 export function clearApiCache() {
   memoryCache.clear()
+  try {
+    const toRemove = []
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const key = sessionStorage.key(i)
+      if (key && key.startsWith('jax_cache_')) {
+        toRemove.push(key)
+      }
+    }
+    toRemove.forEach((k) => sessionStorage.removeItem(k))
+  } catch {
+    /* ignore storage access restrictions */
+  }
 }
 
 /**
- * Low-level HTTP helper with memory caching & in-flight deduplication.
+ * Low-level HTTP helper with multi-tier memory + session caching & in-flight deduplication.
  */
-async function http(method, path, { token, body, params, ttl = 30_000, bypassCache = false } = {}) {
+async function http(method, path, { token, body, params, ttl = 60_000, bypassCache = false } = {}) {
   const url = new URL(`${API_BASE}${path}`)
   if (params) {
     Object.entries(params).forEach(([k, v]) => {
@@ -40,11 +52,26 @@ async function http(method, path, { token, body, params, ttl = 30_000, bypassCac
     clearApiCache()
   }
 
-  // Check in-memory cache for GET requests
+  // Check multi-tier cache for GET requests
   if (method === 'GET' && !bypassCache) {
+    // Tier 1: In-memory Map (ultra-fast 0ms)
     const cached = memoryCache.get(cacheKey)
     if (cached && (Date.now() - cached.timestamp) < cached.ttl) {
       return cached.data
+    }
+
+    // Tier 2: SessionStorage (persists across page reloads & back/forward navigation)
+    try {
+      const stored = sessionStorage.getItem(`jax_cache_${cacheKey}`)
+      if (stored) {
+        const parsed = JSON.parse(stored)
+        if (parsed && (Date.now() - parsed.timestamp) < parsed.ttl) {
+          memoryCache.set(cacheKey, parsed)
+          return parsed.data
+        }
+      }
+    } catch {
+      /* ignore session storage read errors */
     }
 
     // Deduplicate in-flight concurrent requests to the same URL
@@ -76,13 +103,19 @@ async function http(method, path, { token, body, params, ttl = 30_000, bypassCac
         throw err
       }
 
-      // Store in memory cache for GET requests
+      // Store in memory & session cache for GET requests
       if (method === 'GET') {
-        memoryCache.set(cacheKey, {
+        const item = {
           data,
           timestamp: Date.now(),
           ttl,
-        })
+        }
+        memoryCache.set(cacheKey, item)
+        try {
+          sessionStorage.setItem(`jax_cache_${cacheKey}`, JSON.stringify(item))
+        } catch {
+          /* ignore storage quota exceptions */
+        }
       }
 
       return data
@@ -120,9 +153,13 @@ export const getJobs = (params) => http('GET', '/api/jobs', { params, ttl: 30_00
 /** GET /api/jobs/:id */
 export const getJobById = (id) => http('GET', `/api/jobs/${encodeURIComponent(id)}`, { ttl: 60_000 })
 
-/** GET /api/jobs?category=slug */
-export const getJobsByCategory = (slug, limit) =>
-  http('GET', '/api/jobs', { params: { category: slug, limit }, ttl: 30_000 })
+/** GET /api/jobs?category=slug&kind=kind (defaults to kind='job') */
+export const getJobsByCategory = (slug, limit, kind = 'job') => {
+  const params = { category: slug }
+  if (limit) params.limit = limit
+  if (kind && kind !== 'all') params.kind = kind
+  return http('GET', '/api/jobs', { params, ttl: 30_000 })
+}
 
 /** GET /api/jobs?kind=kind */
 export const getJobsByKind = (kind) =>
@@ -202,6 +239,28 @@ export const fetchJobById = (id) =>
 
 export const fetchDashboard = (token) =>
   http('GET', '/api/admin/dashboard', { token, bypassCache: true })
+
+/**
+ * Upload PDF or official notification document (Admin only).
+ */
+export async function uploadPdfDoc(token, file) {
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const res = await fetch(`${API_BASE}/api/upload/pdf`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  })
+
+  const data = await res.json()
+  if (!res.ok) {
+    throw new Error(data.error || 'Failed to upload PDF document')
+  }
+  return data
+}
 
 // ---------------------------------------------------------------------------
 // Feedback & Suggestions

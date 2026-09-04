@@ -18,9 +18,14 @@ import {
   Download,
   Globe,
   Link as LinkIcon,
+  UploadCloud,
+  FileCheck,
+  Paperclip,
+  X,
+  File,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
-import { fetchJobById, createJob, updateJob, getCategories } from '../services/api.js'
+import { fetchJobById, createJob, updateJob, getCategories, uploadPdfDoc } from '../services/api.js'
 import SEOHead from '../components/SEOHead.jsx'
 
 // Static kind labels (mirrors server /api/kinds)
@@ -118,6 +123,41 @@ export default function AdminPostForm() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [previewTab, setPreviewTab] = useState(false)
+  const [uploadingPdf, setUploadingPdf] = useState(false)
+  const [showUrlInput, setShowUrlInput] = useState(false)
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const isPdf = file.name.toLowerCase().endsWith('.pdf') || file.type.includes('pdf')
+    if (!isPdf) {
+      alert('Please upload a PDF document (.pdf).')
+      return
+    }
+    setUploadingPdf(true)
+    setError('')
+    try {
+      const res = await uploadPdfDoc(token, file)
+      if (res && res.url) {
+        setForm((prev) => ({
+          ...prev,
+          notificationPdfUrl: res.url,
+        }))
+        setSuccess(`Official PDF "${file.name}" uploaded and attached successfully!`)
+        setTimeout(() => setSuccess(''), 4000)
+      }
+    } catch (err) {
+      setError(err.message || 'Failed to upload PDF file.')
+    } finally {
+      setUploadingPdf(false)
+      // reset file input
+      if (e.target) e.target.value = ''
+    }
+  }
+
+  const handleRemovePdf = () => {
+    setForm((prev) => ({ ...prev, notificationPdfUrl: '' }))
+  }
 
   // Fetch categories for dropdowns
   useEffect(() => {
@@ -499,32 +539,106 @@ export default function AdminPostForm() {
             </div>
 
             {/* Official Notification PDF Attachment */}
-            <div>
-              <div className="mb-1.5 flex items-center justify-between">
-                <label className="flex items-center gap-1.5 text-xs font-semibold text-ink-soft">
-                  <Download size={13} className="text-red-500" />
-                  {KIND_ACTION_CONFIG[form.kind]?.pdfLabel || 'Official Notification (PDF URL)'}
+            <div className="rounded-xl border border-hairline bg-subtle/50 p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-1.5 text-xs font-bold text-ink">
+                  <Download size={14} className="text-red-500" />
+                  {KIND_ACTION_CONFIG[form.kind]?.pdfLabel || 'Official Notification PDF Attachment'}
                 </label>
-                {form.notificationPdfUrl && (
-                  <a
-                    href={form.notificationPdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-red-600 dark:text-red-400 hover:underline"
-                  >
-                    Test Download <Download size={10} />
-                  </a>
-                )}
+                <button
+                  type="button"
+                  onClick={() => setShowUrlInput(!showUrlInput)}
+                  className="text-[11px] font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                >
+                  <LinkIcon size={11} />
+                  {showUrlInput ? 'Attach via File Upload' : 'Enter direct URL instead'}
+                </button>
               </div>
-              <input
-                type="url"
-                value={form.notificationPdfUrl || ''}
-                onChange={setField('notificationPdfUrl')}
-                placeholder={KIND_ACTION_CONFIG[form.kind]?.pdfPlaceholder || 'https://example.gov.in/documents/notification.pdf'}
-                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
-              />
-              <p className="mt-1 text-[11px] text-ink-faint">
-                Direct URL to the official notification PDF. Allows users to view and download the official document directly.
+
+              {/* Uploaded / Attached PDF Status Card */}
+              {form.notificationPdfUrl ? (
+                <div className="flex items-center justify-between p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-950 dark:text-emerald-200 text-xs">
+                  <div className="flex items-center gap-2.5 overflow-hidden">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-xs">
+                      <FileCheck size={16} />
+                    </div>
+                    <div className="truncate">
+                      <p className="font-bold truncate text-xs">
+                        {form.notificationPdfUrl.startsWith('/uploads') ? 'Attached Local PDF Document' : 'Attached Online PDF Document'}
+                      </p>
+                      <p className="text-[10px] text-ink-muted truncate max-w-xs sm:max-w-md font-mono">
+                        {form.notificationPdfUrl}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <a
+                      href={form.notificationPdfUrl.startsWith('http') ? form.notificationPdfUrl : `http://localhost:4000${form.notificationPdfUrl}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface border border-hairline text-ink text-[11px] font-bold shadow-2xs hover:bg-subtle transition-colors"
+                    >
+                      <Eye size={12} className="text-blue-500" /> View / Test
+                    </a>
+                    <button
+                      type="button"
+                      onClick={handleRemovePdf}
+                      className="p-1.5 rounded-lg text-red-500 hover:bg-red-500/20 transition-colors"
+                      title="Remove PDF attachment"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
+              {/* Upload Dropzone / Button */}
+              {!showUrlInput ? (
+                <div>
+                  <label className="relative flex flex-col items-center justify-center border-2 border-dashed border-hairline rounded-xl p-4 cursor-pointer hover:border-brand-500 hover:bg-brand-500/5 transition-all group">
+                    <input
+                      type="file"
+                      accept=".pdf,application/pdf"
+                      onChange={handleFileUpload}
+                      disabled={uploadingPdf}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                    />
+                    <div className="flex flex-col items-center text-center">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform mb-2">
+                        {uploadingPdf ? (
+                          <div className="h-5 w-5 animate-spin rounded-full border-2 border-brand-500 border-t-transparent" />
+                        ) : (
+                          <UploadCloud size={20} />
+                        )}
+                      </div>
+                      <span className="text-xs font-bold text-ink group-hover:text-brand-600 transition-colors">
+                        {uploadingPdf ? 'Uploading Document…' : 'Click to Upload PDF or Drag & Drop'}
+                      </span>
+                      <span className="text-[11px] text-ink-muted mt-0.5">
+                        Supports official notification, exam notice or syllabus PDF (Max 35 MB)
+                      </span>
+                    </div>
+                  </label>
+                </div>
+              ) : (
+                /* Or direct URL input */
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-ink-soft">
+                    <Paperclip size={12} /> Direct PDF Web Link
+                  </div>
+                  <input
+                    type="url"
+                    value={form.notificationPdfUrl || ''}
+                    onChange={setField('notificationPdfUrl')}
+                    placeholder={KIND_ACTION_CONFIG[form.kind]?.pdfPlaceholder || 'https://example.gov.in/documents/notification.pdf'}
+                    className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20 font-mono"
+                  />
+                </div>
+              )}
+
+              <p className="text-[11px] text-ink-faint">
+                Users will see a dedicated "{KIND_ACTION_CONFIG[form.kind]?.pdfBtnText || 'Download Official PDF'}" button on the notification page.
               </p>
             </div>
 

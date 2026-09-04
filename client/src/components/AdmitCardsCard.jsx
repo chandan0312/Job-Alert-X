@@ -18,27 +18,20 @@ export default function AdmitCardsCard({ viewAllTo = '/latest/admit-card' }) {
   return (
     <section className="card overflow-hidden">
       {/* ── Card Header ── */}
-      <div className="flex items-center justify-between border-b border-hairline px-4 py-3 bg-gradient-to-r from-[#0d1326] via-[#111c33] to-[#0f1729] text-white">
+      <div className="flex items-center justify-between border-b border-hairline px-4 py-3 bg-subtle/50 text-ink">
         <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/30 shadow-sm shadow-rose-500/20">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25">
             <Ticket size={15} aria-hidden="true" />
           </span>
           <div className="flex items-center gap-1.5">
-            <h2 className="text-xs sm:text-sm font-bold tracking-tight text-white">
+            <h2 className="text-xs sm:text-sm font-bold tracking-tight text-ink">
               Admit Cards
             </h2>
-            <span className="inline-flex items-center rounded-full bg-rose-500/20 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-rose-300 border border-rose-400/30">
+            <span className="inline-flex items-center rounded-full bg-rose-500/15 px-2 py-0.5 text-xs font-bold tracking-wider text-rose-700 dark:text-rose-300 border border-rose-500/25">
               Out
             </span>
           </div>
         </div>
-
-        <Link
-          to={viewAllTo}
-          className="inline-flex items-center gap-1 text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors"
-        >
-          View All <ArrowRight size={13} aria-hidden="true" />
-        </Link>
       </div>
 
       {/* ── Content ── */}
@@ -98,14 +91,14 @@ export default function AdmitCardsCard({ viewAllTo = '/latest/admit-card' }) {
                   </td>
 
                   {/* Action / Download Link Button */}
-                  <td className="py-3 pr-4 pl-1 text-right align-middle whitespace-nowrap">
+                  <td className="py-2.5 pr-3.5 pl-1 text-right align-middle whitespace-nowrap">
                     <Link
                       to={`/job/${card.id}`}
                       className="btn-primary-sm"
                       aria-label={`Download admit card for ${card.title}`}
                     >
                       Download
-                      <ArrowUpRight size={13} aria-hidden="true" />
+                      <ArrowUpRight size={12} aria-hidden="true" />
                     </Link>
                   </td>
                 </tr>

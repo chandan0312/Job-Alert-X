@@ -18,27 +18,20 @@ export default function ResultsCard({ viewAllTo = '/latest/result' }) {
   return (
     <section className="card overflow-hidden">
       {/* ── Card Header ── */}
-      <div className="flex items-center justify-between border-b border-hairline px-4 py-3 bg-gradient-to-r from-[#0d1326] via-[#111c33] to-[#0f1729] text-white">
+      <div className="flex items-center justify-between border-b border-hairline px-4 py-3 bg-subtle/50 text-ink">
         <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-sm shadow-emerald-500/20">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
             <Award size={15} aria-hidden="true" />
           </span>
           <div className="flex items-center gap-1.5">
-            <h2 className="text-xs sm:text-sm font-bold tracking-tight text-white">
+            <h2 className="text-xs sm:text-sm font-bold tracking-tight text-ink">
               Latest Results
             </h2>
-            <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-emerald-300 border border-emerald-400/30">
+            <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-bold tracking-wider text-emerald-700 dark:text-emerald-300 border border-emerald-500/25">
               Live
             </span>
           </div>
         </div>
-
-        <Link
-          to={viewAllTo}
-          className="inline-flex items-center gap-1 text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors"
-        >
-          View All <ArrowRight size={13} aria-hidden="true" />
-        </Link>
       </div>
 
       {/* ── Content ── */}
@@ -98,14 +91,14 @@ export default function ResultsCard({ viewAllTo = '/latest/result' }) {
                   </td>
 
                   {/* Action / View Link Button */}
-                  <td className="py-3 pr-4 pl-1 text-right align-middle whitespace-nowrap">
+                  <td className="py-2.5 pr-3.5 pl-1 text-right align-middle whitespace-nowrap">
                     <Link
                       to={`/job/${res.id}`}
                       className="btn-primary-sm"
                       aria-label={`View result for ${res.title}`}
                     >
                       View
-                      <ArrowUpRight size={13} aria-hidden="true" />
+                      <ArrowUpRight size={12} aria-hidden="true" />
                     </Link>
                   </td>
                 </tr>

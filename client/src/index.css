@@ -34,6 +34,18 @@
 
   html {
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* Fast mobile interaction: eliminate 300ms click delay & optimize touch targets */
+  a, button, input, select, textarea {
+    touch-action: manipulation;
+  }
+
+  /* Smooth momentum scrolling for mobile horizontal/vertical containers */
+  .overflow-x-auto, .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
   }
 
   body {
@@ -84,7 +96,7 @@
   }
 
   .btn-primary-sm {
-    @apply inline-flex min-h-[40px] sm:min-h-[44px] items-center justify-center gap-1.5 rounded-lg bg-brand-600 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition-all hover:bg-brand-700 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400;
+    @apply inline-flex min-h-[26px] items-center justify-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1 text-xs font-bold text-white shadow-sm transition-all hover:bg-brand-700 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400;
   }
 
   .btn-ghost {
@@ -318,7 +330,7 @@
 
   /* Vacancies — neutral badge without blue hyperlink affordance */
   .rjt-vacancies {
-    @apply inline-block rounded-md px-2.5 py-0.5 text-xs font-bold tabular-nums;
+    @apply inline-block rounded-lg px-2.5 py-0.5 text-xs font-bold tabular-nums;
     background: var(--bg-subtle);
     color: var(--text-strong);
     border: 1px solid var(--border-hairline);
@@ -340,9 +352,9 @@
     color: var(--text-muted);
   }
 
-  /* Apply Now button (Unified Orange Primary CTA across portal - Issues 3 & 5) */
+  /* Apply Now button (Unified Orange Primary CTA across portal) */
   .rjt-apply-btn {
-    @apply inline-flex min-h-[36px] items-center gap-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-orange-500/25 transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400;
+    @apply inline-flex min-h-[36px] items-center gap-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-orange-500/25 transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400;
   }
 
   /* View All footer */
@@ -352,7 +364,7 @@
     background: linear-gradient(90deg, #0d1326 0%, #111c33 60%, #0f1729 100%);
   }
   .rjt-view-all {
-    @apply inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-[12.5px] font-bold transition-all;
+    @apply inline-flex items-center gap-1.5 rounded-xl px-5 py-2 text-xs font-bold transition-all;
     color: #6d70f0;
     background: rgba(85, 88, 230, 0.08);
     border: 1px solid rgba(85, 88, 230, 0.2);

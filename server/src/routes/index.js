@@ -6,6 +6,7 @@ import { Router } from 'express'
 import jobRoutes from './jobRoutes.js'
 import authRoutes from './authRoutes.js'
 import feedbackRoutes from './feedbackRoutes.js'
+import uploadRoutes from './uploadRoutes.js'
 import * as reference from '../controllers/referenceController.js'
 import * as jobs from '../controllers/jobController.js'
 import * as admin from '../controllers/adminController.js'
@@ -13,6 +14,7 @@ import { authRequired } from '../middleware/auth.js'
 import { sequelize } from '../config/db.js'
 import { asyncHandler } from '../middleware/asyncHandler.js'
 import { JOB_KINDS } from '../models/index.js'
+import { cacheResponse } from '../middleware/cache.js'
 
 const router = Router()
 
@@ -38,7 +40,7 @@ router.get(
  * The five post kinds and their display labels. Lets the frontend drop the
  * hardcoded `kindLabels` map from seed.js if it ever wants to.
  */
-router.get('/kinds', (req, res) => {
+router.get('/kinds', cacheResponse(300_000), (req, res) => {
   res.json({
     job: 'Latest Jobs',
     'admit-card': 'Admit Cards',
@@ -51,15 +53,17 @@ router.get('/kinds', (req, res) => {
 router.use('/auth', authRoutes)
 router.use('/jobs', jobRoutes)
 router.use('/feedback', feedbackRoutes)
+router.use('/upload', uploadRoutes)
 
 // Top-level search, matching the README's `GET /api/search?q=`.
-router.get('/search', jobs.search)
+router.get('/search', cacheResponse(15_000), jobs.search)
 
-router.get('/categories', reference.listCategories)
-router.get('/categories/:slug', reference.categoryBySlug)
-router.get('/recruiters', reference.listRecruiters)
-router.get('/courses', reference.listCourses)
-router.get('/now-playing', reference.getNowPlaying)
+// Cached reference & aggregation routes for instant response (< 1ms)
+router.get('/categories', cacheResponse(60_000), reference.listCategories)
+router.get('/categories/:slug', cacheResponse(60_000), reference.categoryBySlug)
+router.get('/recruiters', cacheResponse(60_000), reference.listRecruiters)
+router.get('/courses', cacheResponse(60_000), reference.listCourses)
+router.get('/now-playing', cacheResponse(60_000), reference.getNowPlaying)
 
 // --- Admin (JWT required) ---
 router.get('/admin/dashboard', authRequired, admin.dashboard)
