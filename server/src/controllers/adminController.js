@@ -64,7 +64,7 @@ export const dashboard = asyncHandler(async (req, res) => {
   // 4. Recent posts (latest 10)
   const recentPosts = await Job.findAll({
     attributes: ['id', 'title', 'org', 'kind', 'category', 'views', 'createdAt', 'updatedAt'],
-    order: [['createdAt', 'DESC']],
+    order: [['updatedAt', 'DESC'], ['createdAt', 'DESC']],
     limit: 10,
     raw: true,
   })

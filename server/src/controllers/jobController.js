@@ -17,11 +17,11 @@ import { asyncHandler } from '../middleware/asyncHandler.js'
 import { badRequest, notFoundError } from '../middleware/error.js'
 
 const DEFAULT_RECENT_LIMIT = 5
-const MAX_LIMIT = 100
+const MAX_LIMIT = 1000
 
-// Newest first. `id` breaks ties so pagination is deterministic when several
-// rows share a createdAt (as the seeded batch nearly does).
+// Newest / most recently updated first. `id` breaks ties so pagination is deterministic.
 const NEWEST_FIRST = [
+  ['updatedAt', 'DESC'],
   ['createdAt', 'DESC'],
   ['id', 'ASC'],
 ]
@@ -191,6 +191,7 @@ const WRITABLE = [
   'notificationPdfUrl',
   'officialWebsiteUrl',
   'eligibility',
+  'eligibilityShort',
   'postedAt',
   'postedOn',
   'views',

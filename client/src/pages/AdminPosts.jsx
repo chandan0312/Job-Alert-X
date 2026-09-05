@@ -54,12 +54,12 @@ export default function AdminPosts() {
   const [toast, setToast] = useState('')
   const [deletingId, setDeletingId] = useState(null)
   const [updatingId, setUpdatingId] = useState(null)
-  const limit = 10
+  const [limit, setLimit] = useState(15)
 
   const loadPosts = async () => {
     setLoading(true)
     try {
-      const data = await fetchJobs({ limit: 500 })
+      const data = await fetchJobs({ limit: 1000 })
       setPosts(Array.isArray(data) ? data : [])
     } catch (err) {
       console.error('Failed to load posts:', err)
@@ -168,6 +168,13 @@ export default function AdminPosts() {
   // Counts for quick display tabs
   const trendingCount = useMemo(() => posts.filter((p) => p.featured).length, [posts])
   const tickerCount = useMemo(() => posts.filter((p) => p.inTicker).length, [posts])
+  const kindCounts = useMemo(() => {
+    const counts = { all: posts.length }
+    for (const p of posts) {
+      counts[p.kind] = (counts[p.kind] || 0) + 1
+    }
+    return counts
+  }, [posts])
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -210,33 +217,56 @@ export default function AdminPosts() {
       )}
 
       {/* Quick Filter Display Tabs */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-hairline pb-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-hairline pb-2.5">
         <button
           type="button"
-          onClick={() => { setDisplayFilter('all'); setPage(1) }}
-          className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
-            displayFilter === 'all'
+          onClick={() => { setSelectedKind('all'); setDisplayFilter('all'); setPage(1) }}
+          className={`flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+            selectedKind === 'all' && displayFilter === 'all'
               ? 'bg-brand-600 text-white shadow-sm'
               : 'border border-hairline bg-surface text-ink-soft hover:bg-subtle hover:text-ink'
           }`}
         >
           <span>All Posts</span>
-          <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-extrabold ${displayFilter === 'all' ? 'bg-white/20 text-white' : 'bg-subtle text-ink-muted'}`}>
+          <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-extrabold ${selectedKind === 'all' && displayFilter === 'all' ? 'bg-white/20 text-white' : 'bg-subtle text-ink-muted'}`}>
             {posts.length}
           </span>
         </button>
 
+        {Object.entries(KIND_LABELS).map(([k, label]) => {
+          const Icon = KIND_ICON[k] || Briefcase
+          const isActive = selectedKind === k && displayFilter === 'all'
+          return (
+            <button
+              key={k}
+              type="button"
+              onClick={() => { setSelectedKind(k); setDisplayFilter('all'); setPage(1) }}
+              className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold transition-all ${
+                isActive
+                  ? 'bg-brand-600 text-white shadow-sm'
+                  : 'border border-hairline bg-surface text-ink-soft hover:bg-subtle hover:text-ink'
+              }`}
+            >
+              <Icon size={13} className={isActive ? 'text-white' : 'text-ink-faint'} />
+              <span>{label}</span>
+              <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-extrabold ${isActive ? 'bg-white/20 text-white' : 'bg-subtle text-ink-muted'}`}>
+                {kindCounts[k] || 0}
+              </span>
+            </button>
+          )
+        })}
+
         <button
           type="button"
-          onClick={() => { setDisplayFilter('trending'); setPage(1) }}
-          className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+          onClick={() => { setDisplayFilter('trending'); setSelectedKind('all'); setPage(1) }}
+          className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold transition-all ${
             displayFilter === 'trending'
               ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-sm shadow-orange-500/20'
               : 'border border-hairline bg-surface text-ink-soft hover:bg-orange-500/5 hover:text-orange-600'
           }`}
         >
-          <Flame size={14} className={displayFilter === 'trending' ? 'text-white' : 'text-orange-500'} />
-          <span>🔥 Trending Carousel</span>
+          <Flame size={13} className={displayFilter === 'trending' ? 'text-white' : 'text-orange-500'} />
+          <span>🔥 Trending</span>
           <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-extrabold ${displayFilter === 'trending' ? 'bg-white/20 text-white' : 'bg-orange-500/10 text-orange-600 dark:text-orange-300'}`}>
             {trendingCount}
           </span>
@@ -244,15 +274,15 @@ export default function AdminPosts() {
 
         <button
           type="button"
-          onClick={() => { setDisplayFilter('ticker'); setPage(1) }}
-          className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+          onClick={() => { setDisplayFilter('ticker'); setSelectedKind('all'); setPage(1) }}
+          className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold transition-all ${
             displayFilter === 'ticker'
               ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-sm shadow-cyan-600/20'
               : 'border border-hairline bg-surface text-ink-soft hover:bg-cyan-500/5 hover:text-cyan-600'
           }`}
         >
-          <Zap size={14} className={displayFilter === 'ticker' ? 'text-white' : 'text-cyan-500'} />
-          <span>⚡ Header Moving Ticker</span>
+          <Zap size={13} className={displayFilter === 'ticker' ? 'text-white' : 'text-cyan-500'} />
+          <span>⚡ Ticker</span>
           <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-extrabold ${displayFilter === 'ticker' ? 'bg-white/20 text-white' : 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-300'}`}>
             {tickerCount}
           </span>
@@ -471,11 +501,27 @@ export default function AdminPosts() {
 
         {/* Pagination Bar */}
         <div className="flex flex-col items-center justify-between gap-3 border-t border-hairline bg-subtle/20 px-5 py-4 sm:flex-row text-xs text-ink-muted">
-          <p>
-            Showing <span className="font-semibold text-ink">{filtered.length > 0 ? (page - 1) * limit + 1 : 0}</span> to{' '}
-            <span className="font-semibold text-ink">{Math.min(page * limit, filtered.length)}</span> of{' '}
-            <span className="font-semibold text-ink">{filtered.length}</span> results
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p>
+              Showing <span className="font-semibold text-ink">{filtered.length > 0 ? (page - 1) * limit + 1 : 0}</span> to{' '}
+              <span className="font-semibold text-ink">{Math.min(page * limit, filtered.length)}</span> of{' '}
+              <span className="font-semibold text-ink">{filtered.length}</span> results
+            </p>
+            <div className="flex items-center gap-1.5 pl-3 border-l border-hairline">
+              <span>Per page:</span>
+              <select
+                value={limit}
+                onChange={(e) => { setLimit(Number(e.target.value)); setPage(1); }}
+                className="rounded-lg border border-hairline bg-surface px-2 py-0.5 text-xs font-semibold text-ink focus:outline-none focus:border-brand-500"
+              >
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
+          </div>
 
           <div className="flex items-center gap-1.5">
             <button
