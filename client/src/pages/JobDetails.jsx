@@ -17,6 +17,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
+import CategoryBox from '../components/CategoryBox.jsx'
 import TableView from '../components/TableView.jsx'
 import SEOHead from '../components/SEOHead.jsx'
 import RichContentRenderer from '../components/RichContentRenderer.jsx'
@@ -219,7 +220,11 @@ export default function JobDetails() {
           {/* Header card */}
           <header className="card p-5 sm:p-6">
             <div className="flex items-start gap-4">
-              <BrandIcon icon={job.logo.icon} color={job.logo.color} size={60} />
+              <BrandIcon
+                icon={job.logo?.icon || 'landmark'}
+                color={job.logo?.color || '#5558e6'}
+                size={60}
+              />
               <div className="min-w-0 flex-1">
                 <span className="inline-block rounded-full bg-brand-50 px-2.5 py-0.5 text-[11px] font-semibold text-brand-700 dark:bg-brand-600/15 dark:text-brand-200">
                   {getKindLabel(job.kind)}
