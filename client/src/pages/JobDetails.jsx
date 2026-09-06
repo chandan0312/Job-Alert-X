@@ -18,8 +18,8 @@ import {
 } from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
 import TableView from '../components/TableView.jsx'
-import CategoryBox from '../components/CategoryBox.jsx'
 import SEOHead from '../components/SEOHead.jsx'
+import RichContentRenderer from '../components/RichContentRenderer.jsx'
 import { getJobById, getJobsByCategory, getKindLabel, getCategories } from '../services/api.js'
 
 const KIND_CONFIG = {
@@ -298,30 +298,31 @@ export default function JobDetails() {
             </section>
           )}
 
-          {/* Detailed Description / Comprehensive Instructions */}
+          {/* Detailed Description / Full Blog Article */}
           {job.detailedDescription && (
-            <section className="card p-5 sm:p-6">
-              <div className="mb-3 flex items-center justify-between border-b border-hairline pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400">
-                    <BookOpen size={15} />
+            <section className="card p-5 sm:p-7">
+              <div className="mb-4 flex items-center justify-between border-b border-hairline pb-3.5">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400">
+                    <BookOpen size={17} />
                   </span>
-                  <h2 className="text-[15px] font-bold text-ink">Detailed Information &amp; Instructions</h2>
+                  <div>
+                    <h2 className="text-[16px] font-extrabold text-ink">Full Notification &amp; Detailed Guide</h2>
+                    <p className="text-[11px] text-ink-faint">Complete eligibility, vacancy breakdown, syllabus, &amp; application instructions</p>
+                  </div>
                 </div>
                 {job.notificationPdfUrl && (
                   <a
                     href={job.notificationPdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-red-600 dark:text-red-400 hover:underline"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-1.5 text-xs font-bold text-red-600 dark:text-red-400 hover:bg-red-500/20 transition-all"
                   >
-                    <Download size={13} /> Download Official PDF
+                    <Download size={13} /> Official PDF
                   </a>
                 )}
               </div>
-              <div className="whitespace-pre-line text-[14px] leading-relaxed text-ink-soft space-y-2">
-                {job.detailedDescription}
-              </div>
+              <RichContentRenderer content={job.detailedDescription} />
             </section>
           )}
 

@@ -10,6 +10,8 @@ import uploadRoutes from './uploadRoutes.js'
 import * as reference from '../controllers/referenceController.js'
 import * as jobs from '../controllers/jobController.js'
 import * as admin from '../controllers/adminController.js'
+import * as analytics from '../controllers/analyticsController.js'
+import { recordPageView } from '../middleware/trackPageView.js'
 import { authRequired } from '../middleware/auth.js'
 import { sequelize } from '../config/db.js'
 import { asyncHandler } from '../middleware/asyncHandler.js'
@@ -67,6 +69,10 @@ router.get('/now-playing', cacheResponse(60_000), reference.getNowPlaying)
 
 // --- Admin (JWT required) ---
 router.get('/admin/dashboard', authRequired, admin.dashboard)
+router.get('/admin/analytics', authRequired, analytics.getAnalytics)
+
+// --- Public page-view tracking beacon (no auth) ---
+router.post('/track', recordPageView)
 
 /** Self-describing index of the available endpoints. */
 router.get('/', (req, res) => {

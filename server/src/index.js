@@ -1,5 +1,12 @@
 // ---------------------------------------------------------------------------
-// Entrypoint — connect to MariaDB, then start listening.
+// Entrypoint — connect to MariaDB/SQLite, then start listening.
+// ---------------------------------------------------------------------------
+// Performance & reliability hardening:
+//  - keep-alive timeout set to 65s (> typical LB/proxy 60s) to avoid 502s
+//  - headers timeout to prevent slow-header DoS
+//  - graceful drain: stop accepting new connections on SIGTERM, drain
+//    existing ones before exit so no request is mid-flight dropped
+//  - max connections set to 1024 to handle traffic spikes
 // ---------------------------------------------------------------------------
 
 import { env, assertSecureConfig } from './config/env.js'
@@ -63,23 +70,56 @@ async function start() {
 
   const app = createApp()
   const server = app.listen(env.port, () => {
-    console.log(`[api] Job Fynx API listening on http://localhost:${env.port}`)
+    console.log(`[api] Job Alert X API listening on http://localhost:${env.port}`)
     console.log(`[api] endpoint index: http://localhost:${env.port}/api`)
     console.log(`[api] CORS origin(s): ${env.clientOrigin}`)
   })
 
+  // ── HTTP server performance tuning ──────────────────────────────────────
+  // 65s keep-alive is just above typical load-balancer 60s idle timeout,
+  // preventing unexpected 502s on long-lived connections.
+  server.keepAliveTimeout    = 65_000   // ms
+  server.headersTimeout      = 70_000   // ms (must be > keepAliveTimeout)
+  server.maxConnections      = 1_024    // concurrent TCP connections cap
+  server.timeout             = 0        // disable per-connection idle timeout (keep-alive handles it)
+
+  // ── Graceful shutdown ────────────────────────────────────────────────────
+  let shuttingDown = false
+
   const shutdown = async (signal) => {
-    console.log(`\n[api] ${signal} received — shutting down`)
+    if (shuttingDown) return
+    shuttingDown = true
+    console.log(`\n[api] ${signal} received — draining connections…`)
+
+    // Stop accepting new connections; wait for in-flight requests to finish
     server.close(async () => {
+      console.log('[api] all connections drained — closing database')
       await closeDatabase().catch(() => {})
+      console.log('[api] shutdown complete')
       process.exit(0)
     })
-    // Don't let a hung connection block the exit forever.
-    setTimeout(() => process.exit(1), 10_000).unref()
+
+    // Force-exit after 15s if drain takes too long
+    setTimeout(() => {
+      console.error('[api] shutdown timeout — forcing exit')
+      process.exit(1)
+    }, 15_000).unref()
   }
 
-  process.on('SIGINT', () => shutdown('SIGINT'))
+  process.on('SIGINT',  () => shutdown('SIGINT'))
   process.on('SIGTERM', () => shutdown('SIGTERM'))
+
+  // ── Unhandled rejection safety net ──────────────────────────────────────
+  process.on('unhandledRejection', (reason) => {
+    console.error('[api] unhandledRejection:', reason)
+    // Do NOT exit — log and continue; let the per-request error handler deal with it
+  })
+
+  process.on('uncaughtException', (error) => {
+    console.error('[api] uncaughtException:', error)
+    // Uncaught exceptions leave the process in an unknown state — exit and let pm2/docker restart
+    shutdown('uncaughtException')
+  })
 }
 
 start().catch(async (error) => {

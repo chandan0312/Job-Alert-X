@@ -14,6 +14,8 @@ import { useTheme } from '../context/ThemeContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { getTickerJobs } from '../services/api.js'
 import SarkariEmblem from './SarkariEmblem.jsx'
+import TextLoop from '@/components/ui/text-loop'
+
 
 function useClickOutside(ref, onOutside) {
   useEffect(() => {
@@ -82,12 +84,28 @@ export default function Header({ onMenuClick = () => {} }) {
                   X
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs font-semibold tracking-wider mt-1 text-slate-300">
-                <span>JOBS</span>
-                <span className="text-orange-500 text-[8px]">•</span>
-                <span>EXAMS</span>
-                <span className="text-orange-500 text-[8px]">•</span>
-                <span>RESULTS</span>
+              <div className="mt-1 flex items-center h-[18px]">
+                {/* SEO semantic keywords for search engines and screen readers */}
+                <span className="sr-only">
+                  Latest Govt Jobs, Sarkari Results, Exams, Admit Cards, Answer Keys &amp; Alerts | सरकारी नौकरी
+                </span>
+
+                <TextLoop
+                  staticText="Govt"
+                  rotatingTexts={[
+                    "Jobs & Alerts",
+                    "सरकारी नौकरी",
+                    "Exams & Results",
+                    "भर्ती व परिणाम",
+                    "Admit Cards",
+                  ]}
+                  interval={2500}
+                  className="text-[10.5px] sm:text-xs font-bold tracking-wider text-slate-300 leading-none"
+                  staticTextClassName="text-slate-300 font-bold mr-1.5 leading-none"
+                  rotatingTextClassName="bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent font-extrabold leading-none"
+                  backgroundClassName="hidden"
+                  cursorClassName="w-[1.5px] bg-orange-400 h-[1em]"
+                />
               </div>
             </div>
           </Link>

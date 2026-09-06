@@ -49,7 +49,7 @@ export default function defineJob(sequelize) {
       },
       tagline: DataTypes.STRING(255),
       shortInfo: DataTypes.TEXT,
-      detailedDescription: DataTypes.TEXT,
+      detailedDescription: DataTypes.TEXT('long'),
       applyUrl: DataTypes.STRING(1000),
       notificationPdfUrl: DataTypes.STRING(1000),
       officialWebsiteUrl: DataTypes.STRING(1000),

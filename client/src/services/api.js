@@ -240,6 +240,27 @@ export const fetchJobById = (id) =>
 export const fetchDashboard = (token) =>
   http('GET', '/api/admin/dashboard', { token, bypassCache: true })
 
+export const fetchAnalytics = (token) =>
+  http('GET', '/api/admin/analytics', { token, bypassCache: true })
+
+/**
+ * POST /api/track — send a page-view beacon (fire and forget).
+ */
+export async function trackPageView(path, referrer, sessionId) {
+  const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+  try {
+    await fetch(`${API_BASE}/api/track`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, referrer, sessionId }),
+      // keepalive allows the beacon to survive page unloads
+      keepalive: true,
+    })
+  } catch {
+    /* tracking failures must never surface to the user */
+  }
+}
+
 /**
  * Upload PDF or official notification document (Admin only).
  */
@@ -258,6 +279,28 @@ export async function uploadPdfDoc(token, file) {
   const data = await res.json()
   if (!res.ok) {
     throw new Error(data.error || 'Failed to upload PDF document')
+  }
+  return data
+}
+
+/**
+ * Upload image for blog posts and rich descriptions (Admin only).
+ */
+export async function uploadImage(token, file) {
+  const formData = new FormData()
+  formData.append('image', file)
+
+  const res = await fetch(`${API_BASE}/api/upload/image`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  })
+
+  const data = await res.json()
+  if (!res.ok) {
+    throw new Error(data.error || 'Failed to upload image')
   }
   return data
 }

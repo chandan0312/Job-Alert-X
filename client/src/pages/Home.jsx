@@ -8,6 +8,7 @@ import SEOHead from '../components/SEOHead.jsx'
 import { getTrending, getRecentlyPosted, getJobsByCategory } from '../services/api.js'
 import { Clock, Sparkles, Landmark, Scale, TrainFront, Shield, Building2 } from 'lucide-react'
 
+
 function ComingSoonBlock({ icon: Icon, label }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-hairline bg-subtle/40 py-10 text-center">

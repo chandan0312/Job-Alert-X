@@ -77,4 +77,69 @@ router.post('/pdf', authRequired, upload.single('file'), (req, res) => {
   })
 })
 
+// ---------------------------------------------------------------------------
+// Image Upload for Blog & Notification Descriptions
+// ---------------------------------------------------------------------------
+const imageUploadDir = path.resolve(__dirname, '../../uploads/images')
+if (!fs.existsSync(imageUploadDir)) {
+  fs.mkdirSync(imageUploadDir, { recursive: true })
+}
+
+const imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, imageUploadDir)
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase() || '.jpg'
+    const baseName = path
+      .basename(file.originalname, ext)
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '-')
+      .replace(/-+/g, '-')
+      .slice(0, 50)
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e4)}`
+    cb(null, `img-${baseName}-${uniqueSuffix}${ext}`)
+  },
+})
+
+const imageFilter = (req, file, cb) => {
+  const allowed = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.avif']
+  const ext = path.extname(file.originalname).toLowerCase()
+  if (allowed.includes(ext)) {
+    cb(null, true)
+  } else {
+    cb(new Error(`Only image files (${allowed.join(', ')}) are permitted.`))
+  }
+}
+
+const imageUpload = multer({
+  storage: imageStorage,
+  fileFilter: imageFilter,
+  limits: {
+    fileSize: 15 * 1024 * 1024, // 15 MB max image size
+  },
+})
+
+/**
+ * POST /api/upload/image
+ * Upload inline images for blog posts and rich descriptions (Admin only).
+ */
+router.post('/image', authRequired, imageUpload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No image uploaded. Please attach a valid image file.' })
+  }
+
+  const fileUrl = `/uploads/images/${req.file.filename}`
+
+  res.status(201).json({
+    success: true,
+    url: fileUrl,
+    filename: req.file.originalname,
+    storedFilename: req.file.filename,
+    size: req.file.size,
+    mimetype: req.file.mimetype,
+  })
+})
+
 export default router
+

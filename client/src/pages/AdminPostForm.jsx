@@ -27,6 +27,8 @@ import {
 import { useAuth } from '../context/AuthContext.jsx'
 import { fetchJobById, createJob, updateJob, getCategories, uploadPdfDoc } from '../services/api.js'
 import SEOHead from '../components/SEOHead.jsx'
+import BlogRichEditor from '../components/BlogRichEditor.jsx'
+import RichContentRenderer from '../components/RichContentRenderer.jsx'
 
 // Static kind labels (mirrors server /api/kinds)
 const KIND_LABELS = {
@@ -443,18 +445,21 @@ export default function AdminPostForm() {
             </div>
 
             <div>
-              <div className="mb-1.5 flex items-center justify-between">
-                <label className="text-xs font-semibold text-ink-soft">
-                  Detailed Description / Full Notification Text
-                </label>
-                <span className="text-[11px] text-ink-faint">Supports multi-paragraph descriptions &amp; instructions</span>
+              <div className="mb-2 flex items-center justify-between">
+                <div>
+                  <label className="text-xs font-bold text-ink flex items-center gap-1.5">
+                    <Sparkles size={14} className="text-brand-500" />
+                    Detailed Blog &amp; Notification Description
+                  </label>
+                  <p className="text-[11px] text-ink-faint mt-0.5">
+                    Add full blogs with headings, bold/italic, custom tables, images, notices, and lists.
+                  </p>
+                </div>
               </div>
-              <textarea
-                rows={6}
+              <BlogRichEditor
                 value={form.detailedDescription || ''}
-                onChange={setField('detailedDescription')}
-                placeholder="Enter detailed post guidelines, job responsibilities, selection process, syllabus overview, stage-by-stage instructions, or official notification excerpts..."
-                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                onChange={(html) => setForm((prev) => ({ ...prev, detailedDescription: html }))}
+                token={token}
               />
             </div>
 
@@ -847,11 +852,11 @@ export default function AdminPostForm() {
                 )}
 
                 {form.detailedDescription && (
-                  <div className="mt-2.5 rounded-lg border border-hairline bg-surface/60 p-2.5">
-                    <span className="text-[10.5px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Detailed Description</span>
-                    <p className="mt-1 text-[11px] leading-relaxed text-ink-muted line-clamp-3 whitespace-pre-line">
-                      {form.detailedDescription}
-                    </p>
+                  <div className="mt-2.5 rounded-lg border border-hairline bg-surface/60 p-2.5 max-h-56 overflow-y-auto">
+                    <span className="text-[10.5px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 block mb-1">
+                      Detailed Blog Content
+                    </span>
+                    <RichContentRenderer content={form.detailedDescription} className="text-xs line-clamp-6" />
                   </div>
                 )}
 

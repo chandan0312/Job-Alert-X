@@ -17,6 +17,7 @@ import {
   X,
   SunMedium,
   MoonStar,
+  BarChart2,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 import Header from '../components/Header.jsx'
@@ -24,9 +25,10 @@ import SarkariEmblem from '../components/SarkariEmblem.jsx'
 
 const ADMIN_NAV = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true, color: '#6d70f0' },
+  { to: '/admin/analytics', label: 'Analytics', icon: BarChart2, color: '#06b6d4' },
   { to: '/admin/posts', label: 'Manage Posts', icon: FileText, color: '#f59e0b' },
   { to: '/admin/posts/new', label: 'Create Post', icon: PlusCircle, color: '#10b981' },
-  { to: '/admin/feedback', label: 'Feedback & Suggestions', icon: MessageSquare, color: '#06b6d4' },
+  { to: '/admin/feedback', label: 'Feedback & Suggestions', icon: MessageSquare, color: '#f43f5e' },
 ]
 
 function AdminNavItem({ item, onClick }) {

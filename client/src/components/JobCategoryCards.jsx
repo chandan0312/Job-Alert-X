@@ -93,18 +93,6 @@ const CATEGORY_THEMES = {
   },
 }
 
-function formatBadge(cat) {
-  if (cat.totalVacancies && cat.totalVacancies > 0) {
-    if (cat.totalVacancies >= 1000) {
-      return `${Math.round(cat.totalVacancies / 1000)}k+ Posts`
-    }
-    return `${cat.totalVacancies.toLocaleString('en-IN')} Posts`
-  }
-  if (cat.postsCount && cat.postsCount > 0) {
-    return `${cat.postsCount} Alerts`
-  }
-  return 'Active'
-}
 
 export default function JobCategoryCards() {
   const sliderRef = useRef(null)
@@ -210,26 +198,19 @@ export default function JobCategoryCards() {
         ).map((cat) => {
           const theme = CATEGORY_THEMES[cat.slug] || CATEGORY_THEMES.other
           const Icon = theme.icon
-          const badgeText = formatBadge(cat)
           return (
             <Link
               key={cat.slug}
               to={`/category/${cat.slug}`}
-              className={`group relative flex h-[215px] sm:h-[230px] w-[170px] sm:w-[185px] md:w-[calc((100%-4*12px)/5)] shrink-0 snap-start flex-col justify-between rounded-2xl border ${theme.border} ${theme.gradient} p-4 shadow-sm transition-all duration-300 hover:-translate-y-1.5 ${theme.glow}`}
+              className={`group relative flex h-[200px] sm:h-[215px] w-[170px] sm:w-[185px] md:w-[calc((100%-4*12px)/5)] shrink-0 snap-start flex-col justify-between rounded-2xl border ${theme.border} ${theme.gradient} p-4 shadow-sm transition-all duration-300 hover:-translate-y-1.5 ${theme.glow}`}
             >
-              {/* Top Row: Category Icon + Vacancy Badge */}
+              {/* Top Row: Category Icon */}
               <div className="flex items-start justify-between">
                 <div
                   className={`flex h-11 w-11 items-center justify-center rounded-xl shadow-xs transition-transform duration-300 group-hover:scale-110 ${theme.iconBg}`}
                 >
                   <Icon size={22} />
                 </div>
-
-                <span
-                  className={`rounded-full px-2 py-0.5 text-xs font-bold shadow-xs ${theme.badgeBg}`}
-                >
-                  {badgeText}
-                </span>
               </div>
 
               {/* Middle Row: Category Name + Info Subtitle */}
