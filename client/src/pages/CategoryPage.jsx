@@ -126,15 +126,52 @@ export default function CategoryPage() {
     ],
   }
 
+  // Per-category keyword maps using high-volume, low-difficulty keywords from SEO data
+  const CATEGORY_KEYWORD_MAP = {
+    ssc: 'free job alert ssc, ssc cgl recruitment 2026, ssc chsl 2026, ssc mts 2026, govt job notification 2026, new vacancy 2026, 12th pass govt job, central govt jobs, latest govt jobs, free job alert 2026, sarkari job alert, job alert x',
+    railway: 'free job alert railway, rrb ntpc 2026, railway recruitment 2026, railway group d 2026, government job vacancy 2026, new job vacancy 2026, govt job notification 2026, free job alert 2026, latest govt jobs, 12th pass govt job, sarkari naukri, job alert x',
+    banking: 'ibps po 2026, ibps clerk 2026, sbi po 2026, sbi clerk 2026, bank job alert, government job vacancy 2026, new job vacancy 2026, free job alert 2026, latest govt jobs, central govt jobs, job notification 2026, job alert x',
+    upsc: 'upsc cse 2026, upsc recruitment 2026, government job vacancy 2026, central govt jobs, latest govt jobs, free job alert 2026, govt job notification 2026, sarkari naukri, job notification 2026, sarkari job alert, job alert x',
+    defence: 'defence job alert, army recruitment 2026, navy recruitment 2026, airforce recruitment 2026, government job vacancy 2026, new job vacancy 2026, free job alert 2026, 12th pass govt job, latest govt jobs, job alert x',
+    police: 'police recruitment 2026, constable bharti 2026, up police 2026, government job vacancy 2026, new vacancy 2026, free job alert 2026, 12th pass govt job, latest govt jobs, sarkari naukri, job alert x',
+    teaching: 'teacher recruitment 2026, tet 2026, ctet 2026, government job vacancy 2026, new vacancy 2026, free job alert 2026, latest govt jobs, sarkari naukri, job notification 2026, job alert x',
+    nursing: 'nursing job alert, ans recruitment 2026, nurse vacancy 2026, government job vacancy 2026, free job alert 2026, new job vacancy 2026, latest govt jobs, job alert x',
+    odisha: 'free job alert odisha, odisha free job alert, odisha job alert, odisha govt job, freejobalert odisha, odisha government jobs 2026, new vacancy 2026 odisha, latest govt jobs, job alert x',
+    punjab: 'free job alert punjab, punjab job alert, job alert punjab, punjab govt jobs, govt jobs in punjab, free job alert 2026 punjab, new vacancy 2026, job alert x',
+    bihar: 'free job alert bihar, bihar job alert, job alert bihar, bihar govt job, government job vacancy 2026, new vacancy 2026 bihar, free job alert 2026, job alert x',
+    rajasthan: 'free job alert rajasthan, rajasthan job alert, job alert rajasthan, rajasthan govt job, government job vacancy 2026, new vacancy 2026, free job alert 2026, job alert x',
+    hp: 'free job alert hp, hp job alert, job alert hp, hp free job alert, hp govt job, himachal pradesh govt jobs 2026, new vacancy 2026, free job alert 2026, job alert x',
+    cg: 'free job alert cg, cg job alert, cg free job alert, job alert cg, chhattisgarh govt jobs 2026, government job vacancy 2026, free job alert 2026, job alert x',
+    jharkhand: 'free job alert jharkhand, job alert jharkhand, jharkhand govt jobs 2026, government job vacancy 2026, free job alert 2026, new vacancy 2026, job alert x',
+    mp: 'free job alert mp, job alert mp, mp job alert, mp govt jobs 2026, government job vacancy 2026, free job alert 2026, new vacancy 2026, job alert x',
+    haryana: 'free job alert haryana, haryana job alert, job alert haryana, haryana govt jobs 2026, government job vacancy 2026, free job alert 2026, new vacancy 2026, job alert x',
+    karnataka: 'free job alert karnataka, karnataka job alert, job alert karnataka, karnataka forest department recruitment 2026, government job vacancy 2026, free job alert 2026, job alert x',
+    ap: 'free job alert ap, ap job alert, job alert ap, ap free job alert, andhra pradesh govt jobs 2026, government job vacancy 2026, free job alert 2026, job alert x',
+    assam: 'assam job alert, job alert assam, assam govt jobs 2026, government job vacancy 2026, free job alert 2026, new vacancy 2026, job alert x',
+  }
+
+  // Per-kind keyword maps
+  const KIND_KEYWORD_MAP = {
+    'admit-card': 'admit card 2026, free job alert admit card, download admit card 2026, govt exam admit card, ssc admit card, railway admit card, ibps admit card, police admit card, latest notification, job alert x',
+    result: 'sarkari result 2026, govt exam result 2026, ssc result, railway result, ibps result, police result, iti result 2026, free job alert result, latest notification, job alert x',
+    'answer-key': 'answer key 2026, official answer key download, ssc answer key, railway answer key, police answer key, latest answer key 2026, objection window, free job alert, job alert x',
+    syllabus: 'exam syllabus 2026, ssc syllabus, railway syllabus, ibps syllabus, upsc syllabus, exam pattern 2026, free job alert syllabus, job alert x',
+    job: 'free job alert, government job vacancy 2026, new job vacancy 2026, govt job notification 2026, latest govt jobs, new vacancy 2026, 12th pass govt job, central govt jobs, sarkari naukri, job alert x',
+  }
+
   const categoryKeywords = mode === 'category'
-    ? `${heading.title} jobs, ${heading.title} recruitment 2026, ${heading.subtitle}, sarkari result, admit card, eligibility, online application form, job alert x`
-    : `${heading.title} 2026, sarkari result ${heading.title}, latest ${heading.title} download, govt jobs, job alert x`
+    ? (CATEGORY_KEYWORD_MAP[slug] || `${heading.title} jobs 2026, ${heading.title} recruitment 2026, free job alert 2026, govt job notification 2026, government job vacancy 2026, latest govt jobs, sarkari naukri, new vacancy 2026, job alert x`)
+    : (KIND_KEYWORD_MAP[kind] || `${heading.title} 2026, free job alert 2026, government job vacancy 2026, latest govt jobs, job alert x`)
 
   return (
     <div className="animate-fade-in space-y-6">
       <SEOHead
-        title={`${heading.title} (${heading.subtitle})`}
-        description={`Browse latest ${heading.title} notifications 2026. Get instant updates on upcoming vacancies, exam dates, eligibility criteria, online application forms, and results on Job Alert X.`}
+        title={mode === 'category'
+          ? `${heading.title} Jobs 2026 — Free Job Alert, New Vacancy & Recruitment Notification`
+          : `${heading.title} 2026 — Free Job Alert, Latest Govt Notifications`}
+        description={mode === 'category'
+          ? `Free Job Alert — Latest ${heading.title} recruitment 2026, new vacancy notifications, online application form, admit card, result and answer key. Get instant govt job notification 2026 on Job Alert X.`
+          : `Latest ${heading.title} 2026 — Free job alert for all govt exam notifications, download links, eligibility details and important dates on Job Alert X.`}
         keywords={categoryKeywords}
         canonical={`https://jobalertx.com/${mode === 'category' ? `category/${slug}` : `latest/${kind}`}`}
         jsonLd={[categoryBreadcrumbs]}

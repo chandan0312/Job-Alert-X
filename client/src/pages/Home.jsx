@@ -78,7 +78,7 @@ export default function Home() {
       '@type': 'WebSite',
       name: 'Job Alert X',
       url: 'https://jobalertx.com/',
-      description: 'India\'s #1 Govt Jobs Notification and Sarkari Result Portal',
+      description: 'Free Job Alert 2026 — India\'s #1 Govt Jobs Notification, Sarkari Naukri & Sarkari Result Portal. Latest government job vacancy 2026 across SSC, Railway, Banking, Police, UPSC.',
       potentialAction: {
         '@type': 'SearchAction',
         target: 'https://jobalertx.com/search?q={search_term_string}',
@@ -96,9 +96,9 @@ export default function Home() {
   return (
     <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_336px]">
       <SEOHead
-        title="Job Alert X — #1 Sarkari Result, Latest Govt Jobs, Admit Card & Answer Key"
-        description="Get instant Sarkari Result, Latest Govt Jobs 2026, Online Application Forms, Admit Cards, Answer Keys, and Exam Notifications for SSC, Railway RRB, Banking IBPS, Police, Defence and UPSC."
-        keywords="sarkari result, latest govt jobs, sarkari exam, sarkari naukri, govt jobs 2026, free job alert, online application form, admit card 2026, answer key, ssc cgl, railway rrb, ibps po, up police, upsc 2026"
+        title="Free Job Alert 2026 — Latest Govt Jobs, Sarkari Naukri, Admit Card & Result"
+        description="Free Job Alert 2026 — Get latest government job vacancy 2026, new recruitment notifications, online application forms, admit cards, results and answer keys for SSC, Railway RRB, Banking IBPS SBI, Police, Defence, UPSC across all states of India."
+        keywords="free job alert, free job alert 2026, government job vacancy 2026, new job vacancy 2026, govt job notification 2026, latest govt jobs, latest notification, job notification 2026, new vacancy 2026, govt jobs 2026, sarkari job alert, govt job alert, central govt jobs, latest job notification, free job alert odisha, free job alert punjab, free job alert bihar, free job alert rajasthan, free job alert hp, free job alert cg, free job alert jharkhand, free job alert mp, sarkari naukri, sarkari result 2026, admit card 2026, answer key, 12th pass govt job, forest guard recruitment 2026, free job alert ssc, free job alert railway, defence job alert, nursing job alert, job alert x"
         canonical="https://jobalertx.com/"
         jsonLd={homeSchemas}
       />
@@ -126,11 +126,11 @@ export default function Home() {
 
               <h1 className="text-sm sm:text-base md:text-lg font-extrabold leading-snug tracking-tight text-ink">
                 <span className="bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-600 dark:from-orange-400 dark:via-amber-300 dark:to-purple-400 bg-clip-text text-transparent font-black">
-                  Latest Govt Jobs, Sarkari Naukri, Exams &amp; Results
+                  Free Job Alert 2026 — Latest Govt Jobs, Sarkari Naukri & New Vacancy
                 </span>
                 <span className="mx-2 hidden text-hairline md:inline font-light" aria-hidden="true">|</span>
                 <span className="block text-xs sm:text-sm font-bold text-ink-muted mt-0.5 md:mt-0 md:inline tracking-normal">
-                  सरकारी नौकरी, भर्ती, परीक्षा एवं रिजल्ट
+                  सरकारी नौकरी, भर्ती, परीक्षा एवं रिजल्ट 2026
                 </span>
               </h1>
             </div>

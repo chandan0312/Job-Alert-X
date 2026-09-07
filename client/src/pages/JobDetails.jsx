@@ -23,6 +23,13 @@ import SEOHead from '../components/SEOHead.jsx'
 import RichContentRenderer from '../components/RichContentRenderer.jsx'
 import { getJobById, getJobsByCategory, getKindLabel, getCategories } from '../services/api.js'
 
+/** Safely parse a date string; returns null if invalid. */
+function safeDate(val) {
+  if (!val) return null
+  const d = new Date(val)
+  return isNaN(d.getTime()) ? null : d
+}
+
 const KIND_CONFIG = {
   job: {
     actionLabel: 'Apply Online',
@@ -131,8 +138,9 @@ export default function JobDetails() {
   const lastDateEntry = job.importantDates?.find(
     (d) => d.label?.toLowerCase().includes('last') || d.label?.toLowerCase().includes('close')
   )
-  const validThroughDate = lastDateEntry?.value
-    ? new Date(lastDateEntry.value).toISOString().split('T')[0]
+  const parsedLastDate = lastDateEntry?.value ? safeDate(lastDateEntry.value) : null
+  const validThroughDate = parsedLastDate
+    ? parsedLastDate.toISOString().split('T')[0]
     : new Date(Date.now() + 45 * 86400000).toISOString().split('T')[0]
 
   const jobPostingSchema = {
@@ -191,7 +199,7 @@ export default function JobDetails() {
     ],
   }
 
-  const keywords = `${job.title}, ${job.org}, ${job.orgShort || ''}, ${category?.name || ''} recruitment 2026, online application form, sarkari result, admit card, eligibility, last date, job alert x`
+  const keywords = `${job.title}, ${job.org}, ${job.orgShort || ''}, ${category?.name || ''} recruitment 2026, free job alert 2026, government job vacancy 2026, new vacancy 2026, govt job notification 2026, online application form, sarkari result, admit card, latest notification, sarkari naukri, latest govt jobs, job alert x`
 
   return (
     <div className="animate-fade-in">
