@@ -12,7 +12,8 @@
     "start": "node src/index.js",
     "seed": "node src/seed/seed.js",
     "seed:reset": "node src/seed/seed.js --force",
-    "import:excel": "node scripts/import_excel.js"
+    "import:excel": "node scripts/import_excel.js",
+    "sitemap:generate": "node scripts/generate-sitemaps.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
