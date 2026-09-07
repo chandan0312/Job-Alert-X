@@ -13,6 +13,7 @@ import compression from 'compression'
 import { env, corsOrigin } from './config/env.js'
 import apiRoutes from './routes/index.js'
 import { notFound, errorHandler } from './middleware/error.js'
+import * as sitemap from './controllers/sitemapController.js'
 
 export function createApp() {
   const app = express()
@@ -32,13 +33,25 @@ export function createApp() {
 
   app.get('/', (req, res) => {
     res.json({
-      name: 'Job Fynx API',
+      name: 'Job Alert X API',
       status: 'ok',
       docs: '/api',
     })
   })
 
   app.use('/api', apiRoutes)
+
+  // ---------------------------------------------------------------------------
+  // Dynamic XML Sitemaps (generated from live database — one per content type)
+  // Static sitemap-core.xml and sitemap.xml (sitemap index) are served from
+  // the client/public directory by the frontend host (Nginx/CDN).
+  // These dynamic endpoints cover all individual post pages.
+  // ---------------------------------------------------------------------------
+  app.get('/sitemap-jobs.xml',        sitemap.jobsSitemap)
+  app.get('/sitemap-admit-cards.xml', sitemap.admitCardsSitemap)
+  app.get('/sitemap-results.xml',     sitemap.resultsSitemap)
+  app.get('/sitemap-answer-keys.xml', sitemap.answerKeysSitemap)
+  app.get('/sitemap-syllabus.xml',    sitemap.syllabusSitemap)
 
   // Serve uploaded documents statically
   const uploadDir = new URL('../uploads', import.meta.url).pathname
@@ -54,3 +67,4 @@ export function createApp() {
 }
 
 export default createApp
+

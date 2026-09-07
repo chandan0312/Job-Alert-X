@@ -80,6 +80,10 @@ export default function defineJob(sequelize) {
       ageLimit: DataTypes.JSON, //       { min, max, note }
       posts: DataTypes.JSON, //          [{ name, total, eligibility }]
       links: DataTypes.JSON, //          [{ label, href, primary? }]
+
+      // Pay scale / salary — displayed on job detail page, important for E-E-A-T
+      // Stored as plain text, e.g. "Pay Level 4 (₹25,500 – ₹81,100) as per 7th CPC"
+      salary: DataTypes.STRING(500),
     },
     {
       tableName: 'jobs',

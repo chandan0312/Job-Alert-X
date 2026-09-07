@@ -64,6 +64,13 @@ async function start() {
       })
       console.log('[db] added officialWebsiteUrl column to jobs table')
     }
+    if (desc && !desc.salary) {
+      await qi.addColumn('jobs', 'salary', {
+        type: sequelize.Sequelize.DataTypes.STRING(500),
+        allowNull: true,
+      })
+      console.log('[db] added salary column to jobs table')
+    }
   } catch (err) {
     console.warn('[db] column check notice:', err.message)
   }
