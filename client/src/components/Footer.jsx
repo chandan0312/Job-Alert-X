@@ -21,7 +21,7 @@ const CATEGORY_LINKS = [
   { label: 'Railways (RRB)', to: '/category/railway' },
   { label: 'Defence & Police', to: '/category/defence' },
   { label: 'Teaching & TET', to: '/category/teaching' },
-  { label: 'All State PSCs', to: '/exams' },
+  { label: 'All Exam Categories', to: '/exams' },
 ]
 
 const QUICK_LINKS = [
@@ -31,17 +31,15 @@ const QUICK_LINKS = [
   { label: 'Answer Keys', to: '/latest/answer-key' },
   { label: 'Syllabus & Pattern', to: '/latest/syllabus' },
   { label: 'All Exam Categories', to: '/exams' },
-  { label: 'Job Search Portal', to: '/search' },
 ]
 
 const COMPANY_LINKS = [
-  { label: 'About Us', to: '/exams' },
+  { label: 'About Us', to: '/about' },
+  { label: 'Contact Us', to: '/contact' },
   { label: 'Feedback & Suggestions', to: '/feedback' },
-  { label: 'Help & Contact Support', to: 'mailto:jobalerx365@gmail.com', isExternal: true },
-  { label: 'Privacy Policy', to: '/exams' },
-  { label: 'Terms of Service', to: '/exams' },
-  { label: 'Disclaimer', to: '/exams' },
-  { label: 'Admin Portal', to: '/admin' },
+  { label: 'Privacy Policy', to: '/privacy' },
+  { label: 'Terms of Service', to: '/terms' },
+  { label: 'Disclaimer', to: '/disclaimer' },
 ]
 
 export default function Footer() {
@@ -118,12 +116,11 @@ export default function Footer() {
               {/* Social Channels Row */}
               <div className="flex items-center gap-1.5 pt-0.5">
                 {[
-                  { href: 'https://t.me', label: 'Telegram', icon: <Send size={13} /> },
-                  { href: 'https://youtube.com', label: 'YouTube', icon: <Youtube size={14} /> },
-                  { href: 'https://whatsapp.com', label: 'WhatsApp', icon: <MessageCircle size={13} /> },
-                  { href: 'https://twitter.com', label: 'Twitter', icon: <Twitter size={13} /> },
-                  { href: 'https://linkedin.com', label: 'LinkedIn', icon: <Linkedin size={13} /> },
-                  { href: 'https://github.com', label: 'GitHub', icon: <Github size={13} /> },
+                  { href: 'https://t.me/jobalertx', label: 'Telegram', icon: <Send size={13} /> },
+                  { href: 'https://youtube.com/@jobalertx', label: 'YouTube', icon: <Youtube size={14} /> },
+                  { href: 'https://whatsapp.com/channel/jobalertx', label: 'WhatsApp', icon: <MessageCircle size={13} /> },
+                  { href: 'https://twitter.com/jobalertx', label: 'Twitter / X', icon: <Twitter size={13} /> },
+                  { href: 'https://linkedin.com/company/jobalertx', label: 'LinkedIn', icon: <Linkedin size={13} /> },
                 ].map(({ href, label, icon }) => (
                   <a
                     key={label}
@@ -231,13 +228,15 @@ export default function Footer() {
 
             {/* Legal links */}
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-slate-400">
-              <Link to="/exams" className="transition-colors hover:text-slate-200">Privacy</Link>
+              <Link to="/privacy" className="transition-colors hover:text-slate-200">Privacy</Link>
               <span className="text-slate-700">•</span>
-              <Link to="/exams" className="transition-colors hover:text-slate-200">Terms</Link>
+              <Link to="/terms" className="transition-colors hover:text-slate-200">Terms</Link>
               <span className="text-slate-700">•</span>
-              <Link to="/exams" className="transition-colors hover:text-slate-200">Disclaimer</Link>
+              <Link to="/disclaimer" className="transition-colors hover:text-slate-200">Disclaimer</Link>
               <span className="text-slate-700">•</span>
-              <Link to="/feedback" className="transition-colors hover:text-slate-200">Help &amp; Feedback</Link>
+              <Link to="/about" className="transition-colors hover:text-slate-200">About</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/contact" className="transition-colors hover:text-slate-200">Contact</Link>
             </div>
 
             {/* Trust badges */}

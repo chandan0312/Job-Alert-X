@@ -8,26 +8,37 @@ import {
   CalendarDays,
   Download,
   ExternalLink,
-  ArrowRight,
   ChevronRight,
   Globe,
   FileText,
   BookOpen,
-  CheckCircle2,
-  Sparkles,
+  Ticket,
+  BarChart2,
+  ClipboardList,
+  HelpCircle,
+  Clock,
+  RefreshCw,
 } from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
 import CategoryBox from '../components/CategoryBox.jsx'
 import TableView from '../components/TableView.jsx'
 import SEOHead from '../components/SEOHead.jsx'
 import RichContentRenderer from '../components/RichContentRenderer.jsx'
-import { getJobById, getJobsByCategory, getKindLabel, getCategories } from '../services/api.js'
+import { getJobById, getJobsByCategory, getKindLabel, getCategories, getJobs } from '../services/api.js'
 
 /** Safely parse a date string; returns null if invalid. */
 function safeDate(val) {
   if (!val) return null
   const d = new Date(val)
   return isNaN(d.getTime()) ? null : d
+}
+
+/** Format ISO date string to human-readable DD Mon YYYY */
+function formatDate(isoOrString) {
+  if (!isoOrString) return null
+  const d = safeDate(isoOrString)
+  if (!d) return isoOrString
+  return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 
 const KIND_CONFIG = {
@@ -74,6 +85,7 @@ export default function JobDetails() {
   const { id } = useParams()
   const [job, setJob] = useState(undefined) // undefined = loading, null = not found
   const [related, setRelated] = useState([])
+  const [crossKindLinks, setCrossKindLinks] = useState([]) // same exam, different kinds
   const [categories, setCategories] = useState([])
 
   // Load categories for metadata (name, icon, color)
@@ -88,16 +100,32 @@ export default function JobDetails() {
   useEffect(() => {
     let active = true
     setJob(undefined)
+    setCrossKindLinks([])
     getJobById(id)
       .then((data) => {
         if (!active) return
         setJob(data || null)
         if (data) {
+          // Load related posts in the same category
           getJobsByCategory(data.category)
             .then((list) => {
               if (active) setRelated((list || []).filter((j) => j.id !== data.id).slice(0, 6))
             })
             .catch(() => {})
+
+          // Find cross-kind pages for same category (admit cards, results, answer keys, syllabus)
+          // We load ALL kinds from this category to find related content types
+          const ALL_KINDS = ['job', 'admit-card', 'result', 'answer-key', 'syllabus']
+          const otherKinds = ALL_KINDS.filter((k) => k !== data.kind)
+          Promise.all(
+            otherKinds.map((k) =>
+              getJobs({ category: data.category, kind: k, limit: 1 })
+                .then((list) => (list && list.length ? { kind: k, post: list[0] } : null))
+                .catch(() => null)
+            )
+          ).then((results) => {
+            if (active) setCrossKindLinks(results.filter(Boolean))
+          })
         }
       })
       .catch(() => active && setJob(null))
@@ -143,37 +171,73 @@ export default function JobDetails() {
     ? parsedLastDate.toISOString().split('T')[0]
     : new Date(Date.now() + 45 * 86400000).toISOString().split('T')[0]
 
-  const jobPostingSchema = {
-    '@type': 'JobPosting',
-    title: job.title,
-    description: job.detailedDescription || job.shortInfo || job.tagline || job.title,
-    identifier: {
-      '@type': 'PropertyValue',
-      name: job.org,
-      value: job.id,
-    },
-    hiringOrganization: {
-      '@type': 'Organization',
-      name: job.org,
-      sameAs: job.officialWebsiteUrl || undefined,
-    },
-    datePosted: job.postedOn || new Date().toISOString().split('T')[0],
-    validThrough: validThroughDate,
-    employmentType: 'FULL_TIME',
-    directApply: Boolean(primaryActionUrl),
-    applicantLocationRequirements: {
-      '@type': 'Country',
-      name: 'India',
-    },
-    jobLocation: {
-      '@type': 'Place',
-      address: {
-        '@type': 'PostalAddress',
-        addressCountry: 'IN',
-      },
-    },
-    totalJobOpenings: Number(job.vacancies) || 1,
-  }
+  // ── Structured Data ────────────────────────────────────────────────────────
+  // JobPosting schema is ONLY valid for actual job recruitment posts.
+  // Admit cards, results, answer keys, and syllabus use Article schema instead.
+  const pageUrl = `https://jobalertx.com/job/${job.id}`
+  const pageDescription = job.detailedDescription || job.shortInfo || job.tagline || job.title
+  const datePostedIso = job.postedOn
+    ? (safeDate(job.postedOn)?.toISOString() || new Date().toISOString())
+    : new Date().toISOString()
+  const updatedAtIso = job.updatedAt
+    ? (safeDate(job.updatedAt)?.toISOString() || datePostedIso)
+    : datePostedIso
+
+  const mainSchema = job.kind === 'job'
+    ? {
+        '@type': 'JobPosting',
+        title: job.title,
+        description: pageDescription,
+        identifier: {
+          '@type': 'PropertyValue',
+          name: job.org,
+          value: job.id,
+        },
+        hiringOrganization: {
+          '@type': 'Organization',
+          name: job.org,
+          sameAs: job.officialWebsiteUrl || undefined,
+        },
+        datePosted: datePostedIso,
+        validThrough: validThroughDate,
+        employmentType: 'FULL_TIME',
+        directApply: Boolean(primaryActionUrl),
+        applicantLocationRequirements: {
+          '@type': 'Country',
+          name: 'India',
+        },
+        jobLocation: {
+          '@type': 'Place',
+          address: {
+            '@type': 'PostalAddress',
+            addressCountry: 'IN',
+          },
+        },
+        totalJobOpenings: Number(job.vacancies) || undefined,
+      }
+    : {
+        // For admit-card, result, answer-key, syllabus — use Article
+        '@type': 'Article',
+        headline: job.title,
+        description: pageDescription,
+        author: {
+          '@type': 'Organization',
+          name: 'Job Alert X',
+          url: 'https://jobalertx.com/',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Job Alert X',
+          url: 'https://jobalertx.com/',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://jobalertx.com/favicon.svg',
+          },
+        },
+        datePublished: datePostedIso,
+        dateModified: updatedAtIso,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+      }
 
   const breadcrumbSchema = {
     '@type': 'BreadcrumbList',
@@ -194,10 +258,55 @@ export default function JobDetails() {
         '@type': 'ListItem',
         position: 3,
         name: job.title,
-        item: `https://jobalertx.com/job/${job.id}`,
+        item: pageUrl,
       },
     ],
   }
+
+  // Build FAQ schema from importantDates & key fields for job posts
+  const faqItems = job.kind === 'job' ? [
+    job.vacancies && {
+      q: `How many vacancies are there in ${job.title}?`,
+      a: `There are a total of ${Number(job.vacancies).toLocaleString('en-IN')} vacancies in ${job.title}.`,
+    },
+    job.eligibilityShort && {
+      q: `What is the educational qualification for ${job.title}?`,
+      a: `The required educational qualification for ${job.title} is: ${job.eligibilityShort}.`,
+    },
+    job.ageLimit && {
+      q: `What is the age limit for ${job.title}?`,
+      a: `The age limit for ${job.title} is Minimum ${job.ageLimit.min} years and Maximum ${job.ageLimit.max} years. ${job.ageLimit.note || 'Age relaxation is applicable as per government rules.'}`,
+    },
+    (() => {
+      const feeRow = job.fee?.find((f) => f.label?.toLowerCase().includes('general'))
+      return feeRow ? {
+        q: `What is the application fee for ${job.title}?`,
+        a: `The application fee for General/OBC/EWS category candidates is ${feeRow.value}. SC/ST/PwD candidates may be exempt or have reduced fees as per the official notification.`,
+      } : null
+    })(),
+    (() => {
+      const lastDate = job.importantDates?.find((d) => d.label?.toLowerCase().includes('last'))
+      return lastDate ? {
+        q: `What is the last date to apply for ${job.title}?`,
+        a: `The last date to apply for ${job.title} is ${lastDate.value}. Candidates must submit the online application before this date.`,
+      } : null
+    })(),
+    primaryActionUrl && {
+      q: `How to apply for ${job.title}?`,
+      a: `To apply for ${job.title}: 1. Visit the official website at ${job.officialWebsiteUrl || 'the official recruitment portal'}. 2. Click on the Apply Online link. 3. Register with your email and mobile number. 4. Fill in the application form with correct details. 5. Upload required documents and pay the application fee. 6. Submit and download the confirmation page.`,
+    },
+  ].filter(Boolean) : []
+
+  const faqSchema = faqItems.length > 0 ? {
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  } : null
+
+  const allSchemas = [mainSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])]
 
   const keywords = `${job.title}, ${job.org}, ${job.orgShort || ''}, ${category?.name || ''} recruitment 2026, free job alert 2026, government job vacancy 2026, new vacancy 2026, govt job notification 2026, online application form, sarkari result, admit card, latest notification, sarkari naukri, latest govt jobs, job alert x`
 
@@ -205,10 +314,13 @@ export default function JobDetails() {
     <div className="animate-fade-in">
       <SEOHead
         title={`${job.title} — ${job.org}`}
-        description={`${job.title} recruitment by ${job.org}. Total vacancies: ${job.vacancies ? Number(job.vacancies).toLocaleString('en-IN') : 'Check Notification'}. Eligibility: ${job.eligibilityShort || 'Check Details'}. Apply online, download notification PDF, admit card and results on Job Alert X.`}
+        description={`${job.title} ${job.kind === 'job' ? 'recruitment' : ''} by ${job.org}. ${job.vacancies ? `Total vacancies: ${Number(job.vacancies).toLocaleString('en-IN')}. ` : ''}Eligibility: ${job.eligibilityShort || 'Check Details'}. Download notification PDF, admit card, results and answer keys on Job Alert X.`}
         keywords={keywords}
-        canonical={`https://jobalertx.com/job/${job.id}`}
-        jsonLd={[jobPostingSchema, breadcrumbSchema]}
+        canonical={pageUrl}
+        ogType={job.kind === 'job' ? 'website' : 'article'}
+        jsonLd={allSchemas}
+        datePublished={datePostedIso}
+        dateModified={updatedAtIso}
       />
 
       {/* Breadcrumb */}
@@ -252,8 +364,26 @@ export default function JobDetails() {
               {job.vacancies ? (
                 <Stat icon={Briefcase} label="Total Posts" value={job.vacancies.toLocaleString('en-IN')} />
               ) : null}
-              <Stat icon={CalendarDays} label="Posted" value={job.postedOn || job.postedAt || 'Recent'} />
+              <Stat
+                icon={CalendarDays}
+                label="Posted"
+                value={
+                  job.postedOn || job.postedAt
+                    ? <time dateTime={safeDate(job.postedOn || job.postedAt)?.toISOString() || undefined}>{job.postedOn || job.postedAt}</time>
+                    : 'Recent'
+                }
+              />
             </div>
+            {/* Last updated timestamp — important for E-E-A-T */}
+            {job.updatedAt && (
+              <p className="mt-2 flex items-center gap-1.5 text-[11px] text-ink-faint">
+                <RefreshCw size={11} />
+                Last updated:{' '}
+                <time dateTime={safeDate(job.updatedAt)?.toISOString()}>
+                  {formatDate(job.updatedAt)}
+                </time>
+              </p>
+            )}
 
             {/* Quick Action Header Bar */}
             {(primaryActionUrl || job.notificationPdfUrl || job.officialWebsiteUrl) && (
@@ -379,6 +509,36 @@ export default function JobDetails() {
               <p className="text-[14px] leading-relaxed text-ink-soft">{job.eligibility}</p>
             </section>
           )}
+
+          {/* FAQ Section — auto-generated for job posts */}
+          {faqItems.length > 0 && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-4 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-500/10 text-brand-600">
+                  <HelpCircle size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Frequently Asked Questions</h2>
+              </div>
+              <div className="space-y-4">
+                {faqItems.map(({ q, a }, idx) => (
+                  <details key={idx} className="group rounded-xl border border-hairline bg-subtle/40 p-4 open:bg-brand-500/5 open:border-brand-500/20 transition-all">
+                    <summary className="flex cursor-pointer list-none items-start justify-between gap-2 text-[13.5px] font-semibold text-ink">
+                      <span>{q}</span>
+                      <ChevronRight size={15} className="mt-0.5 shrink-0 text-ink-faint transition-transform group-open:rotate-90" />
+                    </summary>
+                    <p className="mt-3 text-[13px] leading-relaxed text-ink-soft">{a}</p>
+                  </details>
+                ))}
+              </div>
+              <p className="mt-3 text-[11px] text-ink-faint">
+                ⚠️ Always verify information on the{' '}
+                {job.officialWebsiteUrl ? (
+                  <a href={job.officialWebsiteUrl} target="_blank" rel="noopener noreferrer" className="text-brand-600 underline">official website</a>
+                ) : 'official website'}
+                {' '}before applying.
+              </p>
+            </section>
+          )}
         </main>
 
         {/* Sidebar */}
@@ -473,7 +633,48 @@ export default function JobDetails() {
             </div>
           </section>
 
-          {/* Related */}
+          {/* Cross-kind links: Admit Card, Result, Answer Key, Syllabus for same category */}
+          {crossKindLinks.length > 0 && (
+            <section className="card p-5 space-y-3">
+              <div className="border-b border-hairline pb-2.5">
+                <h2 className="text-[13.5px] font-bold text-ink flex items-center gap-2">
+                  <ClipboardList size={15} className="text-brand-600" />
+                  Related {category?.name || 'Exam'} Resources
+                </h2>
+              </div>
+              <div className="space-y-1.5">
+                {crossKindLinks.map(({ kind, post }) => {
+                  const kindIcons = {
+                    'admit-card': <Ticket size={14} className="text-purple-500" />,
+                    result: <BarChart2 size={14} className="text-green-500" />,
+                    'answer-key': <FileText size={14} className="text-orange-500" />,
+                    syllabus: <BookOpen size={14} className="text-blue-500" />,
+                    job: <Briefcase size={14} className="text-brand-500" />,
+                  }
+                  const kindLabels = {
+                    'admit-card': 'Admit Card',
+                    result: 'Result',
+                    'answer-key': 'Answer Key',
+                    syllabus: 'Syllabus',
+                    job: 'Recruitment',
+                  }
+                  return (
+                    <Link
+                      key={kind}
+                      to={`/job/${post.id}`}
+                      className="flex items-center gap-2.5 rounded-lg border border-hairline bg-surface px-3 py-2 text-[12.5px] text-ink-soft hover:border-brand-500/30 hover:text-ink hover:bg-subtle transition-all"
+                    >
+                      {kindIcons[kind]}
+                      <span className="font-medium">{kindLabels[kind]}</span>
+                      <ChevronRight size={12} className="ml-auto text-ink-faint" />
+                    </Link>
+                  )
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* Related posts in same category */}
           {related.length > 0 && (
             <CategoryBox
               title={`More in ${category?.name || 'this category'}`}

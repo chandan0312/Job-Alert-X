@@ -1,24 +1,33 @@
 // ---------------------------------------------------------------------------
 // SEOHead — per-page SEO management using document APIs.
 // ---------------------------------------------------------------------------
-// Updates document.title and meta tags dynamically for each page.
+// Updates document.title, meta tags, canonical, and JSON-LD dynamically for
+// each route. Runs client-side via useEffect after React mounts.
+//
+// IMPORTANT: Because this is a CSR SPA, canonical and structured data are set
+// after JavaScript execution. For full SSR reliability these values should
+// eventually be moved to server-rendered HTML. In the interim, this component
+// covers the Googlebot second-pass rendering window.
 // ---------------------------------------------------------------------------
 
 import { useEffect } from 'react'
 
 const SITE_NAME = 'Job Alert X'
 const DEFAULT_DESCRIPTION =
-  'Job Alert X — India\'s #1 Government Jobs Portal. Latest sarkari naukri, SSC, UPSC, Railway, Banking jobs, admit cards, results, answer keys and syllabus updates.'
+  'Job Alert X — India\'s Free Government Jobs Portal. Latest sarkari naukri, SSC, UPSC, Railway, Banking jobs, admit cards, results, answer keys and syllabus updates 2026.'
 
 /**
  * @param {object} props
- * @param {string} props.title         — Page title (appended with site name)
- * @param {string} [props.description] — Meta description
- * @param {string} [props.keywords]    — Meta keywords
- * @param {string} [props.canonical]   — Canonical URL
- * @param {string} [props.ogImage]     — Open Graph image URL
- * @param {string} [props.ogType]      — Open Graph type (default: website)
- * @param {object|object[]} [props.jsonLd] — JSON-LD structured data object or array
+ * @param {string}          props.title         — Page title (appended with site name)
+ * @param {string}         [props.description]  — Meta description (max ~155 chars)
+ * @param {string}         [props.keywords]     — Meta keywords
+ * @param {string}         [props.canonical]    — Canonical URL (absolute)
+ * @param {string}         [props.ogImage]      — Open Graph image URL
+ * @param {string}         [props.ogType]       — Open Graph type (default: 'website')
+ * @param {object|object[]}[props.jsonLd]       — JSON-LD structured data object or array
+ * @param {boolean}        [props.noIndex]      — If true, adds noindex,follow robots meta
+ * @param {string}         [props.datePublished]— ISO date string for datePublished
+ * @param {string}         [props.dateModified] — ISO date string for dateModified
  */
 export default function SEOHead({
   title,
@@ -28,15 +37,18 @@ export default function SEOHead({
   ogImage,
   ogType = 'website',
   jsonLd,
+  noIndex = false,
+  datePublished,
+  dateModified,
 }) {
   useEffect(() => {
-    // Document title
+    // ── Document title ───────────────────────────────────────────────────────
     const fullTitle = title
       ? `${title} | ${SITE_NAME}`
-      : `${SITE_NAME} — #1 Sarkari Result & Latest Govt Jobs`
+      : `${SITE_NAME} — Free Job Alert 2026, Latest Govt Jobs & Sarkari Naukri`
     document.title = fullTitle
 
-    // Helper to set/create a meta tag
+    // ── Helper: set or create a meta tag ────────────────────────────────────
     const setMeta = (attr, key, content) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`)
       if (!el) {
@@ -47,27 +59,42 @@ export default function SEOHead({
       el.setAttribute('content', content)
     }
 
-    // Standard meta
-    setMeta('name', 'description', description)
-    if (keywords) {
-      setMeta('name', 'keywords', keywords)
-    }
+    // ── Robots: honour noIndex prop ──────────────────────────────────────────
+    setMeta('name', 'robots',
+      noIndex
+        ? 'noindex, follow'
+        : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+    )
+    setMeta('name', 'googlebot',
+      noIndex
+        ? 'noindex, follow'
+        : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+    )
 
-    // Open Graph
+    // ── Standard meta ────────────────────────────────────────────────────────
+    setMeta('name', 'description', description)
+    if (keywords) setMeta('name', 'keywords', keywords)
+
+    // ── Open Graph ───────────────────────────────────────────────────────────
     setMeta('property', 'og:title', fullTitle)
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:type', ogType)
+    setMeta('property', 'og:site_name', SITE_NAME)
+    setMeta('property', 'og:locale', 'en_IN')
     if (canonical) setMeta('property', 'og:url', canonical)
     if (ogImage) setMeta('property', 'og:image', ogImage)
-    setMeta('property', 'og:site_name', SITE_NAME)
 
-    // Twitter Card
+    // ── Twitter Card ─────────────────────────────────────────────────────────
     setMeta('name', 'twitter:card', ogImage ? 'summary_large_image' : 'summary')
     setMeta('name', 'twitter:title', fullTitle)
     setMeta('name', 'twitter:description', description)
     if (ogImage) setMeta('name', 'twitter:image', ogImage)
 
-    // Canonical
+    // ── Article dates (when provided) ────────────────────────────────────────
+    if (datePublished) setMeta('property', 'article:published_time', datePublished)
+    if (dateModified) setMeta('property', 'article:modified_time', dateModified)
+
+    // ── Canonical ────────────────────────────────────────────────────────────
     let canonicalEl = document.querySelector('link[rel="canonical"]')
     if (canonical) {
       if (!canonicalEl) {
@@ -77,10 +104,11 @@ export default function SEOHead({
       }
       canonicalEl.setAttribute('href', canonical)
     } else if (canonicalEl) {
+      // No canonical specified for this page — remove any stale one
       canonicalEl.remove()
     }
 
-    // JSON-LD (supports single object or array via @graph)
+    // ── JSON-LD (supports single object or array via @graph) ─────────────────
     const scriptId = 'seo-json-ld'
     let scriptEl = document.getElementById(scriptId)
     if (jsonLd) {
@@ -98,12 +126,12 @@ export default function SEOHead({
       scriptEl.remove()
     }
 
-    // Cleanup
+    // ── Cleanup: remove JSON-LD when component unmounts ─────────────────────
     return () => {
       const ldScript = document.getElementById(scriptId)
       if (ldScript) ldScript.remove()
     }
-  }, [title, description, keywords, canonical, ogImage, ogType, jsonLd])
+  }, [title, description, keywords, canonical, ogImage, ogType, jsonLd, noIndex, datePublished, dateModified])
 
   return null
 }

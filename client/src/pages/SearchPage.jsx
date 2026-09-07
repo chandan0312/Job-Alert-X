@@ -51,11 +51,9 @@ export default function SearchPage() {
   return (
     <div className="mx-auto max-w-3xl animate-fade-in">
       <SEOHead
-        title={query ? `Search Results for "${query}"` : 'Search Sarkari Jobs, Results & Admit Cards 2026'}
-        description="Search thousands of latest government vacancies, answer keys, results, eligibility guidelines and admit cards on Job Alert X."
-        keywords="sarkari job search, find govt jobs, search admit card, result search, job alert x"
-        canonical="https://jobalertx.com/search"
-        jsonLd={[searchBreadcrumbs]}
+        title={query ? `Search Results for "${query}"` : 'Search Sarkari Jobs, Results & Admit Cards'}
+        description="Search government job vacancies, admit cards, results, and answer keys on Job Alert X."
+        noIndex={true}
       />
 
       <h1 className="text-2xl font-extrabold tracking-tight text-ink">Search</h1>

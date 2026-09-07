@@ -91,6 +91,7 @@ const DEFAULT_FORM = {
   tagline: '',
   shortInfo: '',
   detailedDescription: '',
+  salary: '',
   applyUrl: '',
   notificationPdfUrl: '',
   officialWebsiteUrl: '',
@@ -227,6 +228,16 @@ export default function AdminPostForm() {
     if (!form.title.trim() || !form.org.trim()) {
       setError('Please provide at least a post Title and Organisation.')
       return
+    }
+
+    // SEO quality warning: detailedDescription is strongly recommended
+    if (!form.detailedDescription || form.detailedDescription.replace(/<[^>]*>/g, '').trim().length < 200) {
+      const proceed = window.confirm(
+        '⚠️ SEO WARNING: The Detailed Description field is empty or too short (< 200 characters of text).\n\n' +
+        'Google is VERY UNLIKELY to index this page without sufficient content.\n\n' +
+        'Click OK to publish anyway, or Cancel to go back and fill the description.'
+      )
+      if (!proceed) return
     }
 
     setSaving(true)

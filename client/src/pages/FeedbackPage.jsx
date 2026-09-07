@@ -70,6 +70,7 @@ export default function FeedbackPage() {
       <SEOHead
         title="Feedback & Suggestions | Job Alert X"
         description="Share your feedback, ideas, suggestions, and feature requests directly with the Job Alert X portal administrators."
+        noIndex={true}
       />
 
       {/* Header Banner */}
