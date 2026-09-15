@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import { Layers, Search } from 'lucide-react'
+import {
+  Layers, Search, Landmark, Scale, MapPin, Users,
+  Building2, GraduationCap, Briefcase, Ticket,
+  Award, KeyRound, BookOpen, CheckCircle2,
+} from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
 import RecentJobsTable from '../components/RecentJobsTable.jsx'
 import SEOHead from '../components/SEOHead.jsx'
@@ -15,21 +19,161 @@ const KIND_LABELS = {
   syllabus: 'Syllabus',
 }
 
-function Chip({ active, onClick, children }) {
+// ─── Color palette for every category slug ───────────────────────────────────
+const CHIP_THEMES = {
+  // ── Category mode chips (sub-kind filter) ──
+  job: {
+    icon: Briefcase,
+    bg: 'bg-gradient-to-r from-orange-500 to-amber-500',
+    ring: 'ring-orange-400/60',
+    glow: '0 4px 20px rgba(249,115,22,0.45)',
+    text: 'text-white',
+    inactive: 'bg-orange-500/10 border-orange-400/30 text-orange-600 dark:text-orange-300 hover:bg-orange-500/20',
+  },
+  'admit-card': {
+    icon: Ticket,
+    bg: 'bg-gradient-to-r from-rose-500 to-pink-500',
+    ring: 'ring-rose-400/60',
+    glow: '0 4px 20px rgba(244,63,94,0.45)',
+    text: 'text-white',
+    inactive: 'bg-rose-500/10 border-rose-400/30 text-rose-600 dark:text-rose-300 hover:bg-rose-500/20',
+  },
+  result: {
+    icon: Award,
+    bg: 'bg-gradient-to-r from-amber-500 to-yellow-400',
+    ring: 'ring-amber-400/60',
+    glow: '0 4px 20px rgba(245,158,11,0.45)',
+    text: 'text-white',
+    inactive: 'bg-amber-500/10 border-amber-400/30 text-amber-600 dark:text-amber-300 hover:bg-amber-500/20',
+  },
+  'answer-key': {
+    icon: KeyRound,
+    bg: 'bg-gradient-to-r from-cyan-500 to-teal-500',
+    ring: 'ring-cyan-400/60',
+    glow: '0 4px 20px rgba(6,182,212,0.45)',
+    text: 'text-white',
+    inactive: 'bg-cyan-500/10 border-cyan-400/30 text-cyan-600 dark:text-cyan-300 hover:bg-cyan-500/20',
+  },
+  syllabus: {
+    icon: BookOpen,
+    bg: 'bg-gradient-to-r from-violet-500 to-purple-500',
+    ring: 'ring-violet-400/60',
+    glow: '0 4px 20px rgba(139,92,246,0.45)',
+    text: 'text-white',
+    inactive: 'bg-violet-500/10 border-violet-400/30 text-violet-600 dark:text-violet-300 hover:bg-violet-500/20',
+  },
+  // ── Category slug chips (in /latest/job) ──
+  jpsc: {
+    icon: Landmark,
+    bg: 'bg-gradient-to-r from-[#1B6F81] to-[#0d8f9e]',
+    ring: 'ring-teal-400/60',
+    glow: '0 4px 20px rgba(27,111,129,0.50)',
+    text: 'text-white',
+    inactive: 'bg-teal-500/10 border-teal-400/30 text-teal-700 dark:text-teal-300 hover:bg-teal-500/20',
+  },
+  jssc: {
+    icon: Scale,
+    bg: 'bg-gradient-to-r from-[#09324A] to-[#0d5e82]',
+    ring: 'ring-sky-400/60',
+    glow: '0 4px 20px rgba(9,50,74,0.55)',
+    text: 'text-white',
+    inactive: 'bg-sky-500/10 border-sky-400/30 text-sky-700 dark:text-sky-300 hover:bg-sky-500/20',
+  },
+  'other-jharkhand': {
+    icon: MapPin,
+    bg: 'bg-gradient-to-r from-blue-600 to-indigo-500',
+    ring: 'ring-blue-400/60',
+    glow: '0 4px 20px rgba(37,99,235,0.50)',
+    text: 'text-white',
+    inactive: 'bg-blue-500/10 border-blue-400/30 text-blue-700 dark:text-blue-300 hover:bg-blue-500/20',
+  },
+  'rojgar-mela': {
+    icon: Users,
+    bg: 'bg-gradient-to-r from-amber-600 to-orange-500',
+    ring: 'ring-amber-400/60',
+    glow: '0 4px 20px rgba(217,119,6,0.50)',
+    text: 'text-white',
+    inactive: 'bg-amber-500/10 border-amber-400/30 text-amber-700 dark:text-amber-300 hover:bg-amber-500/20',
+  },
+  'private-job': {
+    icon: Building2,
+    bg: 'bg-gradient-to-r from-emerald-600 to-teal-500',
+    ring: 'ring-emerald-400/60',
+    glow: '0 4px 20px rgba(5,150,105,0.50)',
+    text: 'text-white',
+    inactive: 'bg-emerald-500/10 border-emerald-400/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20',
+  },
+  'central-job': {
+    icon: GraduationCap,
+    bg: 'bg-gradient-to-r from-indigo-600 to-violet-600',
+    ring: 'ring-indigo-400/60',
+    glow: '0 4px 20px rgba(79,70,229,0.50)',
+    text: 'text-white',
+    inactive: 'bg-indigo-500/10 border-indigo-400/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-500/20',
+  },
+}
+
+const CHIP_DEFAULT = {
+  icon: Layers,
+  bg: 'bg-gradient-to-r from-slate-600 to-slate-500',
+  ring: 'ring-slate-400/60',
+  glow: '0 4px 20px rgba(100,116,139,0.40)',
+  text: 'text-white',
+  inactive: 'bg-slate-500/10 border-slate-400/30 text-slate-600 dark:text-slate-300 hover:bg-slate-500/20',
+}
+
+// Derive short label for display (strip the count)
+function chipLabel(raw) {
+  // raw is like 'Latest Jobs (12)', strip the count
+  return raw.replace(/\s*\(\d+\)$/, '')
+}
+function chipCount(raw) {
+  const m = raw.match(/\((\d+)\)$/)
+  return m ? m[1] : null
+}
+
+function ColorChip({ value, label, active, onClick }) {
+  const theme = CHIP_THEMES[value] || CHIP_DEFAULT
+  const Icon = theme.icon
+  const display = chipLabel(label)
+  const count = chipCount(label)
+
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-semibold transition-colors ${
+      style={active ? { boxShadow: theme.glow } : {}}
+      className={[
+        'group relative flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-bold transition-all duration-200 select-none',
+        'focus:outline-none focus-visible:ring-2',
         active
-          ? 'bg-brand-600 text-white'
-          : 'border border-hairline bg-surface text-ink-soft hover:bg-subtle'
-      }`}
+          ? `${theme.bg} ${theme.text} border-transparent ring-2 ${theme.ring} scale-[1.04]`
+          : `${theme.inactive} border`,
+      ].join(' ')}
     >
-      {children}
+      <Icon
+        size={12}
+        className={`transition-transform duration-200 ${active ? 'scale-110' : 'opacity-70 group-hover:scale-110'}`}
+      />
+      <span>{display}</span>
+      {count && (
+        <span
+          className={[
+            'inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-black leading-none min-w-[18px]',
+            active ? 'bg-white/25 text-white' : 'bg-current/10 opacity-75',
+          ].join(' ')}
+        >
+          {count}
+        </span>
+      )}
+      {active && (
+        <span className="absolute inset-0 rounded-full animate-ping-once opacity-0 ring-2 ring-white/30" />
+      )}
     </button>
   )
 }
+
+// (Chip replaced by ColorChip above)
 
 export default function CategoryPage({ defaultSlug }) {
   const params = useParams()
@@ -249,17 +393,58 @@ export default function CategoryPage({ defaultSlug }) {
         )}
       </div>
 
-      {/* Filters */}
+      {/* ── Category Filter Bar ── */}
       {facets.length > 1 && (
-        <div className="flex flex-wrap gap-2">
-          <Chip active={filter === 'all'} onClick={() => setFilter('all')}>
-            All{jobs ? ` (${jobs.length})` : ''}
-          </Chip>
-          {facets.map((f) => (
-            <Chip key={f.value} active={filter === f.value} onClick={() => setFilter(f.value)}>
-              {f.label}
-            </Chip>
-          ))}
+        <div className="relative">
+          {/* Glassmorphic strip */}
+          <div className="overflow-x-auto pb-1 no-scrollbar">
+            <div className="flex items-center gap-2 min-w-max">
+              {/* 'All' chip */}
+              <button
+                type="button"
+                onClick={() => setFilter('all')}
+                style={filter === 'all' ? { boxShadow: '0 4px 20px rgba(99,102,241,0.45)' } : {}}
+                className={[
+                  'group relative flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-bold transition-all duration-200 select-none',
+                  'focus:outline-none',
+                  filter === 'all'
+                    ? 'bg-gradient-to-r from-slate-700 to-slate-600 text-white border-transparent ring-2 ring-slate-400/60 scale-[1.04]'
+                    : 'bg-slate-500/10 border-slate-400/30 text-slate-600 dark:text-slate-300 hover:bg-slate-500/20',
+                ].join(' ')}
+              >
+                <CheckCircle2
+                  size={12}
+                  className={`transition-transform duration-200 ${filter === 'all' ? 'scale-110' : 'opacity-70 group-hover:scale-110'}`}
+                />
+                <span>All</span>
+                {jobs && (
+                  <span className={[
+                    'inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-black leading-none min-w-[18px]',
+                    filter === 'all' ? 'bg-white/25 text-white' : 'opacity-75',
+                  ].join(' ')}>
+                    {jobs.length}
+                  </span>
+                )}
+              </button>
+
+              {/* Divider */}
+              <div className="h-5 w-px bg-hairline shrink-0" />
+
+              {/* Per-facet chips */}
+              {facets.map((f) => (
+                <ColorChip
+                  key={f.value}
+                  value={f.value}
+                  label={f.label}
+                  active={filter === f.value}
+                  onClick={() => setFilter(f.value)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right-fade scroll hint */}
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-page to-transparent" />
         </div>
       )}
 
