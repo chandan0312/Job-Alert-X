@@ -158,21 +158,21 @@ export default function AdminDashboard() {
       <SEOHead title="Admin Dashboard | Job Alert X" />
 
       {/* Header Banner */}
-      <div className="relative overflow-hidden rounded-3xl border border-hairline bg-gradient-to-r from-[#0d1326] via-[#101833] to-[#151c3d] p-6 shadow-xl text-white backdrop-blur-xl sm:p-8">
+      <div className="relative overflow-hidden rounded-3xl border border-teal-500/30 bg-gradient-to-r from-[#061e2d] via-[#09324A] to-[#041622] p-6 shadow-xl text-white backdrop-blur-xl sm:p-8">
         <div className="relative z-10 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-6 items-center gap-1 rounded-full border border-orange-500/30 bg-orange-500/20 px-2.5 text-[11px] font-extrabold uppercase tracking-wider text-orange-300">
+              <span className="flex h-6 items-center gap-1 rounded-full border border-teal-400/30 bg-teal-500/20 px-2.5 text-[11px] font-extrabold uppercase tracking-wider text-[#AED0C9]">
                 <Sparkles size={12} />
-                Job Alert X Control Center
+                Jharkhand JobAlert X Control Center
               </span>
-              <span className="text-[12px] text-slate-300">• Live Database</span>
+              <span className="text-[12px] text-teal-200/80">• Live MySQL Database</span>
             </div>
             <h1 className="mt-2 text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl">
-              Job Alert X — Admin Dashboard
+              Jharkhand JobAlert X — Admin Dashboard
             </h1>
-            <p className="mt-1 text-[13.5px] text-slate-300">
-              Welcome back, {user?.name || 'Administrator'}. Manage live notifications, analyze candidate metrics, and control portal posts.
+            <p className="mt-1 text-[13.5px] text-teal-100/90">
+              Welcome back, {user?.name || 'Administrator'}. Manage JPSC, JSSC, Rojgar Mela, and private job notifications across Jharkhand.
             </p>
           </div>
 
@@ -188,7 +188,7 @@ export default function AdminDashboard() {
 
             <Link
               to="/admin/posts/new"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 px-5 py-2.5 text-[13px] font-bold text-white shadow-lg shadow-orange-500/25 transition-all hover:brightness-110 hover:scale-[1.02] active:scale-95"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-500 via-teal-600 to-navy-900 px-5 py-2.5 text-[13px] font-bold text-white shadow-lg shadow-brand-500/25 transition-all hover:brightness-110 hover:scale-[1.02] active:scale-95 border border-teal-400/30"
             >
               <Plus size={16} strokeWidth={2.5} />
               Create Post
@@ -197,8 +197,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Ambient background glow */}
-        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand-600/20 blur-[100px]" />
-        <div className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-orange-500/20 blur-[100px]" />
+        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-teal-500/20 blur-[100px]" />
+        <div className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-gold-400/15 blur-[100px]" />
       </div>
 
       {toast && (

@@ -17,13 +17,12 @@ import { createApp } from './app.js'
 async function start() {
   assertSecureConfig()
 
-  // Creates the database if missing and syncs tables.
-  // Note: alter is disabled to avoid "Too many keys specified" error during ALTER TABLE
-  // operations with complex schemas like the User model.
-  await initDb({ sync: true, alter: false })
+  // Connect to DB (no sync yet - we add columns manually first)
+  await initDb({ sync: false, alter: false })
   console.log(`[db] connected to ${env.db.name} at ${env.db.host}:${env.db.port}`)
 
   // Safely ensure new columns exist without breaking existing tables
+
   try {
     const { sequelize } = await import('./models/index.js')
     const qi = sequelize.getQueryInterface()
@@ -36,33 +35,20 @@ async function start() {
       })
       console.log('[db] added inTicker column to jobs table')
     }
-    if (desc && !desc.detailedDescription) {
-      await qi.addColumn('jobs', 'detailedDescription', {
-        type: sequelize.Sequelize.DataTypes.TEXT,
-        allowNull: true,
+    if (desc && !desc.featured) {
+      await qi.addColumn('jobs', 'featured', {
+        type: sequelize.Sequelize.DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       })
-      console.log('[db] added detailedDescription column to jobs table')
+      console.log('[db] added featured column to jobs table')
     }
-    if (desc && !desc.applyUrl) {
-      await qi.addColumn('jobs', 'applyUrl', {
-        type: sequelize.Sequelize.DataTypes.STRING(1000),
+    if (desc && !desc.full_description) {
+      await qi.addColumn('jobs', 'full_description', {
+        type: sequelize.Sequelize.DataTypes.TEXT('long'),
         allowNull: true,
       })
-      console.log('[db] added applyUrl column to jobs table')
-    }
-    if (desc && !desc.notificationPdfUrl) {
-      await qi.addColumn('jobs', 'notificationPdfUrl', {
-        type: sequelize.Sequelize.DataTypes.STRING(1000),
-        allowNull: true,
-      })
-      console.log('[db] added notificationPdfUrl column to jobs table')
-    }
-    if (desc && !desc.officialWebsiteUrl) {
-      await qi.addColumn('jobs', 'officialWebsiteUrl', {
-        type: sequelize.Sequelize.DataTypes.STRING(1000),
-        allowNull: true,
-      })
-      console.log('[db] added officialWebsiteUrl column to jobs table')
+      console.log('[db] added full_description column to jobs table')
     }
     if (desc && !desc.salary) {
       await qi.addColumn('jobs', 'salary', {
@@ -71,9 +57,52 @@ async function start() {
       })
       console.log('[db] added salary column to jobs table')
     }
+    if (desc && !desc.logo) {
+      await qi.addColumn('jobs', 'logo', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added logo column to jobs table')
+    }
+    if (desc && !desc.importantDates) {
+      await qi.addColumn('jobs', 'importantDates', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added importantDates column to jobs table')
+    }
+    if (desc && !desc.fee) {
+      await qi.addColumn('jobs', 'fee', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added fee column to jobs table')
+    }
+    if (desc && !desc.ageLimit) {
+      await qi.addColumn('jobs', 'ageLimit', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added ageLimit column to jobs table')
+    }
+    if (desc && !desc.posts) {
+      await qi.addColumn('jobs', 'posts', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added posts column to jobs table')
+    }
+    if (desc && !desc.links) {
+      await qi.addColumn('jobs', 'links', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added links column to jobs table')
+    }
   } catch (err) {
     console.warn('[db] column check notice:', err.message)
   }
+
 
   const app = createApp()
   const server = app.listen(env.port, () => {

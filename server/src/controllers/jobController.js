@@ -21,8 +21,8 @@ const MAX_LIMIT = 1000
 
 // Newest / most recently updated first. `id` breaks ties so pagination is deterministic.
 const NEWEST_FIRST = [
-  ['updatedAt', 'DESC'],
-  ['createdAt', 'DESC'],
+  ['updated_at', 'DESC'],
+  ['created_at', 'DESC'],
   ['id', 'ASC'],
 ]
 
@@ -61,14 +61,48 @@ export const list = asyncHandler(async (req, res) => {
   const { category, kind, featured, inTicker, q, limit, offset } = req.query
 
   const where = {}
-  if (category) where.category = String(category).toLowerCase()
-
-  if (kind) {
-    const value = String(kind).toLowerCase()
-    if (!JOB_KINDS.includes(value)) {
-      throw badRequest(`Unknown kind "${kind}". Expected one of: ${JOB_KINDS.join(', ')}`)
+  if (category && category !== 'all') {
+    const catLower = String(category).toLowerCase()
+    if (catLower === 'others' || catLower === 'other') {
+      where[Op.or] = [
+        { category: { [Op.in]: ['other', 'others', 'Other', 'Bank', 'Railway', 'Defence', 'SSC', 'banking', 'railway', 'defence', 'ssc', 'upsc'] } },
+        { category: { [Op.notIn]: ['jpsc', 'JPSC', 'jssc', 'JSSC', 'rojgar-mela', 'Rojgar Mela', 'private', 'Private', 'private-jobs'] } }
+      ]
+    } else if (catLower === 'jpsc') {
+      where[Op.or] = [
+        { category: { [Op.in]: ['jpsc', 'JPSC'] } },
+        { org: { [Op.like]: '%JPSC%' } },
+        { title: { [Op.like]: '%JPSC%' } }
+      ]
+    } else if (catLower === 'jssc') {
+      where[Op.or] = [
+        { category: { [Op.in]: ['jssc', 'JSSC'] } },
+        { org: { [Op.like]: '%JSSC%' } },
+        { title: { [Op.like]: '%JSSC%' } }
+      ]
+    } else if (catLower === 'rojgar-mela' || catLower === 'rojgar_mela') {
+      where[Op.or] = [
+        { category: { [Op.in]: ['rojgar-mela', 'rojgar_mela', 'Rojgar Mela'] } },
+        { title: { [Op.like]: '%Rojgar%' } },
+        { tagline: { [Op.like]: '%Rojgar%' } }
+      ]
+    } else if (catLower === 'private' || catLower === 'private-jobs') {
+      where[Op.or] = [
+        { category: { [Op.in]: ['private', 'Private', 'private-jobs'] } },
+        { org: { [Op.in]: ['Tata Steel', 'Jindal', 'Wipro', 'TCS', 'Infosys'] } }
+      ]
+    } else {
+      where.category = { [Op.like]: `%${catLower}%` }
     }
-    where.kind = value
+  }
+
+  if (kind && kind !== 'all') {
+    const value = String(kind).toLowerCase()
+    if (value === 'job') {
+      where.kind = { [Op.in]: ['job', 'Full Time', 'full time', 'Part Time'] }
+    } else if (JOB_KINDS.includes(value)) {
+      where.kind = value
+    }
   }
 
   const isFeatured = parseBool(featured)
@@ -93,13 +127,12 @@ export const list = asyncHandler(async (req, res) => {
 /** GET /api/jobs/trending — featured posts for the home-page hero carousel. */
 export const trending = asyncHandler(async (req, res) => {
   let rows = await Job.findAll({
-    where: { featured: true, kind: 'job' },
+    where: { featured: true },
     order: NEWEST_FIRST,
     limit: parseLimit(req.query.limit, undefined),
   })
   if (rows.length === 0) {
     rows = await Job.findAll({
-      where: { kind: 'job' },
       order: NEWEST_FIRST,
       limit: parseLimit(req.query.limit, 6),
     })

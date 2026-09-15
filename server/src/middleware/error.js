@@ -34,6 +34,7 @@ export function notFound(req, res) {
  */
 // eslint-disable-next-line no-unused-vars -- Express needs the 4-arg signature
 export function errorHandler(error, req, res, next) {
+  console.error('[API Error in route]', req.method, req.originalUrl, error.message, error.sql || '')
   let status = error.status || 500
   let message = error.message || 'Internal server error'
   let details = error.details

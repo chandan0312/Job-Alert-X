@@ -63,8 +63,17 @@ export const dashboard = asyncHandler(async (req, res) => {
 
   // 4. Recent posts (latest 10)
   const recentPosts = await Job.findAll({
-    attributes: ['id', 'title', 'org', 'kind', 'category', 'views', 'createdAt', 'updatedAt'],
-    order: [['updatedAt', 'DESC'], ['createdAt', 'DESC']],
+    attributes: [
+      'id',
+      'title',
+      ['company', 'org'],
+      ['type', 'kind'],
+      'category',
+      'views',
+      ['created_at', 'createdAt'],
+      ['updated_at', 'updatedAt'],
+    ],
+    order: [['updated_at', 'DESC'], ['created_at', 'DESC']],
     limit: 10,
     raw: true,
   })
@@ -72,7 +81,7 @@ export const dashboard = asyncHandler(async (req, res) => {
   // 5. Posts created in last 7 days
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
   const recentCount = await Job.count({
-    where: { createdAt: { [Op.gte]: sevenDaysAgo } },
+    where: { created_at: { [Op.gte]: sevenDaysAgo } },
   })
 
   // 6. Total users
@@ -81,12 +90,12 @@ export const dashboard = asyncHandler(async (req, res) => {
   // 7. Posts per day (last 7 days) for the chart
   const dailyRows = await Job.findAll({
     attributes: [
-      [seq.fn('DATE', seq.col('createdAt')), 'day'],
+      [seq.fn('DATE', seq.col('created_at')), 'day'],
       [seq.fn('COUNT', seq.col('id')), 'count'],
     ],
-    where: { createdAt: { [Op.gte]: sevenDaysAgo } },
-    group: [seq.fn('DATE', seq.col('createdAt'))],
-    order: [[seq.fn('DATE', seq.col('createdAt')), 'ASC']],
+    where: { created_at: { [Op.gte]: sevenDaysAgo } },
+    group: [seq.fn('DATE', seq.col('created_at'))],
+    order: [[seq.fn('DATE', seq.col('created_at')), 'ASC']],
     raw: true,
   })
 

@@ -8,28 +8,28 @@
      switching the .dark class on <html> re-themes text and surfaces. */
   :root {
     color-scheme: light;
-    --bg-page: #f8fafc;
-    --bg-surface: rgba(255, 255, 255, 0.94);
+    --bg-page: #f0f9f8;
+    --bg-surface: rgba(255, 255, 255, 0.96);
     --bg-elevated: #ffffff;
-    --bg-subtle: #f1f5f9;
-    --border-hairline: #e2e8f0;
-    --text-strong: #0f172a;
-    --text-soft: #334155;
-    --text-muted: #475569;
-    --text-faint: #64748b;
+    --bg-subtle: #e8f5f2;
+    --border-hairline: #bee4dc;
+    --text-strong: #0a2533;
+    --text-soft: #174052;
+    --text-muted: #2d6070;
+    --text-faint: #4a8090;
   }
 
   .dark {
     color-scheme: dark;
-    --bg-page: #0a0f1c;
-    --bg-surface: #121a2c;
-    --bg-elevated: #18223a;
-    --bg-subtle: rgba(255, 255, 255, 0.05);
-    --border-hairline: rgba(255, 255, 255, 0.09);
-    --text-strong: #f2f5fb;
-    --text-soft: #cdd5e3;
-    --text-muted: #97a2b6;
-    --text-faint: #6a7690;
+    --bg-page: #030f18;
+    --bg-surface: #061e2d;
+    --bg-elevated: #09324A;
+    --bg-subtle: rgba(27, 111, 129, 0.12);
+    --border-hairline: rgba(174, 208, 201, 0.12);
+    --text-strong: #e8f5f2;
+    --text-soft: #aed0c9;
+    --text-muted: #7aafaa;
+    --text-faint: #4d8580;
   }
 
   html {
@@ -56,14 +56,14 @@
     transition: background 0.3s ease, color 0.3s ease;
   }
 
-  /* Light mode: full-page subtle professional gradient background fixed in place */
+  /* Light mode: professional Jharkhand teal-to-white gradient */
   html:not(.dark) body {
-    background: linear-gradient(160deg, #f0f9ff 0%, #f8fafc 45%, #f5f3ff 100%) fixed;
+    background: linear-gradient(160deg, #e6f7f5 0%, #f0f9f8 45%, #e8f5f2 100%) fixed;
     background-attachment: fixed;
   }
 
   :focus-visible {
-    outline: 2px solid theme('colors.brand.600');
+    outline: 2px solid #1B6F81;
     outline-offset: 2px;
     border-radius: 6px;
   }
@@ -92,7 +92,7 @@
 
   /* ── Standardized Button Variants (Resolves Issues 3 & 21) ── */
   .btn-primary {
-    @apply inline-flex min-h-[38px] items-center justify-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:bg-brand-700 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
+    @apply inline-flex min-h-[38px] items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-brand-500 to-brand-800 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
   }
 
   .btn-primary-sm {
@@ -104,7 +104,7 @@
   }
 
   .btn-accent {
-    @apply inline-flex min-h-[38px] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400;
+    @apply inline-flex min-h-[38px] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold-400 to-gold-500 px-4 py-2 text-xs font-bold text-navy-800 shadow-md shadow-gold-400/20 transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400;
   }
 
   .link-muted {
@@ -131,9 +131,9 @@
     transform: translateX(0);
   }
 
-  /* ── Header gradient + geometric dot-pattern overlay ── */
+  /* ── Header gradient — Jharkhand teal-to-dark-navy ── */
   .header-gradient {
-    background: linear-gradient(135deg, #4649cc 0%, #5558e6 40%, #6d70f0 100%);
+    background: linear-gradient(135deg, #09324A 0%, #1B6F81 60%, #155d6c 100%);
     position: relative;
   }
   .header-gradient::before {
@@ -147,17 +147,17 @@
 
   /* ── Dark-mode header gradient variant ── */
   .dark .header-gradient {
-    background: linear-gradient(135deg, #0f1729 0%, #111c33 40%, #333782 100%);
+    background: linear-gradient(135deg, #030f18 0%, #061e2d 40%, #09324A 100%);
   }
   .dark .header-gradient::before {
     background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   }
 
-  /* ── Light-mode: top header — professional sky blue to lavender/purple gradient ── */
+  /* ── Light-mode: top header — Jharkhand teal-green ── */
   .light-header-bg {
-    background: linear-gradient(105deg, #e0f2fe 0%, #ede9fe 50%, #e0e7ff 100%);
-    border-bottom: 1px solid rgba(199, 210, 254, 0.7);
-    box-shadow: 0 2px 16px rgba(99, 102, 241, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04);
+    background: linear-gradient(105deg, #e6f7f5 0%, #d0ece7 50%, #c5e4de 100%);
+    border-bottom: 1px solid rgba(174, 208, 201, 0.7);
+    box-shadow: 0 2px 16px rgba(27, 111, 129, 0.09), 0 1px 3px rgba(9, 50, 74, 0.04);
   }
 
   /* ── Light-mode: inner header card (frosted glass over the gradient) ── */
@@ -169,22 +169,22 @@
     box-shadow: 0 2px 14px rgba(99, 102, 241, 0.06), 0 1px 2px rgba(15, 23, 42, 0.03);
   }
 
-  /* ── Light-mode: left sidebar — clean, minimalistic sky blue to purple gradient ── */
+  /* ── Light-mode: left sidebar — clean, minimalistic teal gradient ── */
   .light-sidebar-bg {
-    background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 30%, #ede9fe 70%, #f5f3ff 100%);
-    border-right: 1px solid rgba(226, 232, 240, 0.9);
-    box-shadow: 2px 0 16px rgba(99, 102, 241, 0.06);
+    background: linear-gradient(180deg, #f0faf8 0%, #e6f5f2 30%, #d5ebe7 70%, #e8f5f3 100%);
+    border-right: 1px solid rgba(174, 208, 201, 0.6);
+    box-shadow: 2px 0 16px rgba(27, 111, 129, 0.06);
   }
 
   /* ── Light-mode: sidebar nav item — active state ── */
   .light-nav-active {
-    background: rgba(255, 255, 255, 0.85);
-    color: #0f172a;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1), inset 0 0 0 1px rgba(255,255,255,0.9);
+    background: rgba(27, 111, 129, 0.12);
+    color: #09324A;
+    box-shadow: 0 2px 8px rgba(27, 111, 129, 0.15), inset 0 0 0 1px rgba(174,208,201,0.5);
   }
   .light-nav-hover {
-    background: rgba(255, 255, 255, 0.50);
-    color: #0f172a;
+    background: rgba(174, 208, 201, 0.25);
+    color: #09324A;
   }
 
   /* ── Sidebar width transition ── */

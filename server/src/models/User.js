@@ -1,12 +1,6 @@
 // ---------------------------------------------------------------------------
 // User — accounts for both regular users and admin write routes.
 // ---------------------------------------------------------------------------
-// Plaintext passwords are never stored or returned. Assign to the virtual
-// `password` field and a `beforeSave` hook writes the bcrypt hash instead.
-//
-// Google OAuth users may have no password — `passwordHash` is nullable for
-// these accounts. The `verifyPassword` method handles this gracefully.
-// ---------------------------------------------------------------------------
 
 import { DataTypes } from 'sequelize'
 import bcrypt from 'bcryptjs'
@@ -20,12 +14,12 @@ export default function defineUser(sequelize) {
     'User',
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(120),
         primaryKey: true,
-        autoIncrement: true,
+        defaultValue: () => `usr_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
       },
       email: {
-        type: DataTypes.STRING(190), // 190 keeps the UNIQUE index inside utf8mb4 limits
+        type: DataTypes.STRING(190),
         allowNull: false,
         unique: true,
         set(value) {
@@ -37,54 +31,45 @@ export default function defineUser(sequelize) {
       },
       name: DataTypes.STRING(120),
       role: {
-        type: DataTypes.ENUM(...USER_ROLES),
+        type: DataTypes.STRING(30),
         allowNull: false,
         defaultValue: 'user',
       },
-      passwordHash: {
+      password: {
         type: DataTypes.STRING(100),
-        allowNull: true, // nullable for Google-only accounts
+        allowNull: true,
       },
-
       // Google OAuth fields
       googleId: {
         type: DataTypes.STRING(100),
+        field: 'google_id',
         allowNull: true,
-        unique: true,
       },
       avatar: {
         type: DataTypes.STRING(500),
+        field: 'profile_image',
         allowNull: true,
       },
-
-      // Write-only convenience field — never persisted as a column.
-      password: {
+      plainPassword: {
         type: DataTypes.VIRTUAL,
-        validate: {
-          len: {
-            args: [8, 128],
-            msg: 'Password must be at least 8 characters long',
-          },
+        set(val) {
+          this.setDataValue('plainPassword', val)
         },
       },
     },
     {
       tableName: 'users',
       timestamps: true,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
       hooks: {
-        // Must be beforeValidate, not beforeSave: Sequelize validates *before*
-        // save hooks run, so hashing later would trip the `passwordHash`
-        // notNull check on every insert.
         async beforeValidate(user) {
-          const plain = user.get('password')
-          if (plain) {
-            user.set('passwordHash', await bcrypt.hash(plain, BCRYPT_ROUNDS))
+          const plain = user.get('plainPassword') || user.get('password')
+          // Only hash if it's not already a bcrypt hash (starts with $2)
+          if (plain && !String(plain).startsWith('$2')) {
+            const hash = await bcrypt.hash(plain, BCRYPT_ROUNDS)
+            user.setDataValue('password', hash)
           }
-        },
-        // The plaintext is left in place through validation (so the length rule
-        // still sees it) and only discarded once the row is safely written.
-        afterSave(user) {
-          user.set('password', undefined)
         },
       },
     }
@@ -92,14 +77,27 @@ export default function defineUser(sequelize) {
 
   /** Constant-time comparison of a candidate password against the stored hash. */
   User.prototype.verifyPassword = function verifyPassword(candidate) {
-    if (!candidate || !this.passwordHash) return Promise.resolve(false)
-    return bcrypt.compare(candidate, this.passwordHash)
+    const hash = this.getDataValue('password')
+    if (!candidate || !hash) return Promise.resolve(false)
+    return bcrypt.compare(candidate, hash)
   }
 
-  /** Belt-and-braces: the hash can never leak through `res.json(user)`. */
+  /** Expose passwordHash property for backward compatibility with auth routes */
+  Object.defineProperty(User.prototype, 'passwordHash', {
+    get() {
+      return this.getDataValue('password')
+    },
+    set(val) {
+      this.setDataValue('password', val)
+    },
+  })
+
+  /** Belt-and-braces: password can never leak through res.json(user). */
   User.prototype.toJSON = function toJSON() {
-    const { passwordHash, password, ...safe } = this.get({ plain: true })
-    return safe
+    const values = { ...this.get({ plain: true }) }
+    delete values.password
+    delete values.plainPassword
+    return values
   }
 
   return User

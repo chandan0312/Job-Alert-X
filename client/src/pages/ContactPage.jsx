@@ -25,17 +25,17 @@ export default function ContactPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://jobalertx.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Contact Us', item: 'https://jobalertx.com/contact' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://jharkhand.jobalertx.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Contact Us', item: 'https://jharkhand.jobalertx.com/contact' },
     ],
   }
 
   return (
     <div className="animate-fade-in max-w-3xl mx-auto space-y-6">
       <SEOHead
-        title="Contact Us — Job Alert X"
-        description="Contact the Job Alert X team for corrections, suggestions, partnership enquiries, or any other queries about our government job notification portal."
-        canonical="https://jobalertx.com/contact"
+        title="Contact Us — Jharkhand JobAlert X | Support & Queries"
+        description="Contact the Jharkhand JobAlert X team for Jharkhand job notifications, JPSC/JSSC queries, Rojgar Mela coverage, or feedback."
+        canonical="https://jharkhand.jobalertx.com/contact"
         jsonLd={[breadcrumbSchema]}
       />
 
@@ -118,7 +118,7 @@ export default function ContactPage() {
               type="text"
               value={form.subject}
               onChange={(e) => setForm((p) => ({ ...p, subject: e.target.value }))}
-              placeholder="e.g. Incorrect vacancy count for SSC CGL 2026"
+              placeholder="e.g. Inquiry regarding JPSC Civil Services 2026 or Rojgar Mela"
               className="w-full rounded-xl border border-hairline bg-surface px-3.5 py-2.5 text-[13.5px] text-ink placeholder:text-ink-faint focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
             />
           </div>

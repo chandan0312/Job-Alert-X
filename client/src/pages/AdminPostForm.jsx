@@ -84,9 +84,9 @@ const KIND_ACTION_CONFIG = {
 
 const DEFAULT_FORM = {
   title: '',
-  org: '',
-  orgShort: '',
-  category: 'ssc',
+  org: 'Jharkhand Public Service Commission (JPSC)',
+  orgShort: 'JPSC',
+  category: 'jpsc',
   kind: 'job',
   tagline: '',
   shortInfo: '',
@@ -94,7 +94,7 @@ const DEFAULT_FORM = {
   salary: '',
   applyUrl: '',
   notificationPdfUrl: '',
-  officialWebsiteUrl: '',
+  officialWebsiteUrl: 'https://jpsc.gov.in',
   eligibility: '',
   vacancies: '',
   postedOn: '',
@@ -108,7 +108,7 @@ const DEFAULT_FORM = {
     { label: 'General / OBC / EWS', value: '₹100' },
     { label: 'SC / ST / PH', value: '₹0' },
   ],
-  ageLimit: { min: 18, max: 30, note: 'Age relaxation as per rules.' },
+  ageLimit: { min: 21, max: 35, note: 'Age relaxation applicable for Jharkhand reserved categories.' },
   posts: [{ name: '', total: '', eligibility: '' }],
   links: [{ label: 'Apply Online', href: '#', primary: true }],
 }
@@ -310,7 +310,7 @@ export default function AdminPostForm() {
             type="button"
             onClick={handleSubmit}
             disabled={saving}
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:brightness-110 disabled:opacity-60"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 via-teal-600 to-navy-800 px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-brand-600/30 transition-all hover:brightness-110 disabled:opacity-60"
           >
             <Save size={16} />
             {saving ? 'Saving…' : isEdit ? 'Save Changes' : 'Publish Live'}

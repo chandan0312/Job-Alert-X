@@ -1,13 +1,6 @@
 // ---------------------------------------------------------------------------
-// Job — the core dataset (jobs, admit cards, results, answer keys, syllabus).
-// ---------------------------------------------------------------------------
-// Column strategy: scalar columns for everything the API filters, searches or
-// sorts on; JSON columns for the nested, display-only structures
-// (importantDates / fee / posts / links / ageLimit / logo).
-//
-// This keeps every response shape-identical to the frontend's seed objects in
-// `client/src/data/seed.js` with no joins or reassembly, which is what makes
-// swapping `client/src/services/api.js` for real HTTP a drop-in change.
+// Job — the core dataset. Field names are what the frontend/API see;
+// `field` overrides map to the actual Hostinger MySQL column names.
 // ---------------------------------------------------------------------------
 
 import { DataTypes } from 'sequelize'
@@ -19,9 +12,6 @@ export default function defineJob(sequelize) {
   return sequelize.define(
     'Job',
     {
-      // The human-readable slug from the frontend (e.g. "ssc-cgl-2024") is the
-      // primary key — the UI routes on it (/job/:id), so there is no separate
-      // surrogate id to leak into responses.
       id: {
         type: DataTypes.STRING(120),
         primaryKey: true,
@@ -31,68 +21,114 @@ export default function defineJob(sequelize) {
         allowNull: false,
         validate: { notEmpty: { msg: 'title is required' } },
       },
+      // 'org' maps to 'company' in Hostinger DB
       org: {
         type: DataTypes.STRING(200),
+        field: 'company',
         allowNull: false,
-        validate: { notEmpty: { msg: 'org is required' } },
+        defaultValue: 'Jharkhand Govt',
       },
-      orgShort: DataTypes.STRING(60),
+      // 'orgShort' maps to 'company_initial' in Hostinger DB
+      orgShort: {
+        type: DataTypes.STRING(60),
+        field: 'company_initial',
+      },
       category: {
         type: DataTypes.STRING(60),
         allowNull: false,
-        defaultValue: 'ssc',
+        defaultValue: 'jssc',
       },
+      // 'kind' maps to 'type' in Hostinger DB
       kind: {
-        type: DataTypes.ENUM(...JOB_KINDS),
+        type: DataTypes.STRING(40),
+        field: 'type',
         allowNull: false,
         defaultValue: 'job',
       },
-      tagline: DataTypes.STRING(255),
-      shortInfo: DataTypes.TEXT,
-      detailedDescription: DataTypes.TEXT('long'),
-      applyUrl: DataTypes.STRING(1000),
-      notificationPdfUrl: DataTypes.STRING(1000),
-      officialWebsiteUrl: DataTypes.STRING(1000),
-      eligibility: DataTypes.TEXT,
-      // Short label for card/list views (≤ 28 chars), e.g. "B.Tech / B.E", "Any Graduate".
-      // Full eligibility text is in `eligibility` above — shown only on the detail page.
-      eligibilityShort: DataTypes.STRING(80),
-
-      // Display strings, kept verbatim from the source notification rather than
-      // derived from timestamps ("3 hours ago", "23 Aug 2026").
-      postedAt: DataTypes.STRING(60),
-      postedOn: DataTypes.STRING(60),
+      // 'tagline' maps to 'description' in Hostinger DB
+      tagline: {
+        type: DataTypes.STRING(500),
+        field: 'description',
+      },
+      // 'shortInfo' maps to 'overview' in Hostinger DB
+      shortInfo: {
+        type: DataTypes.TEXT,
+        field: 'overview',
+      },
+      // 'detailedDescription' maps to 'full_description' in Hostinger DB
+      detailedDescription: {
+        type: DataTypes.TEXT('long'),
+        field: 'full_description',
+      },
+      // 'applyUrl' maps to 'apply_link' in Hostinger DB
+      applyUrl: {
+        type: DataTypes.STRING(1000),
+        field: 'apply_link',
+      },
+      // 'notificationPdfUrl' maps to 'pdf_url' in Hostinger DB
+      notificationPdfUrl: {
+        type: DataTypes.STRING(1000),
+        field: 'pdf_url',
+      },
+      // 'officialWebsiteUrl' maps to 'official_website' in Hostinger DB
+      officialWebsiteUrl: {
+        type: DataTypes.STRING(1000),
+        field: 'official_website',
+      },
+      // 'eligibility' maps to 'qualification' in Hostinger DB
+      eligibility: {
+        type: DataTypes.TEXT,
+        field: 'qualification',
+      },
+      // 'eligibilityShort' maps to 'experience' in Hostinger DB
+      eligibilityShort: {
+        type: DataTypes.STRING(80),
+        field: 'experience',
+      },
+      // 'postedAt' maps to 'badge_text' in Hostinger DB
+      postedAt: {
+        type: DataTypes.STRING(60),
+        field: 'badge_text',
+      },
+      // 'postedOn' maps to 'posted_date' in Hostinger DB
+      postedOn: {
+        type: DataTypes.STRING(60),
+        field: 'posted_date',
+      },
 
       views: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
-      applications: DataTypes.INTEGER,
       vacancies: DataTypes.INTEGER,
 
-      // Featured posts feed the home-page hero carousel ("Trending This Week").
+      // Featured posts feed the home-page hero carousel
       featured: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
 
-      // inTicker posts feed the moving header marquee ticker ("Live Announcements").
+      // inTicker posts feed the moving header marquee ticker
       inTicker: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
 
       // --- JSON (display-only) ---
-      logo: DataTypes.JSON, //           { icon, color }
+      logo: DataTypes.JSON,           // { icon, color }
       importantDates: DataTypes.JSON, // [{ label, value }]
-      fee: DataTypes.JSON, //            [{ label, value }]
-      ageLimit: DataTypes.JSON, //       { min, max, note }
-      posts: DataTypes.JSON, //          [{ name, total, eligibility }]
-      links: DataTypes.JSON, //          [{ label, href, primary? }]
+      fee: DataTypes.JSON,            // [{ label, value }]
+      ageLimit: DataTypes.JSON,       // { min, max, note }
+      posts: DataTypes.JSON,          // [{ name, total, eligibility }]
+      links: DataTypes.JSON,          // [{ label, href, primary? }]
 
-      // Pay scale / salary — displayed on job detail page, important for E-E-A-T
-      // Stored as plain text, e.g. "Pay Level 4 (₹25,500 – ₹81,100) as per 7th CPC"
+      // Pay scale / salary — display string
       salary: DataTypes.STRING(500),
+
+      // Location field
+      location: DataTypes.STRING(200),
     },
     {
       tableName: 'jobs',
       timestamps: true,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
       indexes: [
         { fields: ['category'] },
-        { fields: ['kind'] },
+        { fields: ['type'] },
         { fields: ['featured'] },
-        { fields: ['createdAt'] },
+        { fields: ['created_at'] },
       ],
     }
   )

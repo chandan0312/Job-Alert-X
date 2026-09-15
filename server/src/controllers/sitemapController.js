@@ -42,14 +42,14 @@ async function generateKindSitemap(res, kind, changefreq, priority) {
   try {
     const posts = await Job.findAll({
       where: { kind },
-      attributes: ['id', 'updatedAt', 'createdAt'],
-      order: [['updatedAt', 'DESC']],
+      attributes: ['id', 'updated_at', 'created_at'],
+      order: [['updated_at', 'DESC']],
     })
 
     const entries = posts.map((p) =>
       urlEntry(
         `${BASE_URL}/job/${encodeURIComponent(p.id)}`,
-        p.updatedAt || p.createdAt,
+        p.updated_at || p.created_at,
         changefreq,
         priority
       )

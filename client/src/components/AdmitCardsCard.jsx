@@ -65,8 +65,8 @@ export default function AdmitCardsCard({ viewAllTo = '/latest/admit-card' }) {
                   <td className="py-3 pl-4 pr-2 align-middle">
                     <div className="flex items-center gap-2.5 min-w-0">
                       <BrandIcon
-                        icon={card.logo.icon}
-                        color={card.logo.color}
+                        icon={card.logo?.icon || 'ticket'}
+                        color={card.logo?.color || '#3b82f6'}
                         size={30}
                         square
                         className="shrink-0"

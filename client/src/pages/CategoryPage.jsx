@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { Layers, Search } from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
 import RecentJobsTable from '../components/RecentJobsTable.jsx'
@@ -31,8 +31,16 @@ function Chip({ active, onClick, children }) {
   )
 }
 
-export default function CategoryPage() {
-  const { slug, kind } = useParams()
+export default function CategoryPage({ defaultSlug }) {
+  const params = useParams()
+  const location = useLocation()
+
+  let slug = params.slug || defaultSlug
+  if (!slug && !params.kind) {
+    if (location.pathname.includes('rojgar-mela')) slug = 'rojgar-mela'
+    else if (location.pathname.includes('private-jobs')) slug = 'private'
+  }
+  const kind = params.kind
   const mode = slug ? 'category' : 'kind'
 
   const [jobs, setJobs] = useState(null)
@@ -128,6 +136,11 @@ export default function CategoryPage() {
 
   // Per-category keyword maps using high-volume, low-difficulty keywords from SEO data
   const CATEGORY_KEYWORD_MAP = {
+    jpsc: 'jpsc recruitment 2026, jpsc civil services 2026, jpsc application form 2026, jpsc cdpo, jpsc jharkhand jobs, jharkhand public service commission, jharkhand job alert x',
+    jssc: 'jssc recruitment 2026, jssc cgl 2026, jssc jcce excise constable, jssc lady supervisor, jssc jharkhand vacancy 2026, jharkhand staff selection commission, jharkhand job alert x',
+    'rojgar-mela': 'jharkhand rojgar mela 2026, rojgar mela ranchi, rojgar mela dhanbad, rojgar mela bokaro, rojgar mela jamshedpur, district employment exchange jharkhand, rojgar bharti camp 2026, jharkhand job alert x',
+    private: 'jharkhand private jobs 2026, tata steel jamshedpur careers, jindal steel patratu jobs, private company jobs ranchi, jharkhand job vacancies 2026, jharkhand job alert x',
+    others: 'central govt jobs 2026, railway rrb recruitment 2026, ssc recruitment 2026, bank jobs 2026, defence recruitment 2026, job alert x',
     ssc: 'free job alert ssc, ssc cgl recruitment 2026, ssc chsl 2026, ssc mts 2026, govt job notification 2026, new vacancy 2026, 12th pass govt job, central govt jobs, latest govt jobs, free job alert 2026, sarkari job alert, job alert x',
     railway: 'free job alert railway, rrb ntpc 2026, railway recruitment 2026, railway group d 2026, government job vacancy 2026, new job vacancy 2026, govt job notification 2026, free job alert 2026, latest govt jobs, 12th pass govt job, sarkari naukri, job alert x',
     banking: 'ibps po 2026, ibps clerk 2026, sbi po 2026, sbi clerk 2026, bank job alert, government job vacancy 2026, new job vacancy 2026, free job alert 2026, latest govt jobs, central govt jobs, job notification 2026, job alert x',

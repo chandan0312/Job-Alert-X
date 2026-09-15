@@ -54,7 +54,7 @@ export const env = {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
   },
 
-  clientOrigin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
+  clientOrigin: process.env.ALLOWED_ORIGINS || process.env.CLIENT_ORIGIN || 'http://localhost:5173',
 }
 
 export const isProduction = env.nodeEnv === 'production'

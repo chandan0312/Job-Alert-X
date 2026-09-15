@@ -43,7 +43,7 @@ function PageLoader() {
         <div className="absolute inset-0 rounded-full border-2 border-brand-500/20" />
         <div className="h-10 w-10 animate-spin rounded-full border-2 border-brand-500 border-t-transparent" />
       </div>
-      <span className="text-[12px] font-semibold text-ink-muted">Loading Job Alert X…</span>
+      <span className="text-[12px] font-semibold text-ink-muted">Loading Jharkhand JobAlert X…</span>
     </div>
   )
 }
@@ -84,7 +84,9 @@ function AppRoutes() {
           {/* Content detail pages */}
           <Route path="job/:id"           element={<JobDetails />} />
 
-          {/* Category & kind index pages */}
+          {/* Jharkhand-specific routes */}
+          <Route path="rojgar-mela"       element={<CategoryPage defaultSlug="rojgar-mela" />} />
+          <Route path="private-jobs"      element={<CategoryPage defaultSlug="private" />} />
           <Route path="category/:slug"    element={<CategoryPage />} />
           <Route path="latest/:kind"      element={<CategoryPage />} />
           <Route path="exams"             element={<ExamsPage />} />
