@@ -38,8 +38,15 @@ export default function CategoryPage({ defaultSlug }) {
   let slug = params.slug || defaultSlug
   if (!slug && !params.kind) {
     if (location.pathname.includes('rojgar-mela')) slug = 'rojgar-mela'
-    else if (location.pathname.includes('private-jobs')) slug = 'private'
+    else if (location.pathname.includes('private-jobs') || location.pathname.includes('private-job')) slug = 'private-job'
+    else if (location.pathname.includes('other-jharkhand')) slug = 'other-jharkhand'
+    else if (location.pathname.includes('central-job') || location.pathname.includes('central-jobs')) slug = 'central-job'
   }
+  // Normalize slug aliases
+  if (slug === 'private' || slug === 'private-jobs') slug = 'private-job'
+  if (slug === 'others' || slug === 'other' || slug === 'central') slug = 'central-job'
+  if (slug === 'jharkhand' || slug === 'other-jharkhand-job' || slug === 'other-jharkhand-jobs') slug = 'other-jharkhand'
+
   const kind = params.kind
   const mode = slug ? 'category' : 'kind'
 
@@ -91,19 +98,34 @@ export default function CategoryPage({ defaultSlug }) {
         })
         .filter((f) => f.count > 0)
     }
+    const ORDER = ['jpsc', 'jssc', 'other-jharkhand', 'rojgar-mela', 'private-job', 'central-job']
     const present = [...new Set(jobs.map((j) => j.category).filter(Boolean))]
-    return present.map((c) => {
-      const count = jobs.filter((j) => j.category === c).length
-      const catName = categories.find((x) => x.slug === c)?.name || c
-      return { value: c, label: `${catName} (${count})`, count }
-    })
+    const allCategories = [...new Set([...ORDER, ...present])]
+    return allCategories
+      .map((c) => {
+        const count = jobs.filter((j) => {
+          if (c === 'private-job') return j.category === 'private-job' || j.category === 'private'
+          if (c === 'central-job') return j.category === 'central-job' || j.category === 'others' || j.category === 'other'
+          if (c === 'other-jharkhand') return j.category === 'other-jharkhand' || j.category === 'jharkhand'
+          return j.category === c
+        }).length
+        const catName = categories.find((x) => x.slug === c)?.name || (c === 'other-jharkhand' ? 'Other Jharkhand Job' : c === 'central-job' ? 'Central Job' : c === 'private-job' ? 'Private Job' : c.toUpperCase())
+        return { value: c, label: `${catName} (${count})`, count }
+      })
+      .filter((f) => f.count > 0)
   }, [jobs, mode, categories])
 
   const visible = useMemo(() => {
     if (!jobs) return []
     let list = jobs
     if (filter !== 'all') {
-      list = list.filter((j) => (mode === 'category' ? j.kind === filter : j.category === filter))
+      list = list.filter((j) => {
+        if (mode === 'category') return j.kind === filter
+        if (filter === 'private-job') return j.category === 'private-job' || j.category === 'private'
+        if (filter === 'central-job') return j.category === 'central-job' || j.category === 'others' || j.category === 'other'
+        if (filter === 'other-jharkhand') return j.category === 'other-jharkhand' || j.category === 'jharkhand'
+        return j.category === filter
+      })
     }
     if (search.trim()) {
       const q = search.toLowerCase().trim()
@@ -138,8 +160,11 @@ export default function CategoryPage({ defaultSlug }) {
   const CATEGORY_KEYWORD_MAP = {
     jpsc: 'jpsc recruitment 2026, jpsc civil services 2026, jpsc application form 2026, jpsc cdpo, jpsc jharkhand jobs, jharkhand public service commission, jharkhand job alert x',
     jssc: 'jssc recruitment 2026, jssc cgl 2026, jssc jcce excise constable, jssc lady supervisor, jssc jharkhand vacancy 2026, jharkhand staff selection commission, jharkhand job alert x',
+    'other-jharkhand': 'other jharkhand jobs 2026, jharkhand high court recruitment, jharkhand police, jharkhand teacher vacancy, jharkhand municipal jobs, jharkhand health recruitment, jharkhand job alert x',
     'rojgar-mela': 'jharkhand rojgar mela 2026, rojgar mela ranchi, rojgar mela dhanbad, rojgar mela bokaro, rojgar mela jamshedpur, district employment exchange jharkhand, rojgar bharti camp 2026, jharkhand job alert x',
+    'private-job': 'jharkhand private jobs 2026, tata steel jamshedpur careers, jindal steel patratu jobs, private company jobs ranchi, jharkhand corporate job vacancies 2026, jharkhand job alert x',
     private: 'jharkhand private jobs 2026, tata steel jamshedpur careers, jindal steel patratu jobs, private company jobs ranchi, jharkhand job vacancies 2026, jharkhand job alert x',
+    'central-job': 'central govt jobs 2026, railway rrb recruitment 2026, ssc recruitment 2026, bank jobs 2026, defence recruitment 2026, upsc 2026, job alert x',
     others: 'central govt jobs 2026, railway rrb recruitment 2026, ssc recruitment 2026, bank jobs 2026, defence recruitment 2026, job alert x',
     ssc: 'free job alert ssc, ssc cgl recruitment 2026, ssc chsl 2026, ssc mts 2026, govt job notification 2026, new vacancy 2026, 12th pass govt job, central govt jobs, latest govt jobs, free job alert 2026, sarkari job alert, job alert x',
     railway: 'free job alert railway, rrb ntpc 2026, railway recruitment 2026, railway group d 2026, government job vacancy 2026, new job vacancy 2026, govt job notification 2026, free job alert 2026, latest govt jobs, 12th pass govt job, sarkari naukri, job alert x',
