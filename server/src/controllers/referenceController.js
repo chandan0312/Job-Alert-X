@@ -76,19 +76,25 @@ export const categoryBySlug = asyncHandler(async (req, res) => {
   })
 })
 
-/** GET /api/recruiters — returns empty list (mock data removed). */
+/** GET /api/recruiters — mirrors getRecruiters(). */
 export const listRecruiters = asyncHandler(async (req, res) => {
-  res.json([])
+  const rows = await Recruiter.findAll({ order: [['name', 'ASC']] })
+  res.json(serialize(rows))
 })
 
-/** GET /api/courses — returns empty list (mock data removed). */
+/** GET /api/courses — mirrors getPopularCourses(). */
 export const listCourses = asyncHandler(async (req, res) => {
-  res.json([])
+  const rows = await Course.findAll({ order: [['createdAt', 'ASC']] })
+  res.json(serialize(rows))
 })
 
-/** GET /api/now-playing — returns null (mock music player removed). */
+/**
+ * GET /api/now-playing — mirrors getNowPlaying().
+ * Singleton row; returns null when the seed has not been run.
+ */
 export const getNowPlaying = asyncHandler(async (req, res) => {
-  res.json(null)
+  const row = await NowPlaying.findByPk(NOW_PLAYING_ID)
+  res.json(row ? serialize(row, { omit: ['id'] }) : null)
 })
 
 export default {

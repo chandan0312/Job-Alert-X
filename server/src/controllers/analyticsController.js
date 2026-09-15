@@ -9,10 +9,7 @@ import { env } from '../config/env.js'
 
 const seq = () => PageView.sequelize
 
-/**
- * Dialect-aware date trunc to day: returns a Sequelize fn node.
- * @param {string} colName — the actual DB column name (e.g. 'createdAt' or 'created_at')
- */
+/** Dialect-aware date trunc to day: returns a Sequelize fn node. */
 function fnDate(colName) {
   if (env.db.dialect === 'sqlite') {
     return literal(`strftime('%Y-%m-%d', \`${colName}\`)`)
@@ -20,10 +17,7 @@ function fnDate(colName) {
   return fn('DATE', col(colName))
 }
 
-/**
- * Dialect-aware hour extraction.
- * @param {string} colName — the actual DB column name
- */
+/** Dialect-aware hour extraction. */
 function fnHour(colName) {
   if (env.db.dialect === 'sqlite') {
     return literal(`CAST(strftime('%H', \`${colName}\`) AS INTEGER)`)
@@ -57,14 +51,6 @@ export const getAnalytics = asyncHandler(async (req, res) => {
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-
-  // ────────────────────────────────────────────────────────────────────────
-  // NOTE ON COLUMN NAMES:
-  // • page_views table uses camelCase columns: `createdAt`
-  // • users table uses snake_case columns:    `created_at`
-  // The fn() / col() / literal() helpers bypass Sequelize's attribute
-  // mapping, so we must use the *actual* DB column names here.
-  // ────────────────────────────────────────────────────────────────────────
 
   // ── 1. Overview Totals ──────────────────────────────────────────────────
   const [totalViews, viewsToday, uniqueVisitorsAll, uniqueVisitorsToday] = await Promise.all([
@@ -223,14 +209,13 @@ export const getAnalytics = asyncHandler(async (req, res) => {
   })
 
   // ── 9. User Growth (last 30 days) ────────────────────────────────────────
-  // NOTE: users table has snake_case column `created_at`
   const userGrowthRaw = await User.findAll({
     attributes: [
-      [fnDate('created_at'), 'day'],
+      [fnDate('createdAt'), 'day'],
       [fn('COUNT', col('id')), 'count'],
     ],
-    where: { created_at: { [Op.gte]: thirtyDaysAgo } },
-    group: [fnDate('created_at')],
+    where: { createdAt: { [Op.gte]: thirtyDaysAgo } },
+    group: [fnDate('createdAt')],
     raw: true,
   })
   const userByDay = Object.fromEntries(userGrowthRaw.map((r) => [String(r.day), Number(r.count)]))

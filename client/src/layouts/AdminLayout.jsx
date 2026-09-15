@@ -42,7 +42,7 @@ function AdminNavItem({ item, onClick }) {
         [
           'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition-all duration-200',
           isActive
-            ? 'bg-gradient-to-r from-brand-500/25 to-brand-500/5 text-teal-200 font-bold border-l-2 border-[#AED0C9] shadow-sm'
+            ? 'bg-gradient-to-r from-orange-500/20 to-orange-500/5 text-white font-bold shadow-sm'
             : 'text-slate-400 hover:bg-white/[0.06] hover:text-slate-200',
         ].join(' ')
       }
@@ -52,7 +52,7 @@ function AdminNavItem({ item, onClick }) {
           <span
             className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all ${
               isActive
-                ? 'bg-brand-500 text-white shadow-md shadow-brand-500/30'
+                ? 'bg-orange-500 text-white shadow-md shadow-orange-500/30'
                 : 'bg-white/[0.05] border border-white/[0.06]'
             }`}
           >
@@ -112,13 +112,13 @@ export default function AdminLayout() {
 
       {/* Admin Sidebar (Always Dark) */}
       <aside
-        className={`fixed top-[72px] bottom-0 left-0 z-30 flex w-[260px] flex-col border-r border-teal-500/20 bg-[#061e2d] shadow-xl transition-colors duration-200 lg:translate-x-0 ${
+        className={`fixed top-[72px] bottom-0 left-0 z-30 flex w-[260px] flex-col border-r border-white/[0.08] bg-[#080d1e] shadow-xl transition-colors duration-200 lg:translate-x-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Mobile close */}
-        <div className="flex items-center justify-between border-b border-teal-500/20 px-4 py-3 lg:hidden">
-          <span className="text-xs font-bold uppercase tracking-wider text-teal-300">Jharkhand JobAlert X</span>
+        <div className="flex items-center justify-between border-b border-white/[0.08] px-4 py-3 lg:hidden">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Job Alert X Admin</span>
           <button
             type="button"
             onClick={() => setMobileOpen(false)}
@@ -130,22 +130,22 @@ export default function AdminLayout() {
         </div>
 
         {/* Admin badge */}
-        <div className="border-b border-teal-500/20 px-4 py-4">
+        <div className="border-b border-white/[0.08] px-4 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-navy-950 border border-teal-400/30 shadow-lg shadow-brand-500/25">
-              <Shield size={18} className="text-[#FFFB08]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-purple-600 shadow-lg shadow-brand-600/25">
+              <Shield size={18} className="text-white" />
             </div>
             <div>
               <p className="text-[13px] font-bold text-white">{user?.name || 'Admin'}</p>
-              <p className="text-[11px] text-teal-300/80">{user?.email || ''}</p>
+              <p className="text-[11px] text-slate-400">{user?.email || ''}</p>
             </div>
           </div>
         </div>
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto px-3 py-4">
-          <p className="mb-2 px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-teal-400/70">
-            Jharkhand Admin Portal
+          <p className="mb-2 px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
+            Job Alert X Admin
           </p>
           <div className="space-y-1">
             {ADMIN_NAV.map((item) => (
@@ -155,7 +155,7 @@ export default function AdminLayout() {
         </nav>
 
         {/* Theme toggle */}
-        <div className="border-t border-teal-500/20 p-2.5">
+        <div className="border-t border-white/[0.08] p-2.5">
           <button
             type="button"
             onClick={toggleTheme}
@@ -163,16 +163,16 @@ export default function AdminLayout() {
             aria-pressed={!isDark}
           >
             {isDark ? (
-              <MoonStar size={18} className="flex-shrink-0 text-teal-300" />
+              <MoonStar size={18} className="flex-shrink-0 text-indigo-400" />
             ) : (
-              <SunMedium size={18} className="flex-shrink-0 text-[#FFFB08]" />
+              <SunMedium size={18} className="flex-shrink-0 text-amber-400" />
             )}
             <span className="text-[13px] font-medium text-slate-300">
               {isDark ? 'Dark Mode' : 'Light Mode'}
             </span>
             <span
               className={`ml-auto inline-flex h-5 w-10 items-center rounded-full p-0.5 transition-colors ${
-                isDark ? 'bg-navy-700' : 'bg-brand-500'
+                isDark ? 'bg-slate-700' : 'bg-orange-500'
               }`}
             >
               <span

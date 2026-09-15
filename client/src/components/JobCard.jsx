@@ -86,7 +86,7 @@ export default function JobCard({ job, variant = 'compact' }) {
         to={`/job/${job.id}`}
         className="card group relative flex flex-col items-center p-5 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-cardhover hover:border-brand-300 dark:hover:border-white/20"
       >
-        <BrandIcon icon={job.logo?.icon || 'landmark'} color={job.logo?.color || '#1B6F81'} size={56} />
+        <BrandIcon icon={job.logo.icon} color={job.logo.color} size={56} />
         <h3 className="mt-3.5 line-clamp-2 text-[14px] font-bold leading-snug text-ink group-hover:text-brand-600 transition-colors">
           {job.title}
         </h3>

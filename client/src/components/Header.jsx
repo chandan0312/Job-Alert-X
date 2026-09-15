@@ -14,6 +14,7 @@ import { useTheme } from '../context/ThemeContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { getTickerJobs } from '../services/api.js'
 import SarkariEmblem from './SarkariEmblem.jsx'
+import TextLoop from '@/components/ui/text-loop'
 
 
 function useClickOutside(ref, onOutside) {
@@ -49,9 +50,9 @@ export default function Header({ onMenuClick = () => {} }) {
   }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[72px] px-2 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 bg-[#09324A]/95 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50 h-[72px] px-2 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 bg-[#050814]/95 backdrop-blur-md">
       {/* Main Top Header Container */}
-      <div className="relative mx-auto flex h-full w-full max-w-[1600px] items-center justify-between gap-3 rounded-2xl px-3 sm:px-4 transition-all duration-300 bg-[#061e2d] border border-teal-500/20 shadow-[0_0_20px_rgba(27,111,129,0.15)] backdrop-blur-2xl">
+      <div className="relative mx-auto flex h-full w-full max-w-[1600px] items-center justify-between gap-3 rounded-2xl px-3 sm:px-4 transition-all duration-300 bg-[#080d1e] border border-cyan-500/20 shadow-[0_0_20px_rgba(0,180,255,0.08)] backdrop-blur-2xl">
         
         {/* === LEFT: BRAND LOGO + TITLE === */}
         <div className="flex shrink-0 items-center gap-2.5 sm:gap-3">
@@ -65,27 +66,46 @@ export default function Header({ onMenuClick = () => {} }) {
             <Menu size={22} />
           </button>
 
-          {/* Logo & Jharkhand / JobAlert X Branding */}
+          {/* Logo & JOB ALERT X Branding */}
           <Link
             to="/"
             className="group/brand flex items-center gap-2.5 sm:gap-3 pr-2 transition-transform duration-200 hover:scale-[1.02]"
-            aria-label="Jharkhand JobAlert X Home"
+            aria-label="Job Alert X Home"
           >
             <SarkariEmblem size={44} />
 
-            <div className="flex flex-col justify-center">
-              {/* Top Line: Jharkhand */}
-              <span className="text-[13px] sm:text-[15px] font-extrabold tracking-wider text-[#AED0C9] uppercase leading-none">
-                Jharkhand
-              </span>
-              {/* Bottom Line: JobAlert X */}
-              <div className="mt-1 flex items-baseline text-lg sm:text-xl font-black tracking-tight leading-none">
-                <span className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.35)]">
-                  JobAlert
+            <div className="flex flex-col">
+              <div className="flex items-center text-lg sm:text-xl font-black tracking-wider leading-none">
+                <span className="text-white">JOB</span>
+                <span className="ml-1.5 text-orange-500 drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]">
+                  ALERT
                 </span>
-                <span className="ml-1 text-[#FFFB08] drop-shadow-[0_0_10px_rgba(255,251,8,0.75)]">
+                <span className="ml-1 text-purple-500 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]">
                   X
                 </span>
+              </div>
+              <div className="mt-1 flex items-center h-[18px]">
+                {/* SEO semantic keywords for search engines and screen readers */}
+                <span className="sr-only">
+                  Latest Govt Jobs, Sarkari Results, Exams, Admit Cards, Answer Keys &amp; Alerts | सरकारी नौकरी
+                </span>
+
+                <TextLoop
+                  staticText="Govt"
+                  rotatingTexts={[
+                    "Jobs & Alerts",
+                    "सरकारी नौकरी",
+                    "Exams & Results",
+                    "भर्ती व परिणाम",
+                    "Admit Cards",
+                  ]}
+                  interval={2500}
+                  className="text-[10.5px] sm:text-xs font-bold tracking-wider text-slate-300 leading-none"
+                  staticTextClassName="text-slate-300 font-bold mr-1.5 leading-none"
+                  rotatingTextClassName="bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent font-extrabold leading-none"
+                  backgroundClassName="hidden"
+                  cursorClassName="w-[1.5px] bg-orange-400 h-[1em]"
+                />
               </div>
             </div>
           </Link>
@@ -93,10 +113,10 @@ export default function Header({ onMenuClick = () => {} }) {
 
         {/* === CENTER: SLIDER BOX WITH SLIDING TEXT & FIRE SYMBOL === */}
         <div className="hidden min-w-0 flex-1 items-center md:flex px-3 lg:px-6">
-          <div className="relative flex h-11 w-full items-center overflow-hidden rounded-full bg-[#09324A] border border-teal-500/20 shadow-inner pl-1.5 pr-4">
+          <div className="relative flex h-11 w-full items-center overflow-hidden rounded-full bg-[#0d1326] border border-white/10 shadow-inner pl-1.5 pr-4">
             
-            {/* Left Brand Badge */}
-            <div className="relative z-10 flex shrink-0 items-center justify-center h-8 w-8 rounded-full bg-gradient-to-tr from-[#1B6F81] via-[#AED0C9] to-[#FFFB08] text-[#09324A] shadow-md shadow-teal-500/30">
+            {/* Left Fire Symbol Badge */}
+            <div className="relative z-10 flex shrink-0 items-center justify-center h-8 w-8 rounded-full bg-gradient-to-tr from-orange-600 via-amber-500 to-orange-400 text-white shadow-md shadow-orange-500/30">
               <Flame size={17} className="animate-pulse text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]" aria-hidden="true" />
             </div>
 
@@ -106,50 +126,51 @@ export default function Header({ onMenuClick = () => {} }) {
             {/* Right-to-Left Continuous Moving Ticker Track */}
             <div className="flex overflow-hidden w-full cursor-pointer select-none">
               <div className="animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none flex items-center gap-6 py-1">
+                {/* Loop 1 */}
                 {tickerItems.map((item, idx) => {
                   const badge = item.badge || item.orgShort || item.org || item.category?.toUpperCase() || 'LIVE'
-                  const highlight = item.highlight || item.tagline || (item.vacancies ? `${Number(item.vacancies).toLocaleString('en-IN')} Posts` : 'Apply Now')
+                  const highlight = item.highlight || item.tagline || (item.vacancies ? `${Number(item.vacancies).toLocaleString('en-IN')} Posts` : 'Apply Online')
                   return (
                     <Link
                       key={`t1-${item.id || idx}`}
                       to={`/job/${item.id}`}
-                      className="group/item flex shrink-0 items-center gap-2 text-xs transition-colors text-[#AED0C9] hover:text-[#FFFB08]"
+                      className="group/item flex shrink-0 items-center gap-2 text-xs transition-colors text-slate-200 hover:text-orange-400"
                     >
-                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-bold bg-[#1B6F81]/30 text-[#FFFB08] border border-[#1B6F81]/50">
+                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">
                         {badge}
                       </span>
-                      <span className="font-semibold text-[#AED0C9] group-hover/item:text-[#FFFB08] group-hover/item:underline underline-offset-2">
+                      <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
                         {item.title}
                       </span>
-                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-[#FFFB08] group-hover/item:text-yellow-300">
+                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-500 group-hover/item:text-orange-400">
                         [{highlight}]
                         <ArrowRight size={12} className="transition-transform group-hover/item:translate-x-0.5" aria-hidden="true" />
                       </span>
-                      <span className="mx-2 text-teal-700" aria-hidden="true">•</span>
+                      <span className="mx-2 text-slate-600" aria-hidden="true">•</span>
                     </Link>
                   )
                 })}
                 {/* Loop 2 (for continuous smooth scroll) */}
                 {tickerItems.map((item, idx) => {
                   const badge = item.badge || item.orgShort || item.org || item.category?.toUpperCase() || 'LIVE'
-                  const highlight = item.highlight || item.tagline || (item.vacancies ? `${Number(item.vacancies).toLocaleString('en-IN')} Posts` : 'Apply Now')
+                  const highlight = item.highlight || item.tagline || (item.vacancies ? `${Number(item.vacancies).toLocaleString('en-IN')} Posts` : 'Apply Online')
                   return (
                     <Link
                       key={`t2-${item.id || idx}`}
                       to={`/job/${item.id}`}
-                      className="group/item flex shrink-0 items-center gap-2 text-xs transition-colors text-[#AED0C9] hover:text-[#FFFB08]"
+                      className="group/item flex shrink-0 items-center gap-2 text-xs transition-colors text-slate-200 hover:text-orange-400"
                     >
-                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-bold bg-[#1B6F81]/30 text-[#FFFB08] border border-[#1B6F81]/50">
+                      <span className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">
                         {badge}
                       </span>
-                      <span className="font-semibold text-[#AED0C9] group-hover/item:text-[#FFFB08] group-hover/item:underline underline-offset-2">
+                      <span className="font-semibold text-slate-200 group-hover/item:text-orange-400 group-hover/item:underline underline-offset-2">
                         {item.title}
                       </span>
-                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-[#FFFB08] group-hover/item:text-yellow-300">
+                      <span className="inline-flex items-center gap-0.5 text-xs font-bold text-orange-500 group-hover/item:text-orange-400">
                         [{highlight}]
                         <ArrowRight size={12} className="transition-transform group-hover/item:translate-x-0.5" aria-hidden="true" />
                       </span>
-                      <span className="mx-2 text-teal-700" aria-hidden="true">•</span>
+                      <span className="mx-2 text-slate-600" aria-hidden="true">•</span>
                     </Link>
                   )
                 })}
@@ -163,10 +184,10 @@ export default function Header({ onMenuClick = () => {} }) {
           {/* Quick Feedback Button */}
           <Link
             to="/feedback"
-            className="group flex items-center gap-1.5 rounded-full px-3 py-2 transition-all shadow-sm bg-[#09324A] text-[#AED0C9] border border-teal-500/20 hover:border-[#FFFB08]/40 hover:text-[#FFFB08]"
+            className="group flex items-center gap-1.5 rounded-full px-3 py-2 transition-all shadow-sm bg-[#111628] text-slate-300 border border-white/10 hover:border-orange-500/40 hover:text-orange-300"
             title="Send Feedback or Suggestion"
           >
-            <MessageSquarePlus size={17} className="transition-colors text-[#FFFB08] group-hover:text-yellow-300" />
+            <MessageSquarePlus size={17} className="transition-colors text-orange-400 group-hover:text-orange-300" />
             <span className="hidden text-xs font-bold lg:inline">Feedback</span>
           </Link>
 
@@ -174,10 +195,10 @@ export default function Header({ onMenuClick = () => {} }) {
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center rounded-full transition-all shadow-sm bg-[#09324A] text-[#AED0C9] border border-teal-500/20 hover:border-[#FFFB08]/40 hover:text-[#FFFB08]"
+            className="flex h-10 w-10 items-center justify-center rounded-full transition-all shadow-sm bg-[#111628] text-slate-300 border border-white/10 hover:border-amber-400/40 hover:text-amber-400"
             aria-label="Toggle theme"
           >
-            {isDark ? <MoonStar size={17} className="text-[#AED0C9]" /> : <Sun size={17} className="text-[#FFFB08]" />}
+            {isDark ? <MoonStar size={17} className="text-indigo-400" /> : <Sun size={17} className="text-amber-400" />}
           </button>
 
           {/* Login / Profile Gradient Pill Button */}
@@ -186,21 +207,21 @@ export default function Header({ onMenuClick = () => {} }) {
               <button
                 type="button"
                 onClick={() => setUserOpen((prev) => !prev)}
-                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#1B6F81] to-[#09324A] px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-teal-600/30 hover:shadow-teal-500/40 hover:brightness-110 transition-all border border-teal-400/20"
+                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#8b5cf6] via-[#7c3aed] to-[#4f46e5] px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-purple-600/30 hover:shadow-purple-500/40 hover:brightness-110 transition-all"
               >
                 {user?.avatar ? (
                   <img src={user.avatar} alt={user.name} className="h-5 w-5 rounded-full object-cover" />
                 ) : (
-                  <User size={15} className="text-[#AED0C9]" />
+                  <User size={15} className="text-white" />
                 )}
                 <span className="max-w-[100px] truncate">{user?.name?.split(' ')[0] || 'Account'}</span>
               </button>
             ) : (
               <Link
                 to="/login"
-                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FFFB08] to-[#AED0C9] px-3.5 py-2 text-xs font-bold text-[#09324A] shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 hover:brightness-110 transition-all"
+                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 transition-all"
               >
-                <User size={15} className="text-[#09324A]" />
+                <User size={15} className="text-white" />
                 <span>Sign In</span>
               </Link>
             )}

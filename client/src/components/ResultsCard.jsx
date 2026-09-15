@@ -65,8 +65,8 @@ export default function ResultsCard({ viewAllTo = '/latest/result' }) {
                   <td className="py-3 pl-4 pr-2 align-middle">
                     <div className="flex items-center gap-2.5 min-w-0">
                       <BrandIcon
-                        icon={res.logo?.icon || 'award'}
-                        color={res.logo?.color || '#10b981'}
+                        icon={res.logo.icon}
+                        color={res.logo.color}
                         size={30}
                         square
                         className="shrink-0"

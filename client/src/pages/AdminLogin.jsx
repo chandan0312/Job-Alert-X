@@ -45,14 +45,14 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-page px-4 transition-colors duration-200 dark:bg-[#030f18]">
-      <SEOHead title="Admin Login | Jharkhand JobAlert X" />
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-page px-4 transition-colors duration-200 dark:bg-[#050814]">
+      <SEOHead title="Admin Login | Job Alert X" />
       {/* Background effects */}
       <div className="pointer-events-none absolute inset-0">
         {/* Radial gradient orbs */}
-        <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-teal-500/15 blur-[120px]" />
-        <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-navy-800/20 blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold-400/10 blur-[100px]" />
+        <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-brand-600/10 blur-[120px]" />
+        <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-purple-600/10 blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500/5 blur-[100px]" />
         {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -72,15 +72,15 @@ export default function AdminLogin() {
             <SarkariEmblem size={56} />
           </Link>
           <h1 className="text-2xl font-black tracking-tight text-ink dark:text-white">
-            Jharkhand JobAlert X Admin
+            Job Alert X Admin Portal
           </h1>
           <p className="mt-1.5 text-sm text-ink-muted dark:text-slate-400">
-            Sign in to manage Jharkhand JobAlert X Portal
+            Sign in to manage Job Alert X
           </p>
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-hairline bg-surface p-6 shadow-xl backdrop-blur-xl sm:p-8 dark:bg-[#061e2d] dark:border-teal-500/20">
+        <div className="rounded-2xl border border-hairline bg-surface p-6 shadow-xl backdrop-blur-xl sm:p-8 dark:bg-[#0d1326]/80 dark:border-white/[0.08]">
           {/* Security badge */}
           <div className="mb-6 flex items-center gap-2 rounded-xl border border-brand-600/20 bg-brand-600/5 px-3.5 py-2.5">
             <Shield size={16} className="shrink-0 text-brand-500 dark:text-brand-400" />
@@ -154,7 +154,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 via-teal-600 to-navy-900 border border-teal-400/30 px-5 py-3 text-[14px] font-bold text-white shadow-lg shadow-brand-600/30 transition-all hover:brightness-110 disabled:opacity-60"
+              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 px-5 py-3 text-[14px] font-bold text-white shadow-lg shadow-brand-600/25 transition-all hover:shadow-brand-500/40 hover:brightness-110 disabled:opacity-60"
             >
               {loading ? (
                 <>
@@ -163,7 +163,7 @@ export default function AdminLogin() {
                 </>
               ) : (
                 <>
-                  Sign In to Dashboard
+                  Sign In
                   <ArrowRight
                     size={16}
                     className="transition-transform group-hover:translate-x-0.5"
@@ -178,9 +178,9 @@ export default function AdminLogin() {
         <div className="mt-6 text-center">
           <Link
             to="/"
-            className="text-xs font-semibold text-ink-muted hover:text-teal-400 dark:text-slate-400 dark:hover:text-teal-200 transition-colors"
+            className="text-xs font-semibold text-ink-muted hover:text-brand-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
           >
-            ← Back to Jharkhand JobAlert X Homepage
+            ← Back to Job Alert X Homepage
           </Link>
         </div>
       </div>

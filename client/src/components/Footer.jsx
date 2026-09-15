@@ -8,28 +8,29 @@ import {
   Youtube,
   Twitter,
   Linkedin,
+  Github,
   MessageCircle,
   ExternalLink,
-  MapPin,
 } from 'lucide-react'
 import SarkariEmblem from './SarkariEmblem.jsx'
 
 const CATEGORY_LINKS = [
-  { label: 'JPSC', to: '/category/jpsc' },
-  { label: 'JSSC', to: '/category/jssc' },
-  { label: 'Other Jharkhand Job', to: '/category/other-jharkhand' },
-  { label: 'Rojgar Mela', to: '/category/rojgar-mela' },
-  { label: 'Private Job', to: '/category/private-job' },
-  { label: 'Central Job', to: '/category/central-job' },
+  { label: 'SSC Exams', to: '/category/ssc' },
+  { label: 'UPSC & Civil Services', to: '/category/upsc' },
+  { label: 'Banking & IBPS', to: '/category/banking' },
+  { label: 'Railways (RRB)', to: '/category/railway' },
+  { label: 'Defence & Police', to: '/category/defence' },
+  { label: 'Teaching & TET', to: '/category/teaching' },
+  { label: 'All Exam Categories', to: '/exams' },
 ]
 
 const QUICK_LINKS = [
-  { label: 'Latest Jharkhand Jobs', to: '/latest/job', badge: 'Hot' },
+  { label: 'Latest Jobs', to: '/latest/job', badge: 'Hot' },
   { label: 'Admit Cards', to: '/latest/admit-card' },
   { label: 'Exam Results', to: '/latest/result' },
   { label: 'Answer Keys', to: '/latest/answer-key' },
   { label: 'Syllabus & Pattern', to: '/latest/syllabus' },
-  { label: 'Rojgar Bharti Mela', to: '/rojgar-mela' },
+  { label: 'All Exam Categories', to: '/exams' },
 ]
 
 const COMPANY_LINKS = [
@@ -46,15 +47,15 @@ export default function Footer() {
 
   return (
     <footer className="w-full max-w-[1440px] mx-auto px-3 sm:px-5 lg:px-6 pt-2 pb-6">
-      {/* Compact Floating Card Design with Jharkhand Teal/Navy Styling */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-teal-500/20 bg-[#061e2d] shadow-xl text-slate-300">
+      {/* Compact Floating Card Design */}
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-[#070c1a] shadow-xl text-slate-300">
         {/* Subtle Ambient Glow */}
         <div
-          className="pointer-events-none absolute -top-20 -left-20 h-56 w-56 rounded-full bg-gradient-to-br from-teal-500/15 via-[#1B6F81]/15 to-transparent blur-3xl"
+          className="pointer-events-none absolute -top-20 -left-20 h-56 w-56 rounded-full bg-gradient-to-br from-indigo-500/10 via-purple-600/10 to-transparent blur-3xl"
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-gradient-to-tl from-[#FFFB08]/10 via-teal-500/10 to-transparent blur-3xl"
+          className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-gradient-to-tl from-sky-500/10 via-indigo-500/10 to-transparent blur-3xl"
           aria-hidden="true"
         />
 
@@ -69,44 +70,44 @@ export default function Footer() {
                 <Link
                   to="/"
                   className="group inline-flex items-center gap-2.5 transition-transform duration-200 hover:scale-[1.01]"
-                  aria-label="Jharkhand JobAlert X Homepage"
+                  aria-label="Job Alert X Homepage"
                 >
                   <SarkariEmblem size={34} />
                   <div className="flex flex-col">
                     <div className="flex items-center text-[18px] font-black tracking-wider leading-none text-white">
-                      <span>JHARKHAND</span>
-                      <span className="text-[#AED0C9] ml-1 drop-shadow-[0_0_8px_rgba(174,208,201,0.6)]">
-                        JOBALERT
+                      <span>JOB</span>
+                      <span className="text-orange-400 ml-1 drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]">
+                        ALERT
                       </span>
-                      <span className="ml-1 text-[#FFFB08] drop-shadow-[0_0_8px_rgba(255,251,8,0.7)]">
+                      <span className="ml-1 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]">
                         X
                       </span>
                     </div>
-                    <span className="mt-0.5 text-[9px] font-bold tracking-[0.14em] uppercase text-teal-300/80">
-                      Jharkhand Govt &amp; Private Jobs Portal
+                    <span className="mt-0.5 text-[9px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                      Govt Job Alerts &amp; Exams Portal
                     </span>
                   </div>
                 </Link>
 
                 {/* Brief bio */}
-                <p className="mt-2 max-w-sm text-xs leading-relaxed text-slate-300">
-                  Jharkhand's premier job alert portal. 100% verified notifications for JPSC, JSSC, District Rojgar Mela, Admit Cards, Results, and Private Sector jobs across Jharkhand.
+                <p className="mt-2 max-w-sm text-xs leading-relaxed text-slate-400">
+                  Instant, 100% verified government job notifications, admit cards, results, and syllabus updates across India.
                 </p>
 
                 {/* Compact Contact Pills */}
                 <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
                   <a
                     href="mailto:jobalerx365@gmail.com"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/30 bg-teal-900/30 px-2.5 py-1 text-teal-100 hover:border-gold-400/50 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-slate-300 hover:border-orange-500/40 hover:text-white transition-colors"
                   >
-                    <Mail size={12} className="text-teal-300" />
+                    <Mail size={12} className="text-orange-400" />
                     <span>jobalerx365@gmail.com</span>
                   </a>
                   <a
                     href="tel:8789862771"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/30 bg-teal-900/30 px-2.5 py-1 text-teal-100 hover:border-gold-400/50 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-slate-300 hover:border-purple-500/40 hover:text-white transition-colors"
                   >
-                    <Phone size={12} className="text-[#FFFB08]" />
+                    <Phone size={12} className="text-purple-400" />
                     <span>+91 8789862771</span>
                   </a>
                 </div>
@@ -141,7 +142,7 @@ export default function Footer() {
               {/* Column 1: Exam Categories */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5 text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#AED0C9]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-orange-400" />
                   Categories
                 </h3>
                 <ul className="space-y-1.5">
@@ -149,7 +150,7 @@ export default function Footer() {
                     <li key={item.label}>
                       <Link
                         to={item.to}
-                        className="text-xs text-slate-300 hover:text-[#FFFB08] transition-colors inline-block hover:translate-x-0.5"
+                        className="text-xs text-slate-400 hover:text-orange-400 transition-colors inline-block hover:translate-x-0.5"
                       >
                         {item.label}
                       </Link>
@@ -161,7 +162,7 @@ export default function Footer() {
               {/* Column 2: Quick Links */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5 text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#FFFB08]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
                   Quick Links
                 </h3>
                 <ul className="space-y-1.5">
@@ -169,11 +170,11 @@ export default function Footer() {
                     <li key={item.label}>
                       <Link
                         to={item.to}
-                        className="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-[#FFFB08] transition-colors hover:translate-x-0.5"
+                        className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-purple-400 transition-colors hover:translate-x-0.5"
                       >
                         <span>{item.label}</span>
                         {item.badge && (
-                          <span className="rounded px-1 py-0.2 text-[9px] font-bold border bg-teal-500/20 text-[#AED0C9] border-teal-500/30">
+                          <span className="rounded px-1 py-0.2 text-[9px] font-bold border bg-orange-500/20 text-orange-400 border-orange-500/30">
                             {item.badge}
                           </span>
                         )}
@@ -186,7 +187,7 @@ export default function Footer() {
               {/* Column 3: Company & Help */}
               <div className="col-span-2 sm:col-span-1">
                 <h3 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5 text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-teal-400" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
                   Company &amp; Info
                 </h3>
                 <ul className="space-y-1.5">
@@ -195,7 +196,7 @@ export default function Footer() {
                       {item.isExternal ? (
                         <a
                           href={item.to}
-                          className="inline-flex items-center gap-1 text-xs text-slate-300 hover:text-teal-200 transition-colors hover:translate-x-0.5"
+                          className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-indigo-300 transition-colors hover:translate-x-0.5"
                         >
                           <span>{item.label}</span>
                           <ExternalLink size={10} className="opacity-60" />
@@ -203,7 +204,7 @@ export default function Footer() {
                       ) : (
                         <Link
                           to={item.to}
-                          className="text-xs text-slate-300 hover:text-teal-200 transition-colors inline-block hover:translate-x-0.5"
+                          className="text-xs text-slate-400 hover:text-indigo-300 transition-colors inline-block hover:translate-x-0.5"
                         >
                           {item.label}
                         </Link>
@@ -217,35 +218,35 @@ export default function Footer() {
           </div>
 
           {/* === BOTTOM ROW === */}
-          <div className="mt-5 pt-3.5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs border-t border-teal-500/20 text-slate-400">
+          <div className="mt-5 pt-3.5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs border-t border-white/[0.08] text-slate-400">
             {/* Copyright */}
             <div className="text-center md:text-left">
               <span>© {currentYear} </span>
-              <span className="font-bold text-white">Jharkhand JobAlert X</span>
+              <span className="font-bold text-white">Job Alert X</span>
               <span>. All rights reserved.</span>
             </div>
 
             {/* Legal links */}
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-slate-300">
-              <Link to="/privacy" className="transition-colors hover:text-white">Privacy</Link>
-              <span className="text-teal-800">•</span>
-              <Link to="/terms" className="transition-colors hover:text-white">Terms</Link>
-              <span className="text-teal-800">•</span>
-              <Link to="/disclaimer" className="transition-colors hover:text-white">Disclaimer</Link>
-              <span className="text-teal-800">•</span>
-              <Link to="/about" className="transition-colors hover:text-white">About</Link>
-              <span className="text-teal-800">•</span>
-              <Link to="/contact" className="transition-colors hover:text-white">Contact</Link>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-slate-400">
+              <Link to="/privacy" className="transition-colors hover:text-slate-200">Privacy</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/terms" className="transition-colors hover:text-slate-200">Terms</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/disclaimer" className="transition-colors hover:text-slate-200">Disclaimer</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/about" className="transition-colors hover:text-slate-200">About</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/contact" className="transition-colors hover:text-slate-200">Contact</Link>
             </div>
 
             {/* Trust badges */}
             <div className="flex items-center gap-2">
-              <div className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-teal-500/10 border border-teal-500/20 text-teal-200">
+              <div className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-white/[0.04] border border-white/[0.08] text-slate-300">
                 <ShieldCheck size={11} className="text-emerald-400" />
                 <span>100% Free</span>
               </div>
-              <div className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-gold-400/10 border border-gold-400/20 text-[#FFFB08]">
-                <CheckCircle2 size={11} className="text-[#FFFB08]" />
+              <div className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-white/[0.04] border border-white/[0.08] text-slate-300">
+                <CheckCircle2 size={11} className="text-orange-400" />
                 <span>Verified</span>
               </div>
             </div>

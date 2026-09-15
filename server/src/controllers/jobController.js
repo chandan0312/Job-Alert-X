@@ -21,8 +21,8 @@ const MAX_LIMIT = 1000
 
 // Newest / most recently updated first. `id` breaks ties so pagination is deterministic.
 const NEWEST_FIRST = [
-  ['updated_at', 'DESC'],
-  ['created_at', 'DESC'],
+  ['updatedAt', 'DESC'],
+  ['createdAt', 'DESC'],
   ['id', 'ASC'],
 ]
 
@@ -61,54 +61,14 @@ export const list = asyncHandler(async (req, res) => {
   const { category, kind, featured, inTicker, q, limit, offset } = req.query
 
   const where = {}
-  if (category && category !== 'all') {
-    const catLower = String(category).toLowerCase()
-    if (catLower === 'jpsc') {
-      where[Op.or] = [
-        { category: { [Op.in]: ['jpsc', 'JPSC'] } },
-        { org: { [Op.like]: '%JPSC%' } },
-        { title: { [Op.like]: '%JPSC%' } }
-      ]
-    } else if (catLower === 'jssc') {
-      where[Op.or] = [
-        { category: { [Op.in]: ['jssc', 'JSSC'] } },
-        { org: { [Op.like]: '%JSSC%' } },
-        { title: { [Op.like]: '%JSSC%' } }
-      ]
-    } else if (['other-jharkhand', 'other-jharkhand-job', 'other-jharkhand-jobs', 'jharkhand'].includes(catLower)) {
-      where[Op.or] = [
-        { category: { [Op.in]: ['other-jharkhand', 'other-jharkhand-job', 'other-jharkhand-jobs', 'Jharkhand'] } },
-        { title: { [Op.like]: '%Jharkhand%' } },
-        { org: { [Op.like]: '%Jharkhand%' } }
-      ]
-    } else if (catLower === 'rojgar-mela' || catLower === 'rojgar_mela') {
-      where[Op.or] = [
-        { category: { [Op.in]: ['rojgar-mela', 'rojgar_mela', 'Rojgar Mela'] } },
-        { title: { [Op.like]: '%Rojgar%' } },
-        { tagline: { [Op.like]: '%Rojgar%' } }
-      ]
-    } else if (['private-job', 'private', 'private-jobs', 'private_job'].includes(catLower)) {
-      where[Op.or] = [
-        { category: { [Op.in]: ['private-job', 'private', 'Private', 'private-jobs'] } },
-        { org: { [Op.in]: ['Tata Steel', 'Jindal', 'Wipro', 'TCS', 'Infosys'] } }
-      ]
-    } else if (['central-job', 'central', 'central-jobs', 'others', 'other'].includes(catLower)) {
-      where[Op.or] = [
-        { category: { [Op.in]: ['central-job', 'central', 'other', 'others', 'Other', 'Bank', 'Railway', 'Defence', 'SSC', 'banking', 'railway', 'defence', 'ssc', 'upsc'] } },
-        { category: { [Op.notIn]: ['jpsc', 'JPSC', 'jssc', 'JSSC', 'rojgar-mela', 'Rojgar Mela', 'private-job', 'private', 'Private', 'private-jobs', 'other-jharkhand'] } }
-      ]
-    } else {
-      where.category = { [Op.like]: `%${catLower}%` }
-    }
-  }
+  if (category) where.category = String(category).toLowerCase()
 
-  if (kind && kind !== 'all') {
+  if (kind) {
     const value = String(kind).toLowerCase()
-    if (value === 'job') {
-      where.kind = { [Op.in]: ['job', 'Full Time', 'full time', 'Part Time'] }
-    } else if (JOB_KINDS.includes(value)) {
-      where.kind = value
+    if (!JOB_KINDS.includes(value)) {
+      throw badRequest(`Unknown kind "${kind}". Expected one of: ${JOB_KINDS.join(', ')}`)
     }
+    where.kind = value
   }
 
   const isFeatured = parseBool(featured)
@@ -133,12 +93,13 @@ export const list = asyncHandler(async (req, res) => {
 /** GET /api/jobs/trending — featured posts for the home-page hero carousel. */
 export const trending = asyncHandler(async (req, res) => {
   let rows = await Job.findAll({
-    where: { featured: true },
+    where: { featured: true, kind: 'job' },
     order: NEWEST_FIRST,
     limit: parseLimit(req.query.limit, undefined),
   })
   if (rows.length === 0) {
     rows = await Job.findAll({
+      where: { kind: 'job' },
       order: NEWEST_FIRST,
       limit: parseLimit(req.query.limit, 6),
     })

@@ -24,12 +24,10 @@ const ICONS = {
 }
 
 // Convert a #rrggbb hex to an rgba() string at the given alpha.
-function hexToRgba(hex = '#1B6F81', alpha = 0.1) {
-  if (!hex || typeof hex !== 'string' || !hex.startsWith('#')) return `rgba(27, 111, 129, ${alpha})`
+function hexToRgba(hex, alpha) {
   const clean = hex.replace('#', '')
   const full = clean.length === 3 ? clean.split('').map((c) => c + c).join('') : clean
   const num = parseInt(full, 16)
-  if (isNaN(num)) return `rgba(27, 111, 129, ${alpha})`
   const r = (num >> 16) & 255
   const g = (num >> 8) & 255
   const b = num & 255
