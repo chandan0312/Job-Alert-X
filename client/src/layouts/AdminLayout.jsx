@@ -18,6 +18,8 @@ import {
   SunMedium,
   MoonStar,
   BarChart2,
+  BookOpen,
+  PenTool,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 import Header from '../components/Header.jsx'
@@ -28,6 +30,8 @@ const ADMIN_NAV = [
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart2, color: '#06b6d4' },
   { to: '/admin/posts', label: 'Manage Posts', icon: FileText, color: '#f59e0b' },
   { to: '/admin/posts/new', label: 'Create Post', icon: PlusCircle, color: '#10b981' },
+  { to: '/admin/articles', label: 'Manage Articles', icon: BookOpen, color: '#ec4899' },
+  { to: '/admin/articles/new', label: 'Write Article', icon: PenTool, color: '#8b5cf6' },
   { to: '/admin/feedback', label: 'Feedback & Suggestions', icon: MessageSquare, color: '#f43f5e' },
 ]
 
@@ -88,6 +92,10 @@ export default function AdminLayout() {
       if (parts[1] === 'posts') {
         items.push({ label: 'Posts', to: '/admin/posts' })
         if (parts[2] === 'new') items.push({ label: 'Create', to: null })
+        else if (parts[2]) items.push({ label: 'Edit', to: null })
+      } else if (parts[1] === 'articles') {
+        items.push({ label: 'Articles', to: '/admin/articles' })
+        if (parts[2] === 'new') items.push({ label: 'Write', to: null })
         else if (parts[2]) items.push({ label: 'Edit', to: null })
       } else if (parts[1] === 'feedback') {
         items.push({ label: 'Feedback & Suggestions', to: null })

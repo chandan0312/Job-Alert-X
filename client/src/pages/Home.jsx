@@ -3,6 +3,7 @@ import SectionHeader from '../components/SectionHeader.jsx'
 import HeroBanner from '../components/HeroBanner.jsx'
 import JobCategoryCards from '../components/JobCategoryCards.jsx'
 import RecentJobsTable from '../components/RecentJobsTable.jsx'
+import HomeArticlesSection from '../components/HomeArticlesSection.jsx'
 import RightSidebar from '../components/RightSidebar.jsx'
 import SEOHead from '../components/SEOHead.jsx'
 import { getTrending, getRecentlyPosted, getJobsByCategory } from '../services/api.js'
@@ -176,7 +177,12 @@ export default function Home() {
           )}
         </section>
 
-        {/* 3. Bank Jobs (3 latest) */}
+        {/* 4. Career Articles & Guides (New Section) */}
+        <section>
+          <HomeArticlesSection />
+        </section>
+
+        {/* 5. Bank Jobs (3 latest) */}
         <section>
           <SectionHeader title="Bank Jobs" viewAllTo="/category/banking" />
           {bankJobs === null ? (
