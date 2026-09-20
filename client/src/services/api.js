@@ -321,6 +321,9 @@ export const updateFeedbackStatus = (token, id, status) =>
 export const deleteFeedback = (token, id) =>
   http('DELETE', `/api/feedback/${encodeURIComponent(id)}`, { token })
 
+export const fetchFeedbackStats = (token) =>
+  http('GET', '/api/feedback/stats', { token, bypassCache: true })
+
 // ---------------------------------------------------------------------------
 // Articles & Blogs
 // ---------------------------------------------------------------------------
