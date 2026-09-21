@@ -96,6 +96,7 @@ const DEFAULT_FORM = {
   notificationPdfUrl: '',
   officialWebsiteUrl: '',
   eligibility: '',
+  eligibilityDetails: '',
   vacancies: '',
   postedOn: '',
   featured: false,
@@ -766,7 +767,231 @@ export default function AdminPostForm() {
             ))}
           </div>
 
-          {/* Card 4: Official Important Links */}
+          {/* Card 4: Eligibility & Qualification Criteria */}
+          <div className="card p-5 sm:p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-hairline pb-3">
+              <div>
+                <h2 className="text-sm font-bold text-ink flex items-center gap-2">
+                  <Award size={16} className="text-violet-500" />
+                  Eligibility &amp; Qualification Criteria
+                </h2>
+                <p className="mt-0.5 text-[11.5px] text-ink-muted">
+                  Educational qualifications, experience requirements, and other criteria candidates must meet.
+                </p>
+              </div>
+            </div>
+
+            {/* Short Badge Text */}
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-ink-soft">
+                Short Eligibility Badge <span className="text-ink-faint font-normal">(shown on cards &amp; preview)</span>
+              </label>
+              <input
+                type="text"
+                value={form.eligibility || ''}
+                onChange={setField('eligibility')}
+                placeholder="e.g. 10th Pass / Graduate / B.Tech / Any Degree"
+                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+              />
+              <p className="mt-1 text-[11px] text-ink-faint">
+                Keep this under 60 characters. Displayed as a small badge on job cards and the detail page header.
+              </p>
+            </div>
+
+            {/* Detailed Eligibility Paragraph */}
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-ink-soft">
+                Detailed Eligibility Description <span className="text-ink-faint font-normal">(optional — shown on detail page)</span>
+              </label>
+              <textarea
+                rows={5}
+                value={form.eligibilityDetails || ''}
+                onChange={setField('eligibilityDetails')}
+                placeholder={
+                  'Describe full qualification criteria, experience, physical standards, domicile rules, etc.\n\nExample:\n• Candidates must have passed 12th / Intermediate from a recognised board.\n• For Group B posts: Bachelor\'s degree in relevant discipline with minimum 55% marks.\n• Age relaxation applicable as per Govt. of India norms.'
+                }
+                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20 leading-relaxed"
+              />
+              <p className="mt-1 text-[11px] text-ink-faint">
+                You can use bullet points (•) or plain text. This renders on the notification detail page under "Eligibility Criteria".
+              </p>
+            </div>
+          </div>
+
+          {/* Card 5: Age Limit & Relaxation */}
+          <div className="card p-5 sm:p-6 space-y-4">
+            <div className="border-b border-hairline pb-3">
+              <h2 className="text-sm font-bold text-ink flex items-center gap-2">
+                <Ticket size={16} className="text-cyan-500" />
+                Age Limit &amp; Relaxation
+              </h2>
+              <p className="mt-0.5 text-[11.5px] text-ink-muted">
+                Set the minimum and maximum age for general candidates plus any relaxation note.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-ink-soft">Minimum Age (years)</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={100}
+                  value={form.ageLimit?.min ?? 18}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      ageLimit: { ...prev.ageLimit, min: Number(e.target.value) },
+                    }))
+                  }
+                  placeholder="18"
+                  className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-ink-soft">Maximum Age (years)</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={100}
+                  value={form.ageLimit?.max ?? 30}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      ageLimit: { ...prev.ageLimit, max: Number(e.target.value) },
+                    }))
+                  }
+                  placeholder="30"
+                  className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-ink-soft">
+                Age Relaxation Note <span className="text-ink-faint font-normal">(optional)</span>
+              </label>
+              <textarea
+                rows={2}
+                value={form.ageLimit?.note || ''}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    ageLimit: { ...prev.ageLimit, note: e.target.value },
+                  }))
+                }
+                placeholder="e.g. Age relaxation: SC/ST +5 years, OBC +3 years, PwD +10 years as per Govt. of India rules."
+                className="w-full rounded-xl border border-hairline bg-page py-2.5 px-3.5 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+              />
+              <p className="mt-1 text-[11px] text-ink-faint">
+                Age relaxation is shown below the min–max range on the detail page. Keep concise.
+              </p>
+            </div>
+
+            {/* Visual preview chip */}
+            {(form.ageLimit?.min || form.ageLimit?.max) ? (
+              <div className="flex items-center gap-2 pt-1">
+                <span className="text-[11px] text-ink-faint font-semibold uppercase tracking-wider">Preview:</span>
+                <span className="inline-flex items-center gap-1.5 rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-bold text-cyan-700 dark:text-cyan-300">
+                  Age: {form.ageLimit?.min ?? '?'} – {form.ageLimit?.max ?? '?'} years
+                </span>
+                {form.ageLimit?.note && (
+                  <span className="text-[11px] text-ink-muted truncate max-w-xs">{form.ageLimit.note}</span>
+                )}
+              </div>
+            ) : null}
+          </div>
+
+          {/* Card 6: Post-wise Vacancy Breakdown */}
+          <div className="card p-5 sm:p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-hairline pb-3">
+              <div>
+                <h2 className="text-sm font-bold text-ink flex items-center gap-2">
+                  <Briefcase size={16} className="text-orange-500" />
+                  Post-wise Vacancy Breakdown
+                </h2>
+                <p className="mt-0.5 text-[11.5px] text-ink-muted">
+                  Add each designated post with individual vacancy count and specific eligibility criteria.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleArrayAdd('posts', { name: '', total: '', eligibility: '' })}
+                className="inline-flex items-center gap-1 text-xs font-bold text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 shrink-0"
+              >
+                <Plus size={14} /> Add Post
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {form.posts.map((post, idx) => (
+                <div key={idx} className="rounded-xl border border-hairline bg-subtle/40 p-3 space-y-2.5">
+                  {/* Row header */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-ink-soft uppercase tracking-wider">
+                      Post #{idx + 1}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleArrayRemove('posts', idx)}
+                      className="rounded-lg p-1.5 text-ink-faint hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/20 dark:hover:text-red-300 transition-colors"
+                      title="Remove this post"
+                    >
+                      <X size={13} />
+                    </button>
+                  </div>
+
+                  {/* Name + Vacancies */}
+                  <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-[1fr_120px]">
+                    <div>
+                      <label className="mb-1 block text-[11px] font-semibold text-ink-soft">Post / Designation Name</label>
+                      <input
+                        type="text"
+                        value={post.name}
+                        onChange={(e) => handleArrayChange('posts', idx, 'name', e.target.value)}
+                        placeholder="e.g. Junior Engineer (Civil), Assistant Grade-III"
+                        className="w-full rounded-xl border border-hairline bg-page px-3 py-2 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-1 block text-[11px] font-semibold text-ink-soft">Vacancies</label>
+                      <input
+                        type="text"
+                        value={post.total}
+                        onChange={(e) => handleArrayChange('posts', idx, 'total', e.target.value)}
+                        placeholder="e.g. 500"
+                        className="w-full rounded-xl border border-hairline bg-page px-3 py-2 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Per-post eligibility */}
+                  <div>
+                    <label className="mb-1 block text-[11px] font-semibold text-ink-soft">
+                      Post-specific Eligibility <span className="text-ink-faint font-normal">(optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={post.eligibility}
+                      onChange={(e) => handleArrayChange('posts', idx, 'eligibility', e.target.value)}
+                      placeholder="e.g. B.E./B.Tech (Civil) or Diploma (Civil) with 3 yrs exp."
+                      className="w-full rounded-xl border border-hairline bg-page px-3 py-2 text-xs text-ink placeholder:text-ink-faint focus:border-brand-500 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    />
+                  </div>
+                </div>
+              ))}
+
+              {form.posts.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-6 text-center rounded-xl border-2 border-dashed border-hairline">
+                  <Briefcase size={22} className="text-ink-faint mb-2" />
+                  <p className="text-xs font-semibold text-ink-soft">No posts added yet</p>
+                  <p className="text-[11px] text-ink-faint mt-0.5">Click "Add Post" above to break down vacancies by designation.</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Card 7: Official Important Links */}
           <div className="card p-5 sm:p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-hairline pb-3">
               <h2 className="text-sm font-bold text-ink">Official Links</h2>
