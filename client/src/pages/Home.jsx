@@ -80,11 +80,6 @@ export default function Home() {
       name: 'Job Alert X',
       url: 'https://jobalertx.com/',
       description: 'Free Job Alert 2026 — India\'s #1 Govt Jobs Notification, Sarkari Naukri & Sarkari Result Portal. Latest government job vacancy 2026 across SSC, Railway, Banking, Police, UPSC.',
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: 'https://jobalertx.com/search?q={search_term_string}',
-        'query-input': 'required name=search_term_string',
-      },
     },
     {
       '@type': 'Organization',

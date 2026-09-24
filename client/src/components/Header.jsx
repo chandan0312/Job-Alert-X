@@ -251,6 +251,7 @@ export default function Header({ onMenuClick = () => {} }) {
                 <div className="my-1 h-px bg-white/10" />
                 <Link
                   to="/profile"
+                  rel="nofollow"
                   onClick={() => setUserOpen(false)}
                   className="flex items-center justify-between rounded-lg px-3 py-2 text-[13px] font-medium text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                 >
@@ -258,6 +259,7 @@ export default function Header({ onMenuClick = () => {} }) {
                 </Link>
                 <Link
                   to="/bookmarked"
+                  rel="nofollow"
                   onClick={() => setUserOpen(false)}
                   className="flex items-center justify-between rounded-lg px-3 py-2 text-[13px] font-medium text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                 >
@@ -266,6 +268,7 @@ export default function Header({ onMenuClick = () => {} }) {
                 {isAdmin && (
                   <Link
                     to="/admin"
+                    rel="nofollow"
                     onClick={() => setUserOpen(false)}
                     className="flex items-center justify-between rounded-lg px-3 py-2 text-[13px] font-semibold text-orange-400 hover:bg-orange-500/20 transition-colors"
                   >

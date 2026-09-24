@@ -276,7 +276,7 @@ export default function AdminPostForm() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <SEOHead title={`${isEdit ? 'Edit Post' : 'Create New Post'} | Job Alert X Admin`} />
+      <SEOHead title={`${isEdit ? 'Edit Post' : 'Create New Post'} | Job Alert X Admin`} noIndex={true} />
 
       {/* Top action bar */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">

@@ -7,6 +7,7 @@ import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { Lock, Mail, ArrowRight, AlertCircle, Eye, EyeOff, Sparkles } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 import SarkariEmblem from '../components/SarkariEmblem.jsx'
+import SEOHead from '../components/SEOHead.jsx'
 import {
   GOOGLE_CLIENT_ID,
   loadGoogleIdentity,
@@ -113,6 +114,7 @@ export default function LoginPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-page px-4 py-12 transition-colors duration-200 dark:bg-[#050814]">
+      <SEOHead title="Sign In | Job Alert X" noIndex={true} />
       {/* Ambient background glows */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-orange-500/10 blur-[140px] dark:bg-orange-500/8" />
