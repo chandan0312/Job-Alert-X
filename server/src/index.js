@@ -71,6 +71,13 @@ async function start() {
       })
       console.log('[db] added salary column to jobs table')
     }
+    if (desc && !desc.location) {
+      await qi.addColumn('jobs', 'location', {
+        type: sequelize.Sequelize.DataTypes.STRING(200),
+        allowNull: true,
+      })
+      console.log('[db] added location column to jobs table')
+    }
   } catch (err) {
     console.warn('[db] column check notice:', err.message)
   }

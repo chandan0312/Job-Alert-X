@@ -79,7 +79,7 @@ export default function Home() {
       '@type': 'WebSite',
       name: 'Job Alert X',
       url: 'https://jobalertx.com/',
-      description: 'Free Job Alert 2026 — India\'s #1 Govt Jobs Notification, Sarkari Naukri & Sarkari Result Portal. Latest government job vacancy 2026 across SSC, Railway, Banking, Police, UPSC.',
+      description: 'Job Alert X 2026 — India\'s #1 Govt Jobs Notification, Sarkari Naukri & Sarkari Result Portal. Latest government job vacancy 2026 across SSC, Railway, Banking, Police, UPSC.',
     },
     {
       '@type': 'Organization',
@@ -92,8 +92,8 @@ export default function Home() {
   return (
     <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_336px]">
       <SEOHead
-        title="Free Job Alert 2026 — Latest Govt Jobs, Sarkari Naukri, Admit Card & Result"
-        description="Free Job Alert 2026 — Get latest government job vacancy 2026, new recruitment notifications, online application forms, admit cards, results and answer keys for SSC, Railway RRB, Banking IBPS SBI, Police, Defence, UPSC across all states of India."
+        title="Job Alert X 2026 — Latest Govt Jobs, Sarkari Naukri, Admit Card & Result"
+        description="Job Alert X 2026 — Get latest government job vacancy 2026, new recruitment notifications, online application forms, admit cards, results and answer keys for SSC, Railway RRB, Banking IBPS SBI, Police, Defence, UPSC across all states of India."
         keywords="free job alert, free job alert 2026, government job vacancy 2026, new job vacancy 2026, govt job notification 2026, latest govt jobs, latest notification, job notification 2026, new vacancy 2026, govt jobs 2026, sarkari job alert, govt job alert, central govt jobs, latest job notification, free job alert odisha, free job alert punjab, free job alert bihar, free job alert rajasthan, free job alert hp, free job alert cg, free job alert jharkhand, free job alert mp, sarkari naukri, sarkari result 2026, admit card 2026, answer key, 12th pass govt job, forest guard recruitment 2026, free job alert ssc, free job alert railway, defence job alert, nursing job alert, job alert x"
         canonical="https://jobalertx.com/"
         jsonLd={homeSchemas}
@@ -122,7 +122,7 @@ export default function Home() {
 
               <h1 className="text-sm sm:text-base md:text-lg font-extrabold leading-snug tracking-tight text-ink">
                 <span className="bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-600 dark:from-orange-400 dark:via-amber-300 dark:to-purple-400 bg-clip-text text-transparent font-black">
-                  Free Job Alert 2026 — Latest Govt Jobs, Sarkari Naukri & New Vacancy
+                  Job Alert X 2026 — Latest Govt Jobs, Sarkari Naukri & New Vacancy
                 </span>
                 <span className="mx-2 hidden text-hairline md:inline font-light" aria-hidden="true">|</span>
                 <span className="block text-xs sm:text-sm font-bold text-ink-muted mt-0.5 md:mt-0 md:inline tracking-normal">
@@ -144,7 +144,7 @@ export default function Home() {
           <SectionHeader title="Trending This Week" />
           {trending === null ? (
             <div className="flex h-48 items-center justify-center text-[14px] text-ink-muted">
-              Loading…
+              Loading...
             </div>
           ) : trending.length === 0 ? (
             <ComingSoonBlock icon={Sparkles} label="trending posts" />
@@ -163,7 +163,7 @@ export default function Home() {
           <SectionHeader title="Recently Posted Jobs" viewAllTo="/latest/job" />
           {recentlyPosted === null ? (
             <div className="flex h-32 items-center justify-center text-[14px] text-ink-muted">
-              Loading…
+              Loading...
             </div>
           ) : recentlyPosted.length === 0 ? (
             <ComingSoonBlock icon={Clock} label="recent jobs" />
@@ -182,7 +182,7 @@ export default function Home() {
           <SectionHeader title="Bank Jobs" viewAllTo="/category/banking" />
           {bankJobs === null ? (
             <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading…
+              Loading...
             </div>
           ) : bankJobs.length === 0 ? (
             <ComingSoonBlock icon={Landmark} label="bank notifications" />
@@ -196,7 +196,7 @@ export default function Home() {
           <SectionHeader title="SSC Jobs" viewAllTo="/category/ssc" />
           {sscJobs === null ? (
             <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading…
+              Loading...
             </div>
           ) : sscJobs.length === 0 ? (
             <ComingSoonBlock icon={Building2} label="SSC notifications" />
@@ -210,7 +210,7 @@ export default function Home() {
           <SectionHeader title="Railway Jobs" viewAllTo="/category/railway" />
           {railwayJobs === null ? (
             <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading…
+              Loading...
             </div>
           ) : railwayJobs.length === 0 ? (
             <ComingSoonBlock icon={TrainFront} label="railway notifications" />
@@ -224,7 +224,7 @@ export default function Home() {
           <SectionHeader title="Defence Jobs" viewAllTo="/category/defence" />
           {defenceJobs === null ? (
             <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading…
+              Loading...
             </div>
           ) : defenceJobs.length === 0 ? (
             <ComingSoonBlock icon={Shield} label="defence notifications" />
@@ -238,7 +238,7 @@ export default function Home() {
           <SectionHeader title="UPSC Jobs" viewAllTo="/category/upsc" />
           {upscJobs === null ? (
             <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading…
+              Loading...
             </div>
           ) : upscJobs.length === 0 ? (
             <ComingSoonBlock icon={Scale} label="UPSC notifications" />

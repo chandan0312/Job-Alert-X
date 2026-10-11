@@ -167,11 +167,11 @@ export default function CategoryPage() {
     <div className="animate-fade-in space-y-6">
       <SEOHead
         title={mode === 'category'
-          ? `${heading.title} Jobs 2026 — Free Job Alert, New Vacancy & Recruitment Notification`
-          : `${heading.title} 2026 — Free Job Alert, Latest Govt Notifications`}
+          ? `${heading.title} Jobs 2026 — Job Alert X, New Vacancy & Recruitment Notification`
+          : `${heading.title} 2026 — Job Alert X, Latest Govt Notifications`}
         description={mode === 'category'
-          ? `Free Job Alert — Latest ${heading.title} recruitment 2026, new vacancy notifications, online application form, admit card, result and answer key. Get instant govt job notification 2026 on Job Alert X.`
-          : `Latest ${heading.title} 2026 — Free job alert for all govt exam notifications, download links, eligibility details and important dates on Job Alert X.`}
+          ? `Job Alert X — Latest ${heading.title} recruitment 2026, new vacancy notifications, online application form, admit card, result and answer key. Get instant govt job notification 2026 on Job Alert X.`
+          : `Latest ${heading.title} 2026 — Job Alert X for all govt exam notifications, download links, eligibility details and important dates on Job Alert X.`}
         keywords={categoryKeywords}
         canonical={`https://jobalertx.com/${mode === 'category' ? `category/${slug}` : `latest/${kind}`}`}
         jsonLd={[categoryBreadcrumbs]}

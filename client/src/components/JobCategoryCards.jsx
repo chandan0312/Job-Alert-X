@@ -19,6 +19,33 @@ import { getCategories } from '../services/api.js'
 
 // Visual styling tokens mapped per category slug
 const CATEGORY_THEMES = {
+  jpsc: {
+    icon: Landmark,
+    gradient: 'bg-gradient-to-b from-[#1B6F81] via-[#09324A] to-[#041622]',
+    border: 'border-teal-400/40 hover:border-teal-300',
+    iconBg: 'bg-teal-400/25 text-teal-100 border border-teal-300/30',
+    badgeBg: 'bg-teal-400/20 text-teal-100 border border-teal-300/30',
+    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(27,111,129,0.55)]',
+    defaultSubtitle: 'Civil Services, Judicial & Combined Exams',
+  },
+  jssc: {
+    icon: Building2,
+    gradient: 'bg-gradient-to-b from-[#0e7490] via-[#155e75] to-[#082f49]',
+    border: 'border-cyan-400/40 hover:border-cyan-300',
+    iconBg: 'bg-cyan-400/25 text-cyan-100 border border-cyan-300/30',
+    badgeBg: 'bg-cyan-400/20 text-cyan-100 border border-cyan-300/30',
+    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(14,116,144,0.55)]',
+    defaultSubtitle: 'CGL, Excise Constable & Technical Posts',
+  },
+  'rojgar-mela': {
+    icon: Sparkles,
+    gradient: 'bg-gradient-to-b from-[#b45309] via-[#78350f] to-[#1c0b02]',
+    border: 'border-amber-400/40 hover:border-amber-300',
+    iconBg: 'bg-amber-400/25 text-amber-100 border border-amber-300/30',
+    badgeBg: 'bg-amber-400/20 text-amber-100 border border-amber-300/30',
+    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(245,158,11,0.55)]',
+    defaultSubtitle: 'District Job Fairs & Private Placements',
+  },
   ssc: {
     icon: Landmark,
     gradient: 'bg-gradient-to-b from-[#1d4ed8] via-[#1e3a8a] to-[#091124]',

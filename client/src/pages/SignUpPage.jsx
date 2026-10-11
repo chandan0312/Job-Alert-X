@@ -204,49 +204,56 @@ export default function SignUpPage() {
           )}
 
           {/* Google Sign-Up */}
-          {googleState !== 'unconfigured' && (
-            <>
-              <div className="w-full">
-                <div
-                  ref={googleBtnRef}
-                  className="flex w-full justify-center overflow-hidden rounded-xl [color-scheme:light]"
-                />
-
-                {googleState === 'loading' && (
-                  <div className="flex w-full items-center justify-center gap-3 rounded-xl border border-hairline bg-subtle px-5 py-3 text-[14px] font-semibold text-ink-muted dark:border-white/[0.1] dark:bg-white/[0.04] dark:text-slate-500">
-                    <GoogleIcon size={20} />
-                    Loading Google Sign-In…
-                  </div>
-                )}
-
-                {googleState === 'error' && (
-                  <div className="flex w-full items-start gap-2.5 rounded-xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-[12.5px] font-medium text-amber-600 dark:text-amber-300">
-                    <AlertCircle size={15} className="mt-0.5 shrink-0" />
-                    <span>
-                      Google Sign-Up could not load — it may be blocked by an extension or your
-                      network. Please create your account with an email below.
-                    </span>
-                  </div>
-                )}
-
-                {googleLoading && (
-                  <div className="mt-2 flex items-center justify-center gap-2 text-[12.5px] font-medium text-ink-muted dark:text-slate-400">
-                    <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-brand-500 border-t-transparent" />
-                    Creating your account with Google…
-                  </div>
-                )}
+          <div className="w-full">
+            {googleState === 'ready' ? (
+              <div
+                ref={googleBtnRef}
+                className="flex w-full justify-center overflow-hidden rounded-xl min-h-[44px] [color-scheme:light]"
+              />
+            ) : googleState === 'loading' ? (
+              <div className="flex w-full items-center justify-center gap-3 rounded-xl border border-hairline bg-subtle px-5 py-3 text-[14px] font-semibold text-ink-muted dark:border-white/[0.1] dark:bg-white/[0.04] dark:text-slate-500">
+                <GoogleIcon size={20} />
+                <span>Loading Google Sign-In…</span>
               </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setError('Google Sign-In is not configured yet. Please configure VITE_GOOGLE_CLIENT_ID in client/.env or create an account with email and password below.')
+                }}
+                className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-hairline bg-surface py-3 px-4 text-[13.5px] font-bold text-ink shadow-xs transition-all hover:bg-subtle active:scale-[0.99] dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.08]"
+              >
+                <GoogleIcon size={19} />
+                <span>Continue with Google</span>
+              </button>
+            )}
 
-              {/* Divider */}
-              <div className="my-6 flex items-center gap-3">
-                <div className="h-px flex-1 bg-hairline dark:bg-white/[0.08]" />
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-faint dark:text-slate-600">
-                  or sign up with email
+            {googleState === 'error' && (
+              <div className="mt-2.5 flex w-full items-start gap-2.5 rounded-xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-[12.5px] font-medium text-amber-600 dark:text-amber-300">
+                <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                <span>
+                  Google Sign-Up could not load — it may be blocked by an extension or your
+                  network. Please create your account with an email below.
                 </span>
-                <div className="h-px flex-1 bg-hairline dark:bg-white/[0.08]" />
               </div>
-            </>
-          )}
+            )}
+
+            {googleLoading && (
+              <div className="mt-2 flex items-center justify-center gap-2 text-[12.5px] font-medium text-ink-muted dark:text-slate-400">
+                <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-brand-500 border-t-transparent" />
+                <span>Creating your account with Google…</span>
+              </div>
+            )}
+          </div>
+
+          {/* Divider */}
+          <div className="my-6 flex items-center gap-3">
+            <div className="h-px flex-1 bg-hairline dark:bg-white/[0.08]" />
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-faint dark:text-slate-600">
+              or sign up with email
+            </span>
+            <div className="h-px flex-1 bg-hairline dark:bg-white/[0.08]" />
+          </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">

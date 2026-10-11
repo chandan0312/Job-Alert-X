@@ -14,7 +14,7 @@ import { useEffect } from 'react'
 
 const SITE_NAME = 'Job Alert X'
 const DEFAULT_DESCRIPTION =
-  'Job Alert X — India\'s Free Government Jobs Portal. Latest sarkari naukri, SSC, UPSC, Railway, Banking jobs, admit cards, results, answer keys and syllabus updates 2026.'
+  'Job Alert X — India\'s Government Jobs Portal. Latest sarkari naukri, SSC, UPSC, Railway, Banking jobs, admit cards, results, answer keys and syllabus updates 2026.'
 
 /**
  * @param {object} props
@@ -45,7 +45,7 @@ export default function SEOHead({
     // ── Document title ───────────────────────────────────────────────────────
     const fullTitle = title
       ? `${title} | ${SITE_NAME}`
-      : `${SITE_NAME} — Free Job Alert 2026, Latest Govt Jobs & Sarkari Naukri`
+      : `${SITE_NAME} — Latest Govt Jobs, Sarkari Naukri, Admit Card & Result`
     document.title = fullTitle
 
     // ── Helper: set or create a meta tag ────────────────────────────────────

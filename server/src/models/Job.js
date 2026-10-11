@@ -1,5 +1,5 @@
-// ---------------------------------------------------------------------------
-// Job — the core dataset (jobs, admit cards, results, answer keys, syllabus).
+﻿// ---------------------------------------------------------------------------
+// Job â€” the core dataset (jobs, admit cards, results, answer keys, syllabus).
 // ---------------------------------------------------------------------------
 // Column strategy: scalar columns for everything the API filters, searches or
 // sorts on; JSON columns for the nested, display-only structures
@@ -20,7 +20,7 @@ export default function defineJob(sequelize) {
     'Job',
     {
       // The human-readable slug from the frontend (e.g. "ssc-cgl-2024") is the
-      // primary key — the UI routes on it (/job/:id), so there is no separate
+      // primary key â€” the UI routes on it (/job/:id), so there is no separate
       // surrogate id to leak into responses.
       id: {
         type: DataTypes.STRING(120),
@@ -54,8 +54,8 @@ export default function defineJob(sequelize) {
       notificationPdfUrl: DataTypes.STRING(1000),
       officialWebsiteUrl: DataTypes.STRING(1000),
       eligibility: DataTypes.TEXT,
-      // Short label for card/list views (≤ 28 chars), e.g. "B.Tech / B.E", "Any Graduate".
-      // Full eligibility text is in `eligibility` above — shown only on the detail page.
+      // Short label for card/list views (â‰¤ 28 chars), e.g. "B.Tech / B.E", "Any Graduate".
+      // Full eligibility text is in `eligibility` above â€” shown only on the detail page.
       eligibilityShort: DataTypes.STRING(80),
 
       // Display strings, kept verbatim from the source notification rather than
@@ -81,9 +81,12 @@ export default function defineJob(sequelize) {
       posts: DataTypes.JSON, //          [{ name, total, eligibility }]
       links: DataTypes.JSON, //          [{ label, href, primary? }]
 
-      // Pay scale / salary — displayed on job detail page, important for E-E-A-T
-      // Stored as plain text, e.g. "Pay Level 4 (₹25,500 – ₹81,100) as per 7th CPC"
+      // Pay scale / salary â€” displayed on job detail page, important for E-E-A-T
+      // Stored as plain text, e.g. "Pay Level 4 (â‚¹25,500 â€“ â‚¹81,100) as per 7th CPC"
       salary: DataTypes.STRING(500),
+
+      // Location / state or city for this posting (e.g. " All India\, \Delhi\)
+      location: DataTypes.STRING(200),
     },
     {
       tableName: 'jobs',

@@ -19,6 +19,8 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     const root = document.documentElement
     root.classList.toggle('dark', theme === 'dark')
+    // Also set data-theme for CSS custom property selectors in index.css
+    root.setAttribute('data-theme', theme)
     try {
       window.localStorage.setItem('sarkarifynx-theme', theme)
     } catch {

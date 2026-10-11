@@ -77,8 +77,7 @@ function formatDeadlineDisplay(parsedDate, rawDateStr) {
   if (parsedDate && !isNaN(parsedDate.getTime())) {
     const day = parsedDate.getDate()
     const month = MONTH_NAMES[parsedDate.getMonth()]
-    const year = parsedDate.getFullYear()
-    return `${day} ${month} ${year}`
+    return `${day} ${month}`
   }
   return rawDateStr || 'Ending Soon'
 }
@@ -263,7 +262,7 @@ export default function AttentionCard({ viewAllTo = '/category/all' }) {
                 <div className="flex-1 min-w-0 pr-1">
                   <Link
                     to={`/job/${job.id}`}
-                    className="block font-bold text-[13.5px] sm:text-[14px] leading-snug text-slate-800 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors"
+                    className="block font-bold text-[12px] sm:text-[13px] leading-snug text-slate-800 dark:text-slate-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors truncate"
                     title={job.title}
                   >
                     {job.title}

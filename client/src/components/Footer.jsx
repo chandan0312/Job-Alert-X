@@ -48,26 +48,34 @@ export default function Footer() {
 
   return (
     <footer className="w-full max-w-[1440px] mx-auto px-3 sm:px-5 lg:px-6 pt-2 pb-6">
-      {/* Compact Floating Card Design */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-[#070c1a] shadow-xl text-slate-300">
-        {/* Subtle Ambient Glow */}
+      {/* Main Footer Card — always dark navy for authority/credibility feel */}
+      <div
+        className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl"
+        style={{
+          background: 'linear-gradient(140deg, var(--brand-dark) 0%, #0c1e2e 50%, #0f2a3a 100%)',
+          border: '1px solid rgba(174, 208, 201, 0.12)',
+        }}
+      >
+        {/* Ambient glows */}
         <div
-          className="pointer-events-none absolute -top-20 -left-20 h-56 w-56 rounded-full bg-gradient-to-br from-indigo-500/10 via-purple-600/10 to-transparent blur-3xl"
+          className="pointer-events-none absolute -top-20 -left-20 h-56 w-56 rounded-full blur-3xl opacity-15"
+          style={{ background: 'var(--brand-primary)' }}
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-gradient-to-tl from-sky-500/10 via-indigo-500/10 to-transparent blur-3xl"
+          className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full blur-3xl opacity-10"
+          style={{ background: 'var(--brand-teal)' }}
           aria-hidden="true"
         />
 
         <div className="relative z-10 p-5 sm:p-6 lg:px-8 lg:py-6">
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
-            
-            {/* === LEFT BRAND & CONTACT INFO (5 Cols) === */}
+
+            {/* === BRAND + CONTACT (5 cols) === */}
             <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
               <div>
-                {/* Brand Logo & Title */}
+                {/* Brand */}
                 <Link
                   to="/"
                   className="group inline-flex items-center gap-2.5 transition-transform duration-200 hover:scale-[1.01]"
@@ -77,44 +85,57 @@ export default function Footer() {
                   <div className="flex flex-col">
                     <div className="flex items-center text-[18px] font-black tracking-wider leading-none text-white">
                       <span>JOB</span>
-                      <span className="text-orange-400 ml-1 drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]">
-                        ALERT
-                      </span>
-                      <span className="ml-1 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]">
-                        X
-                      </span>
+                      <span style={{ color: 'var(--brand-flame)' }} className="ml-1">ALERT</span>
+                      <span style={{ color: 'var(--brand-teal)' }} className="ml-1">X</span>
                     </div>
-                    <span className="mt-0.5 text-[9px] font-bold tracking-[0.14em] uppercase text-slate-400">
+                    <span
+                      className="mt-0.5 text-[9px] font-bold tracking-[0.14em] uppercase"
+                      style={{ color: 'rgba(174, 208, 201, 0.6)' }}
+                    >
                       Govt Job Alerts &amp; Exams Portal
                     </span>
                   </div>
                 </Link>
 
-                {/* Brief bio */}
-                <p className="mt-2 max-w-sm text-xs leading-relaxed text-slate-400">
+                {/* Bio */}
+                <p className="mt-3 max-w-sm text-xs leading-relaxed" style={{ color: 'rgba(174,208,201,0.65)' }}>
                   Instant, 100% verified government job notifications, admit cards, results, and syllabus updates across India.
                 </p>
 
-                {/* Compact Contact Pills */}
+                {/* Contact pills */}
                 <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
                   <a
                     href="mailto:jobalerx365@gmail.com"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-slate-300 hover:border-orange-500/40 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 transition-colors"
+                    style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      color: 'rgba(174,208,201,0.8)',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(249,115,22,0.4)'; e.currentTarget.style.color = '#fff' }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(174,208,201,0.8)' }}
                   >
-                    <Mail size={12} className="text-orange-400" />
+                    <Mail size={12} style={{ color: 'var(--brand-flame)' }} />
                     <span>jobalerx365@gmail.com</span>
                   </a>
                   <a
                     href="tel:8789862771"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-slate-300 hover:border-purple-500/40 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 transition-colors"
+                    style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      color: 'rgba(174,208,201,0.8)',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(27,111,129,0.5)'; e.currentTarget.style.color = '#fff' }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(174,208,201,0.8)' }}
                   >
-                    <Phone size={12} className="text-purple-400" />
+                    <Phone size={12} style={{ color: 'var(--brand-teal)' }} />
                     <span>+91 8789862771</span>
                   </a>
                 </div>
               </div>
 
-              {/* Social Channels Row */}
+              {/* Social Icons */}
               <div className="flex items-center gap-1.5 pt-0.5">
                 {[
                   { href: 'https://t.me/jobalertx', label: 'Telegram', icon: <Send size={13} /> },
@@ -129,7 +150,14 @@ export default function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-slate-400 hover:text-white hover:bg-white/[0.08] transition-all"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl transition-all"
+                    style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      color: 'rgba(174,208,201,0.6)',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(27,111,129,0.15)'; e.currentTarget.style.color = 'var(--brand-teal)'; e.currentTarget.style.borderColor = 'rgba(174,208,201,0.25)' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = 'rgba(174,208,201,0.6)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)' }}
                   >
                     {icon}
                   </a>
@@ -137,21 +165,24 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* === RIGHT 3 COLUMNS OF NAVIGATION LINKS (7 Cols) === */}
+            {/* === NAV LINK COLUMNS (7 cols) === */}
             <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-6">
-              
-              {/* Column 1: Exam Categories */}
+
+              {/* Categories */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5 text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-orange-400" />
+                <h3 className="text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-1.5 text-white">
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--brand-flame)' }} />
                   Categories
                 </h3>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {CATEGORY_LINKS.map((item) => (
                     <li key={item.label}>
                       <Link
                         to={item.to}
-                        className="text-xs text-slate-400 hover:text-orange-400 transition-colors inline-block hover:translate-x-0.5"
+                        className="text-xs transition-colors inline-block hover:translate-x-0.5"
+                        style={{ color: 'rgba(174,208,201,0.65)' }}
+                        onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand-flame)' }}
+                        onMouseLeave={e => { e.currentTarget.style.color = 'rgba(174,208,201,0.65)' }}
                       >
                         {item.label}
                       </Link>
@@ -160,22 +191,32 @@ export default function Footer() {
                 </ul>
               </div>
 
-              {/* Column 2: Quick Links */}
+              {/* Quick Links */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5 text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
+                <h3 className="text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-1.5 text-white">
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--brand-teal)' }} />
                   Quick Links
                 </h3>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {QUICK_LINKS.map((item) => (
                     <li key={item.label}>
                       <Link
                         to={item.to}
-                        className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-purple-400 transition-colors hover:translate-x-0.5"
+                        className="inline-flex items-center gap-1.5 text-xs transition-colors hover:translate-x-0.5"
+                        style={{ color: 'rgba(174,208,201,0.65)' }}
+                        onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand-teal)' }}
+                        onMouseLeave={e => { e.currentTarget.style.color = 'rgba(174,208,201,0.65)' }}
                       >
                         <span>{item.label}</span>
                         {item.badge && (
-                          <span className="rounded px-1 py-0.2 text-[9px] font-bold border bg-orange-500/20 text-orange-400 border-orange-500/30">
+                          <span
+                            className="rounded px-1 text-[9px] font-bold"
+                            style={{
+                              background: 'rgba(249,115,22,0.15)',
+                              color: 'var(--brand-flame)',
+                              border: '1px solid rgba(249,115,22,0.25)',
+                            }}
+                          >
                             {item.badge}
                           </span>
                         )}
@@ -185,19 +226,22 @@ export default function Footer() {
                 </ul>
               </div>
 
-              {/* Column 3: Company & Help */}
+              {/* Company */}
               <div className="col-span-2 sm:col-span-1">
-                <h3 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5 text-white">
-                  <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-                  Company &amp; Info
+                <h3 className="text-xs font-bold uppercase tracking-wider mb-3 flex items-center gap-1.5 text-white">
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'rgba(174,208,201,0.5)' }} />
+                  Company
                 </h3>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {COMPANY_LINKS.map((item) => (
                     <li key={item.label}>
                       {item.isExternal ? (
                         <a
                           href={item.to}
-                          className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-indigo-300 transition-colors hover:translate-x-0.5"
+                          className="inline-flex items-center gap-1 text-xs transition-colors hover:translate-x-0.5"
+                          style={{ color: 'rgba(174,208,201,0.65)' }}
+                          onMouseEnter={e => { e.currentTarget.style.color = '#fff' }}
+                          onMouseLeave={e => { e.currentTarget.style.color = 'rgba(174,208,201,0.65)' }}
                         >
                           <span>{item.label}</span>
                           <ExternalLink size={10} className="opacity-60" />
@@ -205,7 +249,10 @@ export default function Footer() {
                       ) : (
                         <Link
                           to={item.to}
-                          className="text-xs text-slate-400 hover:text-indigo-300 transition-colors inline-block hover:translate-x-0.5"
+                          className="text-xs transition-colors inline-block hover:translate-x-0.5"
+                          style={{ color: 'rgba(174,208,201,0.65)' }}
+                          onMouseEnter={e => { e.currentTarget.style.color = '#fff' }}
+                          onMouseLeave={e => { e.currentTarget.style.color = 'rgba(174,208,201,0.65)' }}
                         >
                           {item.label}
                         </Link>
@@ -214,12 +261,14 @@ export default function Footer() {
                   ))}
                 </ul>
               </div>
-
             </div>
           </div>
 
-          {/* === BOTTOM ROW === */}
-          <div className="mt-5 pt-3.5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs border-t border-white/[0.08] text-slate-400">
+          {/* === BOTTOM BAR === */}
+          <div
+            className="mt-6 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs"
+            style={{ borderTop: '1px solid rgba(255,255,255,0.07)', color: 'rgba(174,208,201,0.5)' }}
+          >
             {/* Copyright */}
             <div className="text-center md:text-left">
               <span>© {currentYear} </span>
@@ -228,26 +277,45 @@ export default function Footer() {
             </div>
 
             {/* Legal links */}
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-slate-400">
-              <Link to="/privacy" className="transition-colors hover:text-slate-200">Privacy</Link>
-              <span className="text-slate-700">•</span>
-              <Link to="/terms" className="transition-colors hover:text-slate-200">Terms</Link>
-              <span className="text-slate-700">•</span>
-              <Link to="/disclaimer" className="transition-colors hover:text-slate-200">Disclaimer</Link>
-              <span className="text-slate-700">•</span>
-              <Link to="/about" className="transition-colors hover:text-slate-200">About</Link>
-              <span className="text-slate-700">•</span>
-              <Link to="/contact" className="transition-colors hover:text-slate-200">Contact</Link>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              {['Privacy', 'Terms', 'Disclaimer', 'About', 'Contact'].map((item, i, arr) => (
+                <span key={item} className="flex items-center gap-3 sm:gap-4">
+                  <Link
+                    to={`/${item.toLowerCase()}`}
+                    className="transition-colors hover:text-white"
+                    style={{ color: 'rgba(174,208,201,0.5)' }}
+                  >
+                    {item}
+                  </Link>
+                  {i < arr.length - 1 && (
+                    <span style={{ color: 'rgba(255,255,255,0.12)' }}>•</span>
+                  )}
+                </span>
+              ))}
             </div>
 
             {/* Trust badges */}
             <div className="flex items-center gap-2">
-              <div className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-white/[0.04] border border-white/[0.08] text-slate-300">
-                <ShieldCheck size={11} className="text-emerald-400" />
+              <div
+                className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold"
+                style={{
+                  background: 'rgba(52,211,153,0.08)',
+                  border: '1px solid rgba(52,211,153,0.15)',
+                  color: '#6ee7b7',
+                }}
+              >
+                <ShieldCheck size={11} />
                 <span>100% Free</span>
               </div>
-              <div className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-white/[0.04] border border-white/[0.08] text-slate-300">
-                <CheckCircle2 size={11} className="text-orange-400" />
+              <div
+                className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold"
+                style={{
+                  background: 'rgba(249,115,22,0.08)',
+                  border: '1px solid rgba(249,115,22,0.15)',
+                  color: '#fbbf24',
+                }}
+              >
+                <CheckCircle2 size={11} />
                 <span>Verified</span>
               </div>
             </div>

@@ -155,48 +155,55 @@ export default function LoginPage() {
           )}
 
           {/* Google Sign-In */}
-          {googleState !== 'unconfigured' && (
-            <>
-              <div className="w-full">
-                <div
-                  ref={googleBtnRef}
-                  className="flex w-full justify-center overflow-hidden rounded-xl min-h-[44px]"
-                />
-
-                {googleState === 'loading' && (
-                  <div className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-slate-200 bg-slate-50 px-5 py-3 text-[13.5px] font-semibold text-slate-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400">
-                    <GoogleIcon size={19} />
-                    <span>Loading Google Sign-In…</span>
-                  </div>
-                )}
-
-                {googleState === 'error' && (
-                  <div className="flex w-full items-start gap-2 rounded-xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-[12px] font-medium text-amber-700 dark:text-amber-300">
-                    <AlertCircle size={15} className="mt-0.5 shrink-0" />
-                    <span>
-                      Google Sign-In could not load — please sign in with your email below.
-                    </span>
-                  </div>
-                )}
-
-                {googleLoading && (
-                  <div className="mt-2.5 flex items-center justify-center gap-2 text-[12.5px] font-medium text-orange-600 dark:text-orange-400">
-                    <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
-                    <span>Signing you in with Google…</span>
-                  </div>
-                )}
+          <div className="w-full">
+            {googleState === 'ready' ? (
+              <div
+                ref={googleBtnRef}
+                className="flex w-full justify-center overflow-hidden rounded-xl min-h-[44px]"
+              />
+            ) : googleState === 'loading' ? (
+              <div className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-slate-200 bg-slate-50 px-5 py-3 text-[13.5px] font-semibold text-slate-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400">
+                <GoogleIcon size={19} />
+                <span>Loading Google Sign-In…</span>
               </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setError('Google Sign-In is not configured yet. Please configure VITE_GOOGLE_CLIENT_ID in client/.env or sign in with email and password below.')
+                }}
+                className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-slate-200 bg-white py-3 px-4 text-[13.5px] font-bold text-slate-700 shadow-xs transition-all hover:bg-slate-50 active:scale-[0.99] dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.08]"
+              >
+                <GoogleIcon size={19} />
+                <span>Continue with Google</span>
+              </button>
+            )}
 
-              {/* Divider */}
-              <div className="my-5 flex items-center gap-3">
-                <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                  or sign in with email
+            {googleState === 'error' && (
+              <div className="mt-2.5 flex w-full items-start gap-2 rounded-xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-[12px] font-medium text-amber-700 dark:text-amber-300">
+                <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                <span>
+                  Google Sign-In could not load — please sign in with your email below.
                 </span>
-                <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
               </div>
-            </>
-          )}
+            )}
+
+            {googleLoading && (
+              <div className="mt-2.5 flex items-center justify-center gap-2 text-[12.5px] font-medium text-orange-600 dark:text-orange-400">
+                <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
+                <span>Signing you in with Google…</span>
+              </div>
+            )}
+          </div>
+
+          {/* Divider */}
+          <div className="my-5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              or sign in with email
+            </span>
+            <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
+          </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">

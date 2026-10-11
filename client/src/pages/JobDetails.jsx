@@ -357,16 +357,26 @@ export default function JobDetails() {
             </div>
 
             <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <Stat icon={Eye} label="Views" value={job.views?.toLocaleString('en-IN')} />
-              {job.applications ? (
-                <Stat icon={Users} label="Applications" value={job.applications.toLocaleString('en-IN')} />
-              ) : null}
               {job.vacancies ? (
-                <Stat icon={Briefcase} label="Total Posts" value={job.vacancies.toLocaleString('en-IN')} />
-              ) : null}
+                <Stat icon={Briefcase} label="Total Posts" value={`${Number(job.vacancies).toLocaleString('en-IN')} Vacancies`} />
+              ) : (
+                <Stat icon={Users} label="Category" value={category?.name || 'Recruitment'} />
+              )}
+              {job.salary ? (
+                <Stat icon={FileText} label="Pay Scale" value={job.salary} />
+              ) : job.applications ? (
+                <Stat icon={Users} label="Applications" value={job.applications.toLocaleString('en-IN')} />
+              ) : (
+                <Stat icon={FileText} label="Category" value={category?.name || 'Govt Jobs'} />
+              )}
+              <Stat
+                icon={Clock}
+                label="Last Date"
+                value={lastDateEntry?.value || 'Check Dates'}
+              />
               <Stat
                 icon={CalendarDays}
-                label="Posted"
+                label="Notification Date"
                 value={
                   job.postedOn || job.postedAt
                     ? <time dateTime={safeDate(job.postedOn || job.postedAt)?.toISOString() || undefined}>{job.postedOn || job.postedAt}</time>
