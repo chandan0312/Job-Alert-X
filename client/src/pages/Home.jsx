@@ -3,6 +3,7 @@ import SectionHeader from '../components/SectionHeader.jsx'
 import HeroBanner from '../components/HeroBanner.jsx'
 import JobCategoryCards from '../components/JobCategoryCards.jsx'
 import RecentJobsTable from '../components/RecentJobsTable.jsx'
+import HomeArticlesSection from '../components/HomeArticlesSection.jsx'
 import RightSidebar from '../components/RightSidebar.jsx'
 import SEOHead from '../components/SEOHead.jsx'
 import { getTrending, getRecentlyPosted, getJobsByCategory } from '../services/api.js'
@@ -79,11 +80,6 @@ export default function Home() {
       name: 'Job Alert X',
       url: 'https://jobalertx.com/',
       description: 'Free Job Alert 2026 — India\'s #1 Govt Jobs Notification, Sarkari Naukri & Sarkari Result Portal. Latest government job vacancy 2026 across SSC, Railway, Banking, Police, UPSC.',
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: 'https://jobalertx.com/search?q={search_term_string}',
-        'query-input': 'required name=search_term_string',
-      },
     },
     {
       '@type': 'Organization',
@@ -176,7 +172,12 @@ export default function Home() {
           )}
         </section>
 
-        {/* 3. Bank Jobs (3 latest) */}
+        {/* 4. Career Articles & Guides (New Section) */}
+        <section>
+          <HomeArticlesSection />
+        </section>
+
+        {/* 5. Bank Jobs (3 latest) */}
         <section>
           <SectionHeader title="Bank Jobs" viewAllTo="/category/banking" />
           {bankJobs === null ? (

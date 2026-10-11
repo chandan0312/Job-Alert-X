@@ -7,7 +7,8 @@ import { searchJobs } from '../services/api.js'
 
 export default function SearchPage() {
   const [params, setParams] = useSearchParams()
-  const query = params.get('q') || ''
+  const rawQuery = params.get('q') || ''
+  const query = rawQuery.replace(/\{search_term_string\}|%7Bsearch_term_string%7D/gi, '').trim()
   const [input, setInput] = useState(query)
   const [results, setResults] = useState(null)
 

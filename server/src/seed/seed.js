@@ -15,9 +15,11 @@ import {
   Course,
   NowPlaying,
   User,
+  Article,
   NOW_PLAYING_ID,
 } from '../models/index.js'
 import { categories, recruiters, popularCourses, nowPlaying, jobs } from './seedData.js'
+import { seedArticlesData } from './seedArticles.js'
 
 const force = process.argv.includes('--force')
 
@@ -108,6 +110,9 @@ async function main() {
   await seedTable(Course, popularCourses, 'id', 'courses')
   console.log('Seeding jobs...')
   await seedTable(Job, withOrderedTimestamps(jobs), 'id', 'jobs')
+
+  console.log('Seeding articles...')
+  await seedTable(Article, seedArticlesData, 'id', 'articles')
 
   console.log('Upserting now_playing...')
   await NowPlaying.upsert({ ...nowPlaying, id: NOW_PLAYING_ID })

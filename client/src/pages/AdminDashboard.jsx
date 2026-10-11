@@ -23,6 +23,8 @@ import {
   Pencil,
   Trash2,
   MessageSquare,
+  BookOpen,
+  PenTool,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 import { fetchDashboard, deleteJob } from '../services/api.js'
@@ -155,7 +157,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      <SEOHead title="Admin Dashboard | Job Alert X" />
+      <SEOHead title="Admin Dashboard | Job Alert X" noIndex={true} />
 
       {/* Header Banner */}
       <div className="relative overflow-hidden rounded-3xl border border-hairline bg-gradient-to-r from-[#0d1326] via-[#101833] to-[#151c3d] p-6 shadow-xl text-white backdrop-blur-xl sm:p-8">
@@ -187,6 +189,14 @@ export default function AdminDashboard() {
             </button>
 
             <Link
+              to="/admin/articles/new"
+              className="inline-flex items-center gap-2 rounded-xl border border-pink-500/30 bg-pink-500/10 px-4 py-2.5 text-[13px] font-bold text-pink-300 backdrop-blur-md transition-all hover:bg-pink-500/20"
+            >
+              <PenTool size={15} />
+              Write Article
+            </Link>
+
+            <Link
               to="/admin/posts/new"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 px-5 py-2.5 text-[13px] font-bold text-white shadow-lg shadow-orange-500/25 transition-all hover:brightness-110 hover:scale-[1.02] active:scale-95"
             >
@@ -215,8 +225,8 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      {/* Top 4 Key Metric Stat Cards — Powered by Real Database Totals */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Top 5 Key Metric Stat Cards — Powered by Real Database Totals */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <StatCard
           icon={FileText}
           label="Total Published Posts"
@@ -233,6 +243,14 @@ export default function AdminDashboard() {
           subtext="Cumulative post impressions"
           color="#06b6d4"
           bgGradient="linear-gradient(135deg, #0891b2, #06b6d4)"
+        />
+        <StatCard
+          icon={BookOpen}
+          label="Articles & Guides"
+          value={data?.articleStats?.total ?? 0}
+          subtext={`${data?.articleStats?.published ?? 0} live articles`}
+          color="#ec4899"
+          bgGradient="linear-gradient(135deg, #db2777, #ec4899)"
         />
         <StatCard
           icon={Users}

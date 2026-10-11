@@ -46,7 +46,7 @@ export default function AdminLogin() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-page px-4 transition-colors duration-200 dark:bg-[#050814]">
-      <SEOHead title="Admin Login | Job Alert X" />
+      <SEOHead title="Admin Login | Job Alert X" noIndex={true} />
       {/* Background effects */}
       <div className="pointer-events-none absolute inset-0">
         {/* Radial gradient orbs */}

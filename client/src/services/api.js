@@ -324,6 +324,31 @@ export const deleteFeedback = (token, id) =>
 export const fetchFeedbackStats = (token) =>
   http('GET', '/api/feedback/stats', { token, bypassCache: true })
 
+// ---------------------------------------------------------------------------
+// Articles & Blogs
+// ---------------------------------------------------------------------------
+
+export const getArticles = (params) =>
+  http('GET', '/api/articles', { params, ttl: 30_000 })
+
+export const getArticleBySlug = (slug) =>
+  http('GET', `/api/articles/${encodeURIComponent(slug)}`, { ttl: 30_000 })
+
+export const getArticleCategories = () =>
+  http('GET', '/api/articles/categories', { ttl: 300_000 })
+
+export const fetchAdminArticles = (token) =>
+  http('GET', '/api/articles/admin/all', { token, bypassCache: true })
+
+export const createArticle = (token, payload) =>
+  http('POST', '/api/articles', { token, body: payload })
+
+export const updateArticle = (token, id, payload) =>
+  http('PUT', `/api/articles/${encodeURIComponent(id)}`, { token, body: payload })
+
+export const deleteArticle = (token, id) =>
+  http('DELETE', `/api/articles/${encodeURIComponent(id)}`, { token })
+
 export default {
   getTrending,
   getRecentlyPosted,
@@ -354,5 +379,12 @@ export default {
   updateFeedbackStatus,
   deleteFeedback,
   fetchFeedbackStats,
+  getArticles,
+  getArticleBySlug,
+  getArticleCategories,
+  fetchAdminArticles,
+  createArticle,
+  updateArticle,
+  deleteArticle,
   clearApiCache,
 }

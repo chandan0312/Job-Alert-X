@@ -1,8 +1,4 @@
-// ---------------------------------------------------------------------------
-// Admin controller — aggregated dashboard data for the admin panel.
-// ---------------------------------------------------------------------------
-
-import { Job, Category, User, Feedback, JOB_KINDS } from '../models/index.js'
+import { Job, Category, User, Feedback, Article, JOB_KINDS } from '../models/index.js'
 import { asyncHandler } from '../middleware/asyncHandler.js'
 import { Op } from 'sequelize'
 
@@ -113,6 +109,25 @@ export const dashboard = asyncHandler(async (req, res) => {
     /* fallback if table is initializing */
   }
 
+  // 9. Article & Blog stats
+  let articleStats = { total: 0, published: 0, drafts: 0, totalViews: 0 }
+  try {
+    const artTotal = await Article.count()
+    const artPub = await Article.count({ where: { status: 'published' } })
+    const artViews = await Article.findOne({
+      attributes: [[seq.fn('SUM', seq.col('views')), 'totalViews']],
+      raw: true,
+    })
+    articleStats = {
+      total: artTotal,
+      published: artPub,
+      drafts: Math.max(0, artTotal - artPub),
+      totalViews: Number(artViews?.totalViews) || 0,
+    }
+  } catch {
+    /* fallback if table is initializing */
+  }
+
   res.json({
     total,
     totalViews,
@@ -123,6 +138,7 @@ export const dashboard = asyncHandler(async (req, res) => {
     recentPosts,
     postsPerDay,
     feedbackStats,
+    articleStats,
   })
 })
 

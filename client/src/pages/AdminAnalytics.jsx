@@ -328,7 +328,7 @@ export default function AdminAnalytics() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      <SEOHead title="Analytics | Job Alert X Admin" />
+      <SEOHead title="Analytics | Job Alert X Admin" noIndex={true} />
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className="relative overflow-hidden rounded-3xl border border-hairline bg-gradient-to-r from-[#0d1326] via-[#101833] to-[#0a1428] p-6 text-white shadow-xl sm:p-8">

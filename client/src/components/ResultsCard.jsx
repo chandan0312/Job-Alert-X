@@ -16,7 +16,7 @@ export default function ResultsCard({ viewAllTo = '/latest/result' }) {
   }, [])
 
   return (
-    <section className="card overflow-hidden">
+    <section className="card overflow-hidden transition-shadow duration-200 hover:shadow-md will-change-transform">
       {/* ── Card Header ── */}
       <div className="flex items-center justify-between border-b border-hairline px-4 py-3 bg-subtle/50 text-ink">
         <div className="flex items-center gap-2">
@@ -36,8 +36,19 @@ export default function ResultsCard({ viewAllTo = '/latest/result' }) {
 
       {/* ── Content ── */}
       {results === null ? (
-        <div className="flex h-32 items-center justify-center text-[13px] text-ink-muted">
-          Loading…
+        <div className="divide-y divide-hairline animate-pulse" aria-hidden="true">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex items-center justify-between p-3.5 gap-2.5">
+              <div className="flex items-start gap-2.5 flex-1 min-w-0">
+                <div className="h-7 w-7 rounded-lg bg-subtle/80 shrink-0 mt-0.5" />
+                <div className="flex-1 min-w-0 space-y-1.5">
+                  <div className="h-3.5 bg-subtle/90 rounded w-3/4" />
+                  <div className="h-2.5 bg-subtle/70 rounded w-1/3" />
+                </div>
+              </div>
+              <div className="h-7 w-12 rounded-lg bg-subtle/80 shrink-0" />
+            </div>
+          ))}
         </div>
       ) : results.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
@@ -94,7 +105,7 @@ export default function ResultsCard({ viewAllTo = '/latest/result' }) {
                   <td className="py-2.5 pr-3.5 pl-1 text-right align-middle whitespace-nowrap">
                     <Link
                       to={`/job/${res.id}`}
-                      className="btn-primary-sm"
+                      className="btn-primary-sm transition-transform duration-150 active:scale-95"
                       aria-label={`View result for ${res.title}`}
                     >
                       View

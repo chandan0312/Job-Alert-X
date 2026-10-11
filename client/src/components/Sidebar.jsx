@@ -17,29 +17,31 @@ import {
   X,
   ChevronsLeft,
   ChevronsRight,
+  Newspaper,
 } from 'lucide-react'
 
 const MENU = [
   { to: '/', label: 'Discover', icon: Home, end: true, color: '#3b82f6' },          // blue
   { to: '/latest/job', label: 'Latest Jobs', icon: Briefcase, color: '#10b981' },    // emerald
   { to: '/exams', label: 'All Exams', icon: ClipboardList, color: '#8b5cf6' },       // violet
+  { to: '/articles', label: 'Articles & Blogs', icon: Newspaper, color: '#f59e0b' }, // amber
   { to: '/latest/admit-card', label: 'Admit Card', icon: Ticket, color: '#f43f5e' }, // rose
-  { to: '/latest/result', label: 'Results', icon: Award, color: '#f59e0b' },         // amber
-  { to: '/latest/answer-key', label: 'Answer Keys', icon: KeyRound, color: '#06b6d4' }, // cyan
+  { to: '/latest/result', label: 'Results', icon: Award, color: '#06b6d4' },         // cyan
+  { to: '/latest/answer-key', label: 'Answer Keys', icon: KeyRound, color: '#a855f7' }, // purple
   { to: '/latest/syllabus', label: 'Syllabus', icon: BookOpen, color: '#ec4899' },   // pink
 ]
 
 const LIBRARY = [
-  { to: '/recent', label: 'Recent Jobs', icon: History, color: '#14b8a6' },    // teal
-  { to: '/bookmarked', label: 'Bookmarked', icon: Bookmark, color: '#f97316' }, // orange
-  { to: '/saved', label: 'Saved Searches', icon: Search, color: '#a78bfa' },   // purple
+  { to: '/recent', label: 'Recent Jobs', icon: History, color: '#14b8a6', nofollow: true },    // teal
+  { to: '/bookmarked', label: 'Bookmarked', icon: Bookmark, color: '#f97316', nofollow: true }, // orange
+  { to: '/saved', label: 'Saved Searches', icon: Search, color: '#a78bfa', nofollow: true },   // purple
 ]
 
 const ACCOUNT = [
-  { to: '/profile', label: 'Profile', icon: User, color: '#60a5fa' },                  // light blue
-  { to: '/feedback', label: 'Feedback', icon: MessageSquarePlus, color: '#fb923c' },   // orange
-  { to: '/settings', label: 'Settings', icon: Settings, color: '#94a3b8' },            // slate
-  { to: '/logout', label: 'Logout', icon: LogOut, color: '#ef4444' },                  // red
+  { to: '/profile', label: 'Profile', icon: User, color: '#60a5fa', nofollow: true },                  // light blue
+  { to: '/feedback', label: 'Feedback', icon: MessageSquarePlus, color: '#fb923c', nofollow: true },   // orange
+  { to: '/settings', label: 'Settings', icon: Settings, color: '#94a3b8', nofollow: true },            // slate
+  { to: '/logout', label: 'Logout', icon: LogOut, color: '#ef4444', nofollow: true },                  // red
 ]
 
 function NavItem({ item, onNavigate, collapsed }) {
@@ -48,6 +50,7 @@ function NavItem({ item, onNavigate, collapsed }) {
     <NavLink
       to={item.to}
       end={item.end}
+      rel={item.nofollow ? 'nofollow' : undefined}
       onClick={onNavigate}
       className={({ isActive }) =>
         [

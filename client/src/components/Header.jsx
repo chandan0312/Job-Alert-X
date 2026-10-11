@@ -9,6 +9,7 @@ import {
   Flame,
   ArrowRight,
   ChevronRight,
+  BookOpen,
 } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
@@ -181,6 +182,16 @@ export default function Header({ onMenuClick = () => {} }) {
 
         {/* === RIGHT: ACTIONS + THEME TOGGLE + USER PILL === */}
         <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
+          {/* Quick Articles Button */}
+          <Link
+            to="/articles"
+            className="group flex items-center gap-1.5 rounded-full px-3 py-2 transition-all shadow-sm bg-[#111628] text-slate-300 border border-white/10 hover:border-amber-400/40 hover:text-amber-300"
+            title="Career Articles & Exam Guides"
+          >
+            <BookOpen size={16} className="transition-colors text-amber-400 group-hover:text-amber-300" />
+            <span className="hidden text-xs font-bold md:inline">Articles</span>
+          </Link>
+
           {/* Quick Feedback Button */}
           <Link
             to="/feedback"
@@ -240,6 +251,7 @@ export default function Header({ onMenuClick = () => {} }) {
                 <div className="my-1 h-px bg-white/10" />
                 <Link
                   to="/profile"
+                  rel="nofollow"
                   onClick={() => setUserOpen(false)}
                   className="flex items-center justify-between rounded-lg px-3 py-2 text-[13px] font-medium text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                 >
@@ -247,6 +259,7 @@ export default function Header({ onMenuClick = () => {} }) {
                 </Link>
                 <Link
                   to="/bookmarked"
+                  rel="nofollow"
                   onClick={() => setUserOpen(false)}
                   className="flex items-center justify-between rounded-lg px-3 py-2 text-[13px] font-medium text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
                 >
@@ -255,6 +268,7 @@ export default function Header({ onMenuClick = () => {} }) {
                 {isAdmin && (
                   <Link
                     to="/admin"
+                    rel="nofollow"
                     onClick={() => setUserOpen(false)}
                     className="flex items-center justify-between rounded-lg px-3 py-2 text-[13px] font-semibold text-orange-400 hover:bg-orange-500/20 transition-colors"
                   >

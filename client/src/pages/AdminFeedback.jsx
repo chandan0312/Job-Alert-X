@@ -131,7 +131,7 @@ export default function AdminFeedback() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <SEOHead title="User Feedback & Suggestions | Job Alert X Admin" />
+      <SEOHead title="User Feedback & Suggestions | Job Alert X Admin" noIndex={true} />
 
       {/* Header */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">

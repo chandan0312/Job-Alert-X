@@ -178,7 +178,7 @@ export default function AdminPosts() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <SEOHead title="Manage Posts | Job Alert X Admin" />
+      <SEOHead title="Manage Posts | Job Alert X Admin" noIndex={true} />
 
       {/* Top Header */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
