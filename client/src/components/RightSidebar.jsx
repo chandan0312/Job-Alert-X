@@ -46,7 +46,7 @@ function QuickSearch() {
 
 export default function RightSidebar() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 xl:sticky xl:top-[76px] xl:max-h-[calc(100vh-88px)] xl:overflow-y-auto pr-1 pb-6 scrollbar-thin">
       <QuickSearch />
       <AttentionCard />
       <ResultsCard />

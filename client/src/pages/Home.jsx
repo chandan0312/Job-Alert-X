@@ -10,6 +10,26 @@ import { getTrending, getRecentlyPosted, getJobsByCategory } from '../services/a
 import { Clock, Sparkles, Landmark, Scale, TrainFront, Shield, Building2 } from 'lucide-react'
 
 
+function TableSkeleton({ rows = 3 }) {
+  return (
+    <div className="rounded-2xl border border-hairline bg-surface p-4 space-y-3 animate-pulse shadow-xs" aria-hidden="true">
+      <div className="h-4 bg-subtle/80 rounded w-1/4 mb-3" />
+      {Array.from({ length: rows }).map((_, i) => (
+        <div key={i} className="flex items-center justify-between gap-4 py-2 border-b border-hairline/60 last:border-b-0">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className="h-8 w-8 rounded-lg bg-subtle/90 shrink-0" />
+            <div className="flex-1 space-y-1.5 min-w-0">
+              <div className="h-3.5 bg-subtle/90 rounded w-3/5" />
+              <div className="h-2.5 bg-subtle/60 rounded w-1/3" />
+            </div>
+          </div>
+          <div className="h-7 w-20 rounded-lg bg-subtle/70 shrink-0" />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function ComingSoonBlock({ icon: Icon, label }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-hairline bg-subtle/40 py-10 text-center">
@@ -143,9 +163,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Trending This Week" />
           {trending === null ? (
-            <div className="flex h-48 items-center justify-center text-[14px] text-ink-muted">
-              Loading...
-            </div>
+            <div className="h-48 rounded-2xl bg-subtle/70 animate-pulse border border-hairline shadow-xs" aria-hidden="true" />
           ) : trending.length === 0 ? (
             <ComingSoonBlock icon={Sparkles} label="trending posts" />
           ) : (
@@ -162,9 +180,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Recently Posted Jobs" viewAllTo="/latest/job" />
           {recentlyPosted === null ? (
-            <div className="flex h-32 items-center justify-center text-[14px] text-ink-muted">
-              Loading...
-            </div>
+            <TableSkeleton rows={4} />
           ) : recentlyPosted.length === 0 ? (
             <ComingSoonBlock icon={Clock} label="recent jobs" />
           ) : (
@@ -181,9 +197,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Bank Jobs" viewAllTo="/category/banking" />
           {bankJobs === null ? (
-            <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading...
-            </div>
+            <TableSkeleton rows={3} />
           ) : bankJobs.length === 0 ? (
             <ComingSoonBlock icon={Landmark} label="bank notifications" />
           ) : (
@@ -195,9 +209,7 @@ export default function Home() {
         <section>
           <SectionHeader title="SSC Jobs" viewAllTo="/category/ssc" />
           {sscJobs === null ? (
-            <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading...
-            </div>
+            <TableSkeleton rows={3} />
           ) : sscJobs.length === 0 ? (
             <ComingSoonBlock icon={Building2} label="SSC notifications" />
           ) : (
@@ -209,9 +221,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Railway Jobs" viewAllTo="/category/railway" />
           {railwayJobs === null ? (
-            <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading...
-            </div>
+            <TableSkeleton rows={3} />
           ) : railwayJobs.length === 0 ? (
             <ComingSoonBlock icon={TrainFront} label="railway notifications" />
           ) : (
@@ -223,9 +233,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Defence Jobs" viewAllTo="/category/defence" />
           {defenceJobs === null ? (
-            <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading...
-            </div>
+            <TableSkeleton rows={3} />
           ) : defenceJobs.length === 0 ? (
             <ComingSoonBlock icon={Shield} label="defence notifications" />
           ) : (
@@ -237,9 +245,7 @@ export default function Home() {
         <section>
           <SectionHeader title="UPSC Jobs" viewAllTo="/category/upsc" />
           {upscJobs === null ? (
-            <div className="flex h-28 items-center justify-center text-[14px] text-ink-muted">
-              Loading...
-            </div>
+            <TableSkeleton rows={3} />
           ) : upscJobs.length === 0 ? (
             <ComingSoonBlock icon={Scale} label="UPSC notifications" />
           ) : (

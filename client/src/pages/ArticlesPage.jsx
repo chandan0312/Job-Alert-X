@@ -175,7 +175,7 @@ export default function ArticlesPage() {
                 className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-xs sm:text-[13px] font-semibold transition-all duration-200 ${
                   isActive
                     ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/25 scale-[1.02]'
-                    : 'bg-[#0d1428] text-slate-300 border border-white/[0.08] hover:border-orange-500/40 hover:text-white'
+                    : 'bg-surface text-ink-muted border border-hairline hover:border-orange-500/40 hover:text-ink shadow-2xs dark:bg-[#0d1428] dark:text-slate-300 dark:border-white/[0.08] dark:hover:text-white'
                 }`}
               >
                 <Icon size={16} />
@@ -188,45 +188,45 @@ export default function ArticlesPage() {
 
       {/* === FEATURED HERO ARTICLE (Shown when on "All" without active search query) === */}
       {activeCategory === 'all' && !searchQuery && featuredArticle && (
-        <section className="relative group overflow-hidden rounded-3xl border border-white/10 bg-[#090e21] shadow-xl hover:border-orange-500/30 transition-all duration-300">
+        <section className="relative group overflow-hidden rounded-3xl border border-hairline bg-surface shadow-xl hover:border-orange-500/30 transition-all duration-300 dark:border-white/10 dark:bg-[#090e21]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 sm:p-8">
             <div className="lg:col-span-7 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-extrabold uppercase tracking-wider bg-orange-500/20 text-orange-400 border border-orange-500/40">
+                <span className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-extrabold uppercase tracking-wider bg-orange-500/20 text-orange-600 dark:text-orange-400 border border-orange-500/30">
                   <Sparkles size={13} />
                   Featured Spotlight
                 </span>
-                <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-bold border ${CATEGORY_BADGES[featuredArticle.category]?.bg || 'bg-white/10 text-white border-white/20'}`}>
+                <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-bold border ${CATEGORY_BADGES[featuredArticle.category]?.bg || 'bg-subtle text-ink-muted border-hairline'}`}>
                   {CATEGORY_BADGES[featuredArticle.category]?.label || featuredArticle.category}
                 </span>
-                <span className="flex items-center gap-1 text-xs text-slate-400">
+                <span className="flex items-center gap-1 text-xs text-ink-muted dark:text-slate-400">
                   <Clock size={13} />
                   {featuredArticle.readTime}
                 </span>
               </div>
 
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white group-hover:text-orange-400 transition-colors leading-snug">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-ink group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 transition-colors leading-snug">
                 <Link to={`/article/${featuredArticle.slug}`}>
                   {featuredArticle.title}
                 </Link>
               </h2>
 
-              <p className="text-sm text-slate-300 leading-relaxed line-clamp-3">
+              <p className="text-sm text-ink-muted dark:text-slate-300 leading-relaxed line-clamp-3">
                 {featuredArticle.excerpt}
               </p>
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-600/30 border border-purple-500/40 text-purple-300 text-xs font-bold">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-600 dark:text-orange-400 text-xs font-bold">
                     {featuredArticle.author?.charAt(0) || 'J'}
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-white leading-none">{featuredArticle.author}</p>
-                    <p className="text-[11px] text-slate-400">{featuredArticle.authorRole || 'Author'}</p>
+                    <p className="text-xs font-bold text-ink dark:text-white leading-none">{featuredArticle.author}</p>
+                    <p className="text-[11px] text-ink-muted dark:text-slate-400">{featuredArticle.authorRole || 'Author'}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-xs text-slate-400 ml-auto sm:ml-0">
+                <div className="flex items-center gap-1.5 text-xs text-ink-muted dark:text-slate-400 ml-auto sm:ml-0">
                   <Eye size={14} />
                   <span>{Number(featuredArticle.views || 0).toLocaleString('en-IN')} views</span>
                 </div>
@@ -247,7 +247,7 @@ export default function ArticlesPage() {
                 alt={featuredArticle.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#090e21] via-transparent to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
             </div>
           </div>
         </section>
@@ -255,19 +255,19 @@ export default function ArticlesPage() {
 
       {/* === ARTICLES GRID === */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
+        <div className="flex items-center justify-between border-b border-hairline dark:border-white/[0.08] pb-3">
           <div className="flex items-center gap-2">
-            <h2 className="text-lg sm:text-xl font-extrabold text-white">
+            <h2 className="text-lg sm:text-xl font-extrabold text-ink dark:text-white">
               {activeCategory === 'all' ? 'Latest Guides & Articles' : CATEGORY_TABS.find((t) => t.id === activeCategory)?.label}
             </h2>
-            <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-bold text-orange-400">
+            <span className="rounded-full bg-orange-500/10 border border-orange-500/20 px-2.5 py-0.5 text-xs font-bold text-orange-600 dark:bg-white/10 dark:text-orange-400">
               {feedArticles.length}
             </span>
           </div>
 
           {searchQuery && (
-            <p className="text-xs text-slate-400">
-              Showing results for &ldquo;<span className="text-orange-400 font-semibold">{searchQuery}</span>&rdquo;
+            <p className="text-xs text-ink-muted dark:text-slate-400">
+              Showing results for &ldquo;<span className="text-orange-600 dark:text-orange-400 font-semibold">{searchQuery}</span>&rdquo;
             </p>
           )}
         </div>
@@ -275,7 +275,7 @@ export default function ArticlesPage() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-80 rounded-2xl bg-white/[0.03] animate-pulse border border-white/5" />
+              <div key={i} className="h-80 rounded-2xl bg-subtle/60 animate-pulse border border-hairline dark:border-white/5 dark:bg-white/[0.03]" />
             ))}
           </div>
         ) : error ? (
@@ -283,12 +283,12 @@ export default function ArticlesPage() {
             <p className="font-semibold">{error}</p>
           </div>
         ) : feedArticles.length === 0 ? (
-          <div className="rounded-3xl border border-white/10 bg-[#0a0f24] py-16 px-4 text-center space-y-3">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white/5 text-slate-400">
+          <div className="rounded-3xl border border-hairline bg-surface dark:border-white/10 dark:bg-[#0a0f24] py-16 px-4 text-center space-y-3 shadow-xs">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-subtle text-ink-muted dark:bg-white/5 dark:text-slate-400">
               <Search size={24} />
             </div>
-            <h3 className="text-base font-bold text-white">No articles found</h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto">
+            <h3 className="text-base font-bold text-ink dark:text-white">No articles found</h3>
+            <p className="text-xs text-ink-muted dark:text-slate-400 max-w-sm mx-auto">
               We couldn't find any articles matching your search query or selected category.
             </p>
             <button
@@ -297,7 +297,7 @@ export default function ArticlesPage() {
                 setSearchQuery('')
                 setCategory('all')
               }}
-              className="mt-2 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-xs font-bold text-white hover:bg-orange-600 transition-colors"
+              className="mt-2 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-xs font-bold text-white hover:bg-orange-600 transition-colors shadow-sm"
             >
               Reset Filters
             </button>
@@ -313,7 +313,7 @@ export default function ArticlesPage() {
               return (
                 <article
                   key={article.id}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#090e21] shadow-lg hover:border-orange-500/40 hover:-translate-y-1 transition-all duration-300"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-hairline bg-surface shadow-xs hover:border-orange-500/40 hover:shadow-cardhover hover:-translate-y-1 transition-all duration-300 dark:border-white/[0.08] dark:bg-[#090e21]"
                 >
                   {/* Cover image */}
                   <Link to={`/article/${article.slug}`} className="relative aspect-[16/9] w-full overflow-hidden block">
@@ -323,7 +323,7 @@ export default function ArticlesPage() {
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090e21] via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
 
                     {/* Category badge */}
                     <div className="absolute top-3 left-3">
@@ -343,13 +343,13 @@ export default function ArticlesPage() {
 
                   {/* Body */}
                   <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-[15px] font-bold text-white group-hover:text-orange-400 transition-colors line-clamp-2 leading-snug">
+                    <h3 className="text-[15px] font-bold text-ink group-hover:text-orange-600 dark:text-white dark:group-hover:text-orange-400 transition-colors line-clamp-2 leading-snug">
                       <Link to={`/article/${article.slug}`}>
                         {article.title}
                       </Link>
                     </h3>
 
-                    <p className="mt-2 text-xs text-slate-400 line-clamp-3 leading-relaxed flex-1">
+                    <p className="mt-2 text-xs text-ink-muted dark:text-slate-400 line-clamp-3 leading-relaxed flex-1">
                       {article.excerpt}
                     </p>
 
@@ -359,7 +359,7 @@ export default function ArticlesPage() {
                         {article.tags.slice(0, 3).map((tag, idx) => (
                           <span
                             key={idx}
-                            className="inline-flex items-center text-[10px] font-medium text-slate-400 bg-white/[0.04] rounded-md px-2 py-0.5"
+                            className="inline-flex items-center text-[10px] font-medium text-ink-muted bg-subtle dark:text-slate-400 dark:bg-white/[0.04] rounded-md px-2 py-0.5"
                           >
                             #{tag}
                           </span>
@@ -368,17 +368,17 @@ export default function ArticlesPage() {
                     )}
 
                     {/* Card Footer */}
-                    <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11.5px] text-slate-400">
+                    <div className="mt-4 pt-3 border-t border-hairline dark:border-white/[0.06] flex items-center justify-between text-[11.5px] text-ink-muted dark:text-slate-400">
                       <div className="flex items-center gap-1.5">
-                        <div className="h-5 w-5 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold text-[10px]">
+                        <div className="h-5 w-5 rounded-full bg-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold text-[10px]">
                           {article.author?.charAt(0) || 'J'}
                         </div>
-                        <span className="font-semibold text-slate-300 truncate max-w-[120px]">
+                        <span className="font-semibold text-ink-soft dark:text-slate-300 truncate max-w-[120px]">
                           {article.author}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 text-ink-faint dark:text-slate-400">
                         <Eye size={13} />
                         <span>{Number(article.views || 0).toLocaleString('en-IN')}</span>
                       </div>

@@ -16,7 +16,7 @@ export default function SyllabusCard({ viewAllTo = '/latest/syllabus' }) {
   }, [])
 
   return (
-    <section className="card overflow-hidden">
+    <section className="card overflow-hidden transition-shadow duration-200 hover:shadow-md will-change-transform">
       {/* ── Card Header ── */}
       <div className="flex items-center justify-between border-b border-hairline px-4 py-3 bg-subtle/50 text-ink">
         <div className="flex items-center gap-2">
@@ -36,8 +36,19 @@ export default function SyllabusCard({ viewAllTo = '/latest/syllabus' }) {
 
       {/* ── Content ── */}
       {syllabusList === null ? (
-        <div className="flex h-32 items-center justify-center text-[13px] text-ink-muted">
-          Loading…
+        <div className="divide-y divide-hairline animate-pulse" aria-hidden="true">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex items-center justify-between p-3.5 gap-2.5">
+              <div className="flex items-start gap-2.5 flex-1 min-w-0">
+                <div className="h-7 w-7 rounded-lg bg-subtle/80 shrink-0 mt-0.5" />
+                <div className="flex-1 min-w-0 space-y-1.5">
+                  <div className="h-3.5 bg-subtle/90 rounded w-3/4" />
+                  <div className="h-2.5 bg-subtle/70 rounded w-1/3" />
+                </div>
+              </div>
+              <div className="h-7 w-12 rounded-lg bg-subtle/80 shrink-0" />
+            </div>
+          ))}
         </div>
       ) : syllabusList.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
@@ -105,6 +116,16 @@ export default function SyllabusCard({ viewAllTo = '/latest/syllabus' }) {
               ))}
             </tbody>
           </table>
+          {/* ── Card Footer ── */}
+          <div className="border-t border-hairline bg-subtle/30 px-3 py-2.5 text-center">
+            <Link
+              to={viewAllTo}
+              className="inline-flex min-h-[32px] items-center justify-center gap-1.5 text-xs font-bold text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 transition-colors"
+            >
+              Check All Syllabus
+              <ArrowRight size={13} aria-hidden="true" />
+            </Link>
+          </div>
         </>
       )}
     </section>

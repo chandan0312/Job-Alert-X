@@ -80,37 +80,37 @@ export default function HomeArticlesSection() {
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-[11px]">
         <Link
           to="/articles?category=how-to-apply"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-white/10 bg-[#0c1224] px-3 py-1.5 font-bold text-slate-300 hover:border-emerald-500/40 hover:text-emerald-400 transition-colors"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline bg-surface px-3 py-1.5 font-bold text-ink-soft hover:bg-subtle hover:text-emerald-600 dark:border-white/10 dark:bg-[#0c1224] dark:text-slate-300 dark:hover:text-emerald-400 transition-colors shadow-2xs"
         >
-          <FileText size={13} className="text-emerald-400" />
+          <FileText size={13} className="text-emerald-500 dark:text-emerald-400" />
           <span>How to Apply</span>
         </Link>
         <Link
           to="/articles?category=how-to-download"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-white/10 bg-[#0c1224] px-3 py-1.5 font-bold text-slate-300 hover:border-blue-500/40 hover:text-blue-400 transition-colors"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline bg-surface px-3 py-1.5 font-bold text-ink-soft hover:bg-subtle hover:text-blue-600 dark:border-white/10 dark:bg-[#0c1224] dark:text-slate-300 dark:hover:text-blue-400 transition-colors shadow-2xs"
         >
-          <Download size={13} className="text-blue-400" />
+          <Download size={13} className="text-blue-500 dark:text-blue-400" />
           <span>Admit Card Guides</span>
         </Link>
         <Link
           to="/articles?category=strategy"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-white/10 bg-[#0c1224] px-3 py-1.5 font-bold text-slate-300 hover:border-purple-500/40 hover:text-purple-400 transition-colors"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline bg-surface px-3 py-1.5 font-bold text-ink-soft hover:bg-subtle hover:text-purple-600 dark:border-white/10 dark:bg-[#0c1224] dark:text-slate-300 dark:hover:text-purple-400 transition-colors shadow-2xs"
         >
-          <GraduationCap size={13} className="text-purple-400" />
+          <GraduationCap size={13} className="text-purple-500 dark:text-purple-400" />
           <span>Exam Strategies</span>
         </Link>
         <Link
           to="/articles?category=documentation"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-white/10 bg-[#0c1224] px-3 py-1.5 font-bold text-slate-300 hover:border-sky-500/40 hover:text-sky-400 transition-colors"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline bg-surface px-3 py-1.5 font-bold text-ink-soft hover:bg-subtle hover:text-sky-600 dark:border-white/10 dark:bg-[#0c1224] dark:text-slate-300 dark:hover:text-sky-400 transition-colors shadow-2xs"
         >
-          <ShieldCheck size={13} className="text-sky-400" />
+          <ShieldCheck size={13} className="text-sky-500 dark:text-sky-400" />
           <span>Doc Verification</span>
         </Link>
         <Link
           to="/articles?category=syllabus"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-white/10 bg-[#0c1224] px-3 py-1.5 font-bold text-slate-300 hover:border-rose-500/40 hover:text-rose-400 transition-colors"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-hairline bg-surface px-3 py-1.5 font-bold text-ink-soft hover:bg-subtle hover:text-rose-600 dark:border-white/10 dark:bg-[#0c1224] dark:text-slate-300 dark:hover:text-rose-400 transition-colors shadow-2xs"
         >
-          <BookOpen size={13} className="text-rose-400" />
+          <BookOpen size={13} className="text-rose-500 dark:text-rose-400" />
           <span>Syllabus Breakdown</span>
         </Link>
       </div>

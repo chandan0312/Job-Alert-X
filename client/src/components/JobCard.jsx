@@ -42,33 +42,37 @@ function getStartDate(job) {
   if (job.startDate) return job.startDate
   const begin = job.importantDates?.find(
     (d) =>
-      d.label.toLowerCase().includes('begin') ||
-      d.label.toLowerCase().includes('released') ||
-      d.label.toLowerCase().includes('declared')
+      d.label?.toLowerCase().includes('begin') ||
+      d.label?.toLowerCase().includes('start') ||
+      d.label?.toLowerCase().includes('released') ||
+      d.label?.toLowerCase().includes('open') ||
+      d.label?.toLowerCase().includes('declared')
   )
   if (begin) return begin.value
-  return job.postedOn || '24 May 2024'
+  return job.postedOn || job.postedAt || 'Active'
 }
 
 function getEndDate(job) {
   if (job.endDate) return job.endDate
   const end = job.importantDates?.find(
     (d) =>
-      d.label.toLowerCase().includes('last date') ||
-      d.label.toLowerCase().includes('exam date') ||
-      d.label.toLowerCase().includes('tier')
+      d.label?.toLowerCase().includes('last date') ||
+      d.label?.toLowerCase().includes('close') ||
+      d.label?.toLowerCase().includes('end date') ||
+      d.label?.toLowerCase().includes('exam date') ||
+      d.label?.toLowerCase().includes('tier')
   )
   if (end) return end.value
-  return '24 Jun 2024'
+  return 'Check Schedule'
 }
 
 function getPostCount(job) {
-  if (job.vacancies) return job.vacancies.toLocaleString('en-IN')
+  if (job.vacancies) return Number(job.vacancies).toLocaleString('en-IN')
   if (job.posts && Array.isArray(job.posts) && job.posts.length > 0) {
-    const total = job.posts.reduce((acc, p) => acc + (p.total || 0), 0)
+    const total = job.posts.reduce((acc, p) => acc + (Number(p.total) || 0), 0)
     if (total > 0) return total.toLocaleString('en-IN')
   }
-  return '17,727'
+  return 'Check Notice'
 }
 
 /**
@@ -86,7 +90,7 @@ export default function JobCard({ job, variant = 'compact' }) {
         to={`/job/${job.id}`}
         className="card group relative flex flex-col items-center p-5 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-cardhover hover:border-brand-300 dark:hover:border-white/20"
       >
-        <BrandIcon icon={job.logo.icon} color={job.logo.color} size={56} />
+        <BrandIcon icon={job.logo?.icon || 'landmark'} color={job.logo?.color || '#5558e6'} size={56} />
         <h3 className="mt-3.5 line-clamp-2 text-[14px] font-bold leading-snug text-ink group-hover:text-brand-600 transition-colors">
           {job.title}
         </h3>

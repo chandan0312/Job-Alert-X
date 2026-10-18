@@ -10,6 +10,8 @@ import cors from 'cors'
 import morgan from 'morgan'
 import compression from 'compression'
 
+import { fileURLToPath } from 'node:url'
+
 import { env, corsOrigin } from './config/env.js'
 import apiRoutes from './routes/index.js'
 import { notFound, errorHandler } from './middleware/error.js'
@@ -54,10 +56,8 @@ export function createApp() {
   app.get('/sitemap-syllabus.xml',    sitemap.syllabusSitemap)
 
   // Serve uploaded documents statically
-  const uploadDir = new URL('../uploads', import.meta.url).pathname
-  // Normalize windows leading slash if present in pathname
-  const normalizedUploadDir = process.platform === 'win32' && uploadDir.startsWith('/') ? uploadDir.slice(1) : uploadDir
-  app.use('/uploads', express.static(normalizedUploadDir))
+  const uploadDir = fileURLToPath(new URL('../uploads', import.meta.url))
+  app.use('/uploads', express.static(uploadDir))
 
   // Order matters: 404 for unmatched routes, then the central error handler.
   app.use(notFound)
