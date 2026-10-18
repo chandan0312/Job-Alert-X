@@ -51,7 +51,9 @@ export const env = {
   // Google OAuth. The Identity Services flow verifies an ID token against the
   // client ID alone, so no client secret is read here.
   google: {
-    clientId: process.env.GOOGLE_CLIENT_ID || '',
+    clientId:
+      process.env.GOOGLE_CLIENT_ID ||
+      '976260447025-u5a4ki77guc06to3f0avpt4nfjphg25j.apps.googleusercontent.com',
   },
 
   clientOrigin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',

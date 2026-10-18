@@ -156,21 +156,18 @@ export default function LoginPage() {
 
           {/* Google Sign-In */}
           <div className="w-full">
-            {googleState === 'ready' ? (
+            {googleState !== 'unconfigured' && (
               <div
                 ref={googleBtnRef}
                 className="flex w-full justify-center overflow-hidden rounded-xl min-h-[44px]"
               />
-            ) : googleState === 'loading' ? (
-              <div className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-slate-200 bg-slate-50 px-5 py-3 text-[13.5px] font-semibold text-slate-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400">
-                <GoogleIcon size={19} />
-                <span>Loading Google Sign-In…</span>
-              </div>
-            ) : (
+            )}
+
+            {googleState === 'unconfigured' && (
               <button
                 type="button"
                 onClick={() => {
-                  setError('Google Sign-In is not configured yet. Please configure VITE_GOOGLE_CLIENT_ID in client/.env or sign in with email and password below.')
+                  setError('Google Sign-In is not configured yet. Please sign in with email and password below.')
                 }}
                 className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-slate-200 bg-white py-3 px-4 text-[13.5px] font-bold text-slate-700 shadow-xs transition-all hover:bg-slate-50 active:scale-[0.99] dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.08]"
               >

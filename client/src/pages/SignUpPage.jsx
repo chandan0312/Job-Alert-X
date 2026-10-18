@@ -205,21 +205,18 @@ export default function SignUpPage() {
 
           {/* Google Sign-Up */}
           <div className="w-full">
-            {googleState === 'ready' ? (
+            {googleState !== 'unconfigured' && (
               <div
                 ref={googleBtnRef}
                 className="flex w-full justify-center overflow-hidden rounded-xl min-h-[44px] [color-scheme:light]"
               />
-            ) : googleState === 'loading' ? (
-              <div className="flex w-full items-center justify-center gap-3 rounded-xl border border-hairline bg-subtle px-5 py-3 text-[14px] font-semibold text-ink-muted dark:border-white/[0.1] dark:bg-white/[0.04] dark:text-slate-500">
-                <GoogleIcon size={20} />
-                <span>Loading Google Sign-In…</span>
-              </div>
-            ) : (
+            )}
+
+            {googleState === 'unconfigured' && (
               <button
                 type="button"
                 onClick={() => {
-                  setError('Google Sign-In is not configured yet. Please configure VITE_GOOGLE_CLIENT_ID in client/.env or create an account with email and password below.')
+                  setError('Google Sign-In is not configured yet. Please create an account with email and password below.')
                 }}
                 className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-hairline bg-surface py-3 px-4 text-[13.5px] font-bold text-ink shadow-xs transition-all hover:bg-subtle active:scale-[0.99] dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:bg-white/[0.08]"
               >

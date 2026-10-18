@@ -147,11 +147,13 @@ export default function Sidebar({
   collapsed = false,
   onToggleCollapse = () => {},
 }) {
+  const isCollapsed = collapsed && !open
+
   return (
     <>
       {/* Mobile backdrop */}
       <div
-        className={`fixed inset-0 z-30 backdrop-blur-sm transition-opacity lg:hidden ${
+        className={`fixed inset-0 z-30 transition-opacity duration-300 lg:hidden ${
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
         style={{ background: 'var(--overlay)' }}
@@ -161,11 +163,17 @@ export default function Sidebar({
 
       {/* Sidebar panel */}
       <aside
-        className={`sidebar-transition sidebar-bg fixed top-[72px] bottom-0 left-0 z-30 flex flex-col transition-all duration-300 lg:translate-x-0 ${
+        className={`sidebar-transition fixed bottom-0 left-0 z-30 flex flex-col lg:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ width: open ? '260px' : collapsed ? '72px' : '260px' }}
-        aria-label="Primary navigation"
+        style={{
+          top: 'var(--header-height, 64px)',
+          width: isCollapsed ? '72px' : '260px',
+          background: 'var(--surface)',
+          borderRight: '1px solid var(--border)',
+          boxShadow: 'var(--shadow-md)',
+        }}
+        aria-label="Site navigation"
       >
         {/* Mobile close header */}
         <div
@@ -181,11 +189,10 @@ export default function Sidebar({
           <button
             type="button"
             onClick={onClose}
-            className="flex h-7 w-7 items-center justify-center rounded-lg transition-colors hover:bg-[var(--surface-2)]"
-            style={{ color: 'var(--text-muted)' }}
-            aria-label="Close menu"
+            className="btn-icon"
+            aria-label="Close navigation"
           >
-            <X size={16} />
+            <X size={16} aria-hidden="true" />
           </button>
         </div>
 
@@ -196,38 +203,38 @@ export default function Sidebar({
           }`}
           aria-label="Main navigation"
         >
-          <SectionLabel collapsed={collapsed && !open}>Menu</SectionLabel>
+          <SectionLabel collapsed={isCollapsed}>Menu</SectionLabel>
           <div className="space-y-0.5">
             {MENU.map((item) => (
               <NavItem
                 key={item.to}
                 item={item}
                 onNavigate={onClose}
-                collapsed={collapsed && !open}
+                collapsed={isCollapsed}
               />
             ))}
           </div>
 
-          <SectionLabel collapsed={collapsed && !open}>Library</SectionLabel>
+          <SectionLabel collapsed={isCollapsed}>Library</SectionLabel>
           <div className="space-y-0.5">
             {LIBRARY.map((item) => (
               <NavItem
                 key={item.to}
                 item={item}
                 onNavigate={onClose}
-                collapsed={collapsed && !open}
+                collapsed={isCollapsed}
               />
             ))}
           </div>
 
-          <SectionLabel collapsed={collapsed && !open}>Account</SectionLabel>
+          <SectionLabel collapsed={isCollapsed}>Account</SectionLabel>
           <div className="space-y-0.5">
             {ACCOUNT.map((item) => (
               <NavItem
                 key={item.to}
                 item={item}
                 onNavigate={onClose}
-                collapsed={collapsed && !open}
+                collapsed={isCollapsed}
               />
             ))}
           </div>
@@ -241,16 +248,26 @@ export default function Sidebar({
           <button
             type="button"
             onClick={onToggleCollapse}
-            className={`flex w-full items-center rounded-xl px-2.5 py-2 text-xs font-medium transition-colors hover:bg-[var(--surface-2)] ${
-              collapsed ? 'justify-center' : 'gap-3'
+            className={`flex w-full items-center rounded-row px-2.5 py-2 text-[13px] font-medium transition-colors ${
+              isCollapsed ? 'justify-center' : 'gap-3'
             }`}
+            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-pressed={collapsed}
             style={{ color: 'var(--text-muted)' }}
-            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'var(--surface-2)'
+              e.currentTarget.style.color = 'var(--text)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = 'var(--text-muted)'
+            }}
           >
-            {collapsed ? <ChevronsRight size={16} /> : <ChevronsLeft size={16} />}
-            {!collapsed && (
-              <span style={{ color: 'var(--text-2)' }}>Collapse Menu</span>
-            )}
+            {isCollapsed
+              ? <ChevronsRight size={16} aria-hidden="true" />
+              : <ChevronsLeft  size={16} aria-hidden="true" />
+            }
+            {!isCollapsed && <span>Collapse</span>}
           </button>
         </div>
       </aside>

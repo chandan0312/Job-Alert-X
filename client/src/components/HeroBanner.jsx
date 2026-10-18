@@ -14,7 +14,6 @@ import {
   Siren,
   Anchor,
   Flame,
-  ExternalLink,
 } from 'lucide-react'
 
 const EMBLEM_ICONS = {
@@ -46,25 +45,32 @@ function getLastDate(job) {
   return d?.value || 'Check Details'
 }
 
-function Emblem({ job }) {
+function OrgTile({ job }) {
   const Icon = EMBLEM_ICONS[job.logo?.icon] || Landmark
-  const color = job.logo?.color || 'var(--brand-primary)'
+  const color = job.logo?.color || 'var(--accent, #1b6f81)'
+
   return (
-    <div className="relative flex h-20 w-20 shrink-0 items-center justify-center">
-      {/* Soft glow */}
-      <div
-        className="absolute inset-0 rounded-full blur-xl opacity-25"
-        style={{ background: `radial-gradient(circle at center, ${color}, transparent 70%)` }}
-      />
-      {/* Orbit rings */}
-      <div className="absolute inset-0 rounded-full border border-dashed border-white/20" />
-      <div className="absolute inset-2 rounded-full border border-white/10" />
-      {/* Central seal */}
-      <div
-        className="relative flex h-12 w-12 items-center justify-center rounded-xl text-white shadow-lg ring-2 ring-white/20"
-        style={{ background: `linear-gradient(135deg, ${color}cc, rgba(0,0,0,0.5))` }}
-      >
-        <Icon size={22} strokeWidth={1.8} />
+    <div className="relative hidden shrink-0 items-center justify-center md:flex pl-4">
+      <div className="relative flex h-20 w-20 items-center justify-center">
+        {/* Glow */}
+        <div
+          className="absolute inset-0 rounded-full blur-xl opacity-25"
+          style={{ background: `radial-gradient(circle, ${color}, transparent 70%)` }}
+          aria-hidden="true"
+        />
+        {/* Orbit ring */}
+        <div
+          className="absolute inset-0 rounded-full border border-dashed opacity-20"
+          style={{ borderColor: color }}
+          aria-hidden="true"
+        />
+        {/* Central tile — 56px per spec */}
+        <div
+          className="relative flex h-14 w-14 items-center justify-center rounded-card text-white shadow-lg"
+          style={{ background: `linear-gradient(135deg, ${color}, rgba(0,0,0,0.5))` }}
+        >
+          <Icon size={24} strokeWidth={1.8} aria-hidden="true" />
+        </div>
       </div>
     </div>
   )
@@ -96,135 +102,129 @@ export default function HeroBanner({ slides = [] }) {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Main Banner Card — dark navy gradient (always dark for visual impact) */}
+      {/* Main Banner Card */}
       <div
-        className="relative overflow-hidden rounded-2xl text-white shadow-lg"
+        className="relative overflow-hidden rounded-card"
         style={{
-          background: 'linear-gradient(135deg, var(--brand-dark) 0%, #0d2035 40%, var(--brand-primary) 100%)',
-          border: '1px solid rgba(174, 208, 201, 0.15)',
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
+          boxShadow: 'var(--shadow-md)',
         }}
       >
-        {/* Geometric grid texture */}
+        {/* Subtle grid texture */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+              'linear-gradient(var(--text) 1px, transparent 1px), linear-gradient(90deg, var(--text) 1px, transparent 1px)',
             backgroundSize: '24px 24px',
           }}
           aria-hidden="true"
         />
 
-        {/* Ambient glow */}
+        {/* Accent glow top-right */}
         <div
-          className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full blur-2xl opacity-20"
-          style={{ background: 'var(--brand-teal)' }}
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute -left-4 -bottom-4 h-32 w-32 rounded-full blur-2xl opacity-15"
-          style={{ background: 'var(--brand-flame)' }}
+          className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full blur-3xl opacity-20"
+          style={{ background: 'var(--accent, var(--brand-teal))' }}
           aria-hidden="true"
         />
 
-        <div className="relative flex flex-col gap-4 p-5 sm:p-6 md:flex-row md:items-center md:justify-between">
-          {/* Text Content */}
+        <div className="relative flex flex-col gap-3 p-5 md:flex-row md:items-center md:justify-between">
+          {/* Text content */}
           <div className="min-w-0 flex-1 animate-fade-in" key={job.id}>
             {/* Tags row */}
             <div className="mb-3 flex flex-wrap items-center gap-2">
               <span
-                className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-extrabold"
+                className="inline-flex items-center gap-1 rounded-badge px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide"
                 style={{
-                  background: 'rgba(249, 115, 22, 0.2)',
-                  color: '#fbbf24',
-                  border: '1px solid rgba(249, 115, 22, 0.3)',
+                  background: 'rgba(249, 115, 22, 0.1)',
+                  color: '#f97316',
+                  border: '1px solid rgba(249, 115, 22, 0.25)',
                 }}
               >
-                <Flame size={12} aria-hidden="true" />
-                Trending Opening
+                <Flame size={11} aria-hidden="true" />
+                Trending
               </span>
-              <span
-                className="rounded-lg px-2.5 py-1 text-xs font-bold uppercase tracking-wider"
-                style={{
-                  background: 'rgba(174, 208, 201, 0.15)',
-                  color: 'var(--brand-teal)',
-                  border: '1px solid rgba(174, 208, 201, 0.25)',
-                }}
-              >
+              <span className="badge">
                 {job.category}
               </span>
               {job.tagline && (
-                <span className="hidden text-xs font-medium text-white/70 truncate max-w-[260px] sm:inline">
+                <span
+                  className="hidden sm:inline text-[12px] font-medium truncate max-w-[240px]"
+                  style={{ color: 'var(--text-2)' }}
+                >
                   {job.tagline}
                 </span>
               )}
-              <span className="text-xs text-white/40 ml-auto mr-8 hidden sm:inline">
+              <span
+                className="ml-auto mr-8 hidden sm:inline text-[12px] tabular-nums"
+                style={{ color: 'var(--text-muted)' }}
+              >
                 {index + 1} / {count}
               </span>
             </div>
 
-            {/* Title */}
-            <h2 className="text-base sm:text-lg font-black leading-snug tracking-tight text-white line-clamp-2">
-              <Link to={`/job/${job.id}`} className="hover:text-[color:var(--brand-teal)] transition-colors">
+            {/* Job title */}
+            <h2
+              className="text-[16px] sm:text-[18px] font-bold leading-snug tracking-tight"
+              style={{ color: 'var(--text)' }}
+            >
+              <Link
+                to={`/job/${job.id}`}
+                className="transition-colors hover:text-[color:var(--accent,#1b6f81)]"
+              >
                 {job.title}
               </Link>
             </h2>
-            <p className="mt-1 text-xs font-medium text-white/60 truncate">{job.org}</p>
+            <p className="mt-1 text-[13px]" style={{ color: 'var(--text-2)' }}>
+              {job.org}
+            </p>
 
-            {/* Stats + Actions */}
+            {/* Bottom row — meta + actions */}
             <div
-              className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-3"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
+              className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-4"
+              style={{ borderTop: '1px solid var(--border)' }}
             >
-              <div className="flex flex-wrap items-center gap-2.5 text-xs">
+              <div className="flex flex-wrap items-center gap-2.5 text-[12px]">
                 {/* Vacancies */}
                 <span
-                  className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold shadow-sm"
+                  className="inline-flex items-center gap-1.5 rounded-row px-2.5 py-1 font-semibold"
                   style={{
-                    background: 'rgba(232, 181, 0, 0.15)',
-                    color: '#fbbf24',
-                    border: '1px solid rgba(232, 181, 0, 0.25)',
+                    background: 'var(--warning-bg)',
+                    color: 'var(--warning)',
+                    border: '1px solid color-mix(in srgb, var(--warning) 25%, transparent)',
                   }}
                 >
-                  <Briefcase size={12} className="shrink-0" aria-hidden="true" />
+                  <Briefcase size={12} aria-hidden="true" />
                   {getPostCount(job)}
                 </span>
-
-                {/* Last Date */}
+                {/* Last date */}
                 <span
-                  className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs shadow-sm"
+                  className="inline-flex items-center gap-1.5 rounded-row px-2.5 py-1 font-medium"
                   style={{
-                    background: 'rgba(248, 113, 113, 0.12)',
-                    color: '#fca5a5',
-                    border: '1px solid rgba(248, 113, 113, 0.2)',
+                    background: 'var(--danger-bg)',
+                    color: 'var(--danger)',
+                    border: '1px solid color-mix(in srgb, var(--danger) 25%, transparent)',
                   }}
                 >
-                  <CalendarClock size={12} className="shrink-0" aria-hidden="true" />
-                  <span className="font-medium text-white/50">Last Date:</span>
-                  <span className="font-bold">{getLastDate(job)}</span>
+                  <CalendarClock size={12} aria-hidden="true" />
+                  Last date: <strong>{getLastDate(job)}</strong>
                 </span>
               </div>
 
-              {/* Actions */}
+              {/* Action buttons */}
               <div className="flex items-center gap-2">
                 <Link
                   to={`/job/${job.id}`}
-                  className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-white/20 active:scale-95"
-                  style={{
-                    background: 'rgba(255,255,255,0.1)',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                  }}
+                  className="btn-ghost"
+                  style={{ height: 32, fontSize: 12, padding: '0 12px' }}
                 >
-                  <ExternalLink size={12} aria-hidden="true" />
                   Details
                 </Link>
                 <Link
                   to={`/job/${job.id}`}
-                  className="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-bold text-white transition-all hover:brightness-110 active:scale-95"
-                  style={{
-                    background: 'linear-gradient(135deg, #f97316, #f59e0b)',
-                    boxShadow: '0 2px 10px rgba(249, 115, 22, 0.30)',
-                  }}
+                  className="btn-accent"
+                  style={{ height: 32, fontSize: 12, padding: '0 14px' }}
                 >
                   Apply Now
                   <ArrowRight size={12} aria-hidden="true" />
@@ -233,38 +233,28 @@ export default function HeroBanner({ slides = [] }) {
             </div>
           </div>
 
-          {/* Emblem */}
-          <div className="hidden shrink-0 items-center justify-center md:flex pl-4">
-            <Emblem job={job} />
-          </div>
+          {/* Org Tile (56px) */}
+          <OrgTile job={job} />
         </div>
 
-        {/* Arrow Buttons */}
+        {/* Carousel arrow buttons */}
         {count > 1 && (
           <>
             <button
               type="button"
               onClick={prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full text-white opacity-0 group-hover/carousel:opacity-100 backdrop-blur-sm shadow-sm transition-all hover:scale-110 active:scale-95"
-              style={{
-                background: 'rgba(9, 50, 74, 0.75)',
-                border: '1px solid rgba(255,255,255,0.2)',
-              }}
-              aria-label="Previous Slide"
+              className="absolute left-2 top-1/2 -translate-y-1/2 btn-icon opacity-0 group-hover/carousel:opacity-100 shadow-md"
+              aria-label="Previous slide"
             >
-              <ChevronLeft size={15} />
+              <ChevronLeft size={16} aria-hidden="true" />
             </button>
             <button
               type="button"
               onClick={next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full text-white opacity-0 group-hover/carousel:opacity-100 backdrop-blur-sm shadow-sm transition-all hover:scale-110 active:scale-95"
-              style={{
-                background: 'rgba(9, 50, 74, 0.75)',
-                border: '1px solid rgba(255,255,255,0.2)',
-              }}
-              aria-label="Next Slide"
+              className="absolute right-2 top-1/2 -translate-y-1/2 btn-icon opacity-0 group-hover/carousel:opacity-100 shadow-md"
+              aria-label="Next slide"
             >
-              <ChevronRight size={15} />
+              <ChevronRight size={16} aria-hidden="true" />
             </button>
           </>
         )}
@@ -272,31 +262,25 @@ export default function HeroBanner({ slides = [] }) {
 
       {/* Indicator dots */}
       {count > 1 && (
-        <div className="mt-2.5 flex items-center justify-center gap-1.5 py-0.5">
-          {slides.map((s, i) => {
-            const isActive = i === index
-            return (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => go(i)}
-                aria-label={`Slide ${i + 1}: ${s.title}`}
-                aria-current={isActive}
-                className="group/dot relative flex items-center justify-center p-0.5 transition-all"
-              >
-                <span
-                  className={`block h-1.5 rounded-full transition-all duration-300 ${
-                    isActive ? 'w-6' : 'w-1.5 hover:scale-125'
-                  }`}
-                  style={{
-                    background: isActive
-                      ? 'linear-gradient(90deg, var(--brand-primary), var(--brand-flame))'
-                      : 'var(--border-strong)',
-                  }}
-                />
-              </button>
-            )
-          })}
+        <div className="mt-2 flex items-center justify-center gap-1.5 py-1">
+          {slides.map((s, i) => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => go(i)}
+              aria-label={`Slide ${i + 1}: ${s.title}`}
+              aria-current={i === index ? 'true' : undefined}
+              className="group/dot flex items-center justify-center p-0.5 transition-all"
+            >
+              <span
+                className="block h-1.5 rounded-pill transition-all duration-300"
+                style={{
+                  width: i === index ? 28 : 8,
+                  background: i === index ? 'var(--accent, #1b6f81)' : 'var(--border-strong)',
+                }}
+              />
+            </button>
+          ))}
         </div>
       )}
     </div>

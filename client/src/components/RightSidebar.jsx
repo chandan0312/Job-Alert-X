@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import AttentionCard from './AttentionCard.jsx'
 import ResultsCard from './ResultsCard.jsx'
 import AdmitCardsCard from './AdmitCardsCard.jsx'
@@ -18,26 +18,55 @@ function QuickSearch() {
   }
 
   return (
-    <section className="card p-4">
-      <h2 className="text-xs font-bold uppercase tracking-wider text-ink-muted mb-3">Quick Search</h2>
+    <section
+      className="rounded-card p-4 shadow-sm"
+      style={{
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+      }}
+    >
+      <h2
+        className="mb-3 text-[11px] font-bold uppercase tracking-wider"
+        style={{ color: 'var(--text-muted)' }}
+      >
+        Quick Search
+      </h2>
       <form onSubmit={submit} className="flex items-center gap-2" role="search">
         <div className="relative flex-1">
-          <Search size={16} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-faint" aria-hidden="true" />
+          <Search
+            size={15}
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+            style={{ color: 'var(--text-muted)' }}
+            aria-hidden="true"
+          />
           <input
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search jobs, exams, topics..."
+            placeholder="Search jobs, exams..."
             aria-label="Search jobs, exams, topics"
-            className="w-full rounded-xl border border-hairline bg-page py-2.5 pl-9 pr-3 text-xs text-ink placeholder:text-ink-faint focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/40"
+            className="input pl-9 pr-8"
+            style={{ fontSize: 13 }}
           />
+          {q && (
+            <button
+              type="button"
+              onClick={() => setQ('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 transition-colors hover:opacity-100 opacity-60"
+              aria-label="Clear search"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              <X size={13} aria-hidden="true" />
+            </button>
+          )}
         </div>
         <button
           type="submit"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white transition-colors hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+          className="btn-primary"
           aria-label="Submit Search"
+          style={{ width: 38, height: 38, padding: 0 }}
         >
-          <Search size={17} aria-hidden="true" />
+          <Search size={15} aria-hidden="true" />
         </button>
       </form>
     </section>

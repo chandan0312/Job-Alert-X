@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import {
   ChevronLeft,
   ChevronRight,
-  Sparkles,
   ArrowRight,
   Landmark,
   Banknote,
@@ -13,113 +12,80 @@ import {
   Siren,
   GraduationCap,
   Building2,
+  Sparkles,
 } from 'lucide-react'
 
 import { getCategories } from '../services/api.js'
 
 // Visual styling tokens mapped per category slug
 const CATEGORY_THEMES = {
-  jpsc: {
-    icon: Landmark,
-    gradient: 'bg-gradient-to-b from-[#1B6F81] via-[#09324A] to-[#041622]',
-    border: 'border-teal-400/40 hover:border-teal-300',
-    iconBg: 'bg-teal-400/25 text-teal-100 border border-teal-300/30',
-    badgeBg: 'bg-teal-400/20 text-teal-100 border border-teal-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(27,111,129,0.55)]',
-    defaultSubtitle: 'Civil Services, Judicial & Combined Exams',
-  },
-  jssc: {
-    icon: Building2,
-    gradient: 'bg-gradient-to-b from-[#0e7490] via-[#155e75] to-[#082f49]',
-    border: 'border-cyan-400/40 hover:border-cyan-300',
-    iconBg: 'bg-cyan-400/25 text-cyan-100 border border-cyan-300/30',
-    badgeBg: 'bg-cyan-400/20 text-cyan-100 border border-cyan-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(14,116,144,0.55)]',
-    defaultSubtitle: 'CGL, Excise Constable & Technical Posts',
-  },
-  'rojgar-mela': {
-    icon: Sparkles,
-    gradient: 'bg-gradient-to-b from-[#b45309] via-[#78350f] to-[#1c0b02]',
-    border: 'border-amber-400/40 hover:border-amber-300',
-    iconBg: 'bg-amber-400/25 text-amber-100 border border-amber-300/30',
-    badgeBg: 'bg-amber-400/20 text-amber-100 border border-amber-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(245,158,11,0.55)]',
-    defaultSubtitle: 'District Job Fairs & Private Placements',
-  },
   ssc: {
     icon: Landmark,
-    gradient: 'bg-gradient-to-b from-[#1d4ed8] via-[#1e3a8a] to-[#091124]',
-    border: 'border-blue-400/40 hover:border-blue-300',
-    iconBg: 'bg-blue-400/25 text-blue-100 border border-blue-300/30',
-    badgeBg: 'bg-blue-400/20 text-blue-100 border border-blue-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(37,99,235,0.55)]',
-    defaultSubtitle: 'CGL, CHSL, MTS & GD',
+    color: '#0066f5', // brand blue
+    label: 'SSC',
+    sub: 'CGL, CHSL, MTS & GD',
   },
   banking: {
     icon: Banknote,
-    gradient: 'bg-gradient-to-b from-[#be123c] via-[#881337] to-[#1a040b]',
-    border: 'border-rose-400/40 hover:border-rose-300',
-    iconBg: 'bg-rose-400/25 text-rose-100 border border-rose-300/30',
-    badgeBg: 'bg-rose-400/20 text-rose-100 border border-rose-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(225,29,72,0.55)]',
-    defaultSubtitle: 'IBPS, SBI, RBI & PO',
+    color: '#e11d48', // rose
+    label: 'Banking',
+    sub: 'IBPS, SBI, RBI & PO Exams',
   },
   railway: {
     icon: TrainFront,
-    gradient: 'bg-gradient-to-b from-[#c2410c] via-[#9a3412] to-[#1f0902]',
-    border: 'border-amber-400/40 hover:border-amber-300',
-    iconBg: 'bg-amber-400/25 text-amber-100 border border-amber-300/30',
-    badgeBg: 'bg-amber-400/20 text-amber-100 border border-amber-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(234,88,12,0.55)]',
-    defaultSubtitle: 'RRB NTPC, ALP & Gr. D',
+    color: '#ea580c', // orange/amber
+    label: 'Railway',
+    sub: 'RRB NTPC, Group D & ALP',
   },
   upsc: {
     icon: Scale,
-    gradient: 'bg-gradient-to-b from-[#7e22ce] via-[#581c87] to-[#160526]',
-    border: 'border-purple-400/40 hover:border-purple-300',
-    iconBg: 'bg-purple-400/25 text-purple-100 border border-purple-300/30',
-    badgeBg: 'bg-purple-400/20 text-purple-100 border border-purple-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(168,85,247,0.55)]',
-    defaultSubtitle: 'IAS, IFS, NDA & CDS',
+    color: '#7c3aed', // purple
+    label: 'UPSC',
+    sub: 'Civil Services, NDA & CDS',
   },
   defence: {
     icon: ShieldCheck,
-    gradient: 'bg-gradient-to-b from-[#047857] via-[#064e3b] to-[#021c13]',
-    border: 'border-emerald-400/40 hover:border-emerald-300',
-    iconBg: 'bg-emerald-400/25 text-emerald-100 border border-emerald-300/30',
-    badgeBg: 'bg-emerald-400/20 text-emerald-100 border border-emerald-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(16,185,129,0.55)]',
-    defaultSubtitle: 'Army, Navy, Air Force',
+    color: '#059669', // emerald
+    label: 'Defence',
+    sub: 'Army, Navy, Air Force & AFCAT',
   },
   police: {
     icon: Siren,
-    gradient: 'bg-gradient-to-b from-[#0284c7] via-[#075985] to-[#041c2c]',
-    border: 'border-sky-400/40 hover:border-sky-300',
-    iconBg: 'bg-sky-400/25 text-sky-100 border border-sky-300/30',
-    badgeBg: 'bg-sky-400/20 text-sky-100 border border-sky-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(14,165,233,0.55)]',
-    defaultSubtitle: 'State Police, SI, Constable',
+    color: '#0284c7', // sky blue
+    label: 'Police',
+    sub: 'SI, Constable & State Police',
   },
   teaching: {
     icon: GraduationCap,
-    gradient: 'bg-gradient-to-b from-[#0f766e] via-[#115e59] to-[#042421]',
-    border: 'border-teal-400/40 hover:border-teal-300',
-    iconBg: 'bg-teal-400/25 text-teal-100 border border-teal-300/30',
-    badgeBg: 'bg-teal-400/20 text-teal-100 border border-teal-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(20,184,166,0.55)]',
-    defaultSubtitle: 'CTET, KVS, NVS & UGC',
+    color: '#c026d3', // fuchsia
+    label: 'Teaching',
+    sub: 'CTET, KVS, NVS & State TET',
   },
-  other: {
+  jpsc: {
+    icon: Landmark,
+    color: '#0d9488', // teal
+    label: 'JPSC',
+    sub: 'Civil Services & Combined Exams',
+  },
+  jssc: {
     icon: Building2,
-    gradient: 'bg-gradient-to-b from-[#854d0e] via-[#713f12] to-[#1e1003]',
-    border: 'border-yellow-400/40 hover:border-yellow-300',
-    iconBg: 'bg-yellow-400/25 text-yellow-100 border border-yellow-300/30',
-    badgeBg: 'bg-yellow-400/20 text-yellow-100 border border-yellow-300/30',
-    glow: 'hover:shadow-[0_14px_32px_-6px_rgba(234,179,8,0.55)]',
-    defaultSubtitle: 'State PSC, PSUs, ISRO',
+    color: '#0284c7', // cyan/sky
+    label: 'JSSC',
+    sub: 'CGL, Excise & Technical Posts',
+  },
+  'rojgar-mela': {
+    icon: Sparkles,
+    color: '#d97706', // amber
+    label: 'Rojgar Mela',
+    sub: 'District Fairs & Recruitment Camps',
+  },
+  _default: {
+    icon: ShieldCheck,
+    color: '#0066f5',
+    label: 'Jobs',
+    sub: 'Central & State Government Openings',
   },
 }
-
 
 export default function JobCategoryCards() {
   const sliderRef = useRef(null)
@@ -127,20 +93,18 @@ export default function JobCategoryCards() {
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
 
-  // Fetch real categories and live vacancy/post counts from database
   useEffect(() => {
     let active = true
     getCategories()
       .then((data) => {
         if (active && Array.isArray(data) && data.length > 0) {
           setCategories(data)
-          if (sliderRef.current) {
-            sliderRef.current.scrollLeft = 0
-          }
         }
       })
       .catch(() => {})
-    return () => { active = false }
+    return () => {
+      active = false
+    }
   }, [])
 
   const checkScroll = () => {
@@ -163,99 +127,141 @@ export default function JobCategoryCards() {
     }
   }, [])
 
-  const scroll = (direction) => {
+  const scroll = (dir) => {
     if (!sliderRef.current) return
-    const containerWidth = sliderRef.current.clientWidth
-    const offset = direction === 'left' ? -containerWidth * 0.8 : containerWidth * 0.8
-    sliderRef.current.scrollBy({ left: offset, behavior: 'smooth' })
+    const w = sliderRef.current.clientWidth
+    sliderRef.current.scrollBy({ left: dir === 'left' ? -w * 0.8 : w * 0.8, behavior: 'smooth' })
   }
+
+  /* Build display list — use real data from API or fall back to themes */
+  const displayList =
+    categories.length > 0
+      ? categories
+      : Object.entries(CATEGORY_THEMES)
+          .filter(([slug]) => slug !== '_default')
+          .map(([slug, theme]) => ({
+            slug,
+            name: theme.label,
+            fullName: theme.sub,
+          }))
 
   return (
     <div className="space-y-3">
-      {/* ── Header: Title & Slider Controls ── */}
+      {/* Header row */}
       <div className="flex items-center justify-between px-0.5">
-        <div className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500">
-            <Sparkles size={14} />
-          </span>
-          <h2 className="text-sm sm:text-base font-extrabold tracking-tight text-ink">
-            Top Job Categories
-          </h2>
-          <span className="text-xs font-semibold text-ink-muted hidden sm:inline">
-            • Explore major government recruitment sectors
-          </span>
-        </div>
+        <h2 className="section-title" style={{ color: 'var(--text)' }}>
+          Browse by Category
+        </h2>
 
-        {/* Previous / Next Slider Controls */}
+        {/* Scroll controls */}
         <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={() => scroll('left')}
             disabled={!canScrollLeft}
-            aria-label="Previous Category"
-            className="flex h-7 w-7 items-center justify-center rounded-lg border border-hairline bg-surface text-ink-muted transition-all hover:bg-subtle hover:text-ink disabled:opacity-30 disabled:pointer-events-none shadow-2xs active:scale-90"
+            aria-label="Scroll categories left"
+            className="btn-icon disabled:opacity-30 disabled:pointer-events-none"
+            style={{ width: 30, height: 30 }}
           >
-            <ChevronLeft size={15} />
+            <ChevronLeft size={15} aria-hidden="true" />
           </button>
           <button
             type="button"
             onClick={() => scroll('right')}
             disabled={!canScrollRight}
-            aria-label="Next Category"
-            className="flex h-7 w-7 items-center justify-center rounded-lg border border-hairline bg-surface text-ink-muted transition-all hover:bg-subtle hover:text-ink disabled:opacity-30 disabled:pointer-events-none shadow-2xs active:scale-90"
+            aria-label="Scroll categories right"
+            className="btn-icon disabled:opacity-30 disabled:pointer-events-none"
+            style={{ width: 30, height: 30 }}
           >
-            <ChevronRight size={15} />
+            <ChevronRight size={15} aria-hidden="true" />
           </button>
         </div>
       </div>
 
-      {/* ── 1-Row Slider: Starts at index 0, Smooth Touch Scroll on Mobile ── */}
+      {/* Horizontally scrollable card row */}
       <div
         ref={sliderRef}
-        className="no-scrollbar flex gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory py-2.5 px-1 scroll-pl-1 overscroll-x-contain"
+        className="no-scrollbar flex gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory py-2 px-0.5"
         style={{ scrollbarWidth: 'none' }}
       >
-        {(categories.length > 0
-          ? categories
-          : Object.keys(CATEGORY_THEMES).map((slug) => ({
-              slug,
-              name: slug.toUpperCase(),
-              fullName: CATEGORY_THEMES[slug].defaultSubtitle,
-            }))
-        ).map((cat) => {
-          const theme = CATEGORY_THEMES[cat.slug] || CATEGORY_THEMES.other
+        {displayList.map((cat) => {
+          const theme = CATEGORY_THEMES[cat.slug] || CATEGORY_THEMES._default
           const Icon = theme.icon
+          const color = theme.color
+
           return (
             <Link
               key={cat.slug}
               to={`/category/${cat.slug}`}
-              className={`group relative flex h-[200px] sm:h-[215px] w-[170px] sm:w-[185px] md:w-[calc((100%-4*12px)/5)] shrink-0 snap-start flex-col justify-between rounded-2xl border ${theme.border} ${theme.gradient} p-4 shadow-sm transition-all duration-300 hover:-translate-y-1.5 ${theme.glow}`}
+              className="group relative flex h-[200px] w-[170px] sm:w-[185px] shrink-0 snap-start flex-col justify-between rounded-card p-5 transition-all duration-200"
+              style={{
+                background: 'var(--surface)',
+                border: `1px solid color-mix(in srgb, ${color} 35%, var(--border))`,
+                boxShadow: 'var(--shadow-sm)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.border = `1px solid color-mix(in srgb, ${color} 75%, var(--border))`
+                e.currentTarget.style.boxShadow = `0 8px 24px color-mix(in srgb, ${color} 20%, transparent)`
+                e.currentTarget.style.transform = 'translateY(-2px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.border = `1px solid color-mix(in srgb, ${color} 35%, var(--border))`
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
             >
-              {/* Top Row: Category Icon */}
-              <div className="flex items-start justify-between">
+              {/* Subtle tint header on hover */}
+              <div
+                className="absolute inset-0 rounded-card pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ background: `color-mix(in srgb, ${color} 6%, transparent)` }}
+                aria-hidden="true"
+              />
+
+              <div className="relative z-10">
+                {/* 40px icon tile */}
                 <div
-                  className={`flex h-11 w-11 items-center justify-center rounded-xl shadow-xs transition-transform duration-300 group-hover:scale-110 ${theme.iconBg}`}
+                  className="flex h-10 w-10 items-center justify-center rounded-btn transition-transform duration-200 group-hover:scale-110"
+                  style={{
+                    background: `color-mix(in srgb, ${color} 15%, var(--surface-2))`,
+                    color: color,
+                    border: `1px solid color-mix(in srgb, ${color} 30%, var(--border))`,
+                  }}
                 >
-                  <Icon size={22} />
+                  <Icon size={20} aria-hidden="true" />
+                </div>
+
+                {/* Name & subtitle */}
+                <div className="mt-3">
+                  <h3
+                    className="truncate text-[14px] font-bold leading-snug"
+                    style={{ color: 'var(--text)' }}
+                  >
+                    {cat.name}
+                  </h3>
+                  <p
+                    className="mt-1 text-[12px] leading-snug line-clamp-2 min-h-[2rem]"
+                    style={{ color: 'var(--text-2)' }}
+                  >
+                    {cat.fullName || theme.sub}
+                  </p>
                 </div>
               </div>
 
-              {/* Middle Row: Category Name + Info Subtitle */}
-              <div className="min-w-0 mt-2">
-                <h3 className="truncate text-sm sm:text-base font-black tracking-tight text-white transition-colors group-hover:text-white">
-                  {cat.name}
-                </h3>
-                <p className="line-clamp-2 text-xs font-medium text-white/90 mt-1 leading-snug min-h-[2rem]">
-                  {cat.fullName || theme.defaultSubtitle}
-                </p>
-              </div>
-
-              {/* Bottom Row: Frosted Glass Explore Now Button */}
+              {/* Bottom stats tint + action */}
               <div
-                className="mt-3 flex items-center justify-between rounded-xl border border-white/20 bg-white/15 px-3 py-2 text-xs font-bold text-white shadow-xs backdrop-blur-md transition-all duration-200 group-hover:bg-white/25 group-hover:border-white/35"
+                className="relative z-10 flex items-center justify-between rounded-row px-3 py-2 text-[12px] font-semibold transition-all duration-200"
+                style={{
+                  background: `color-mix(in srgb, ${color} 10%, var(--surface-2))`,
+                  border: `1px solid color-mix(in srgb, ${color} 20%, var(--border))`,
+                  color: color,
+                }}
               >
-                <span>Explore Now</span>
-                <ChevronRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
+                <span>Explore</span>
+                <ArrowRight
+                  size={13}
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
               </div>
             </Link>
           )

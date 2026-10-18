@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -60,7 +60,7 @@
 
     /* Sidebar / Layout */
     --sidebar-width: 260px;
-    --header-height: 72px;
+    --header-height: 64px;
 
     /* Legacy token aliases (backward compat) */
     --bg-page:         var(--bg);
@@ -196,7 +196,7 @@
   }
 
   .section-title {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--text);
@@ -283,6 +283,123 @@
   .btn-accent:hover { filter: brightness(1.08); transform: translateY(-1px); }
   .btn-accent:active { transform: scale(0.97); }
 
+  /* Icon Button — 36px transparent */
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .btn-icon:hover { background: var(--accent-soft); color: var(--text); border-color: var(--border); }
+  .btn-icon:disabled { opacity: 0.45; pointer-events: none; }
+
+  /* Danger */
+  .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 0 16px;
+    border-radius: 8px;
+    background: var(--danger);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.15s;
+  }
+  .btn-danger:hover { filter: brightness(1.1); }
+
+  /* Form input */
+  .input {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    font-size: 13px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .input::placeholder { color: var(--text-muted); }
+  .input:focus {
+    border-color: var(--accent);
+    box-shadow: var(--focus-ring);
+  }
+
+  /* Badges / Pills */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 20px;
+    padding: 0 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--surface-2);
+    color: var(--text-2);
+    border: 1px solid var(--border);
+  }
+  .badge-accent {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent-strong);
+  }
+  .badge-success {
+    background: var(--success-bg);
+    color: var(--success);
+    border-color: color-mix(in srgb, var(--success) 20%, transparent);
+  }
+  .badge-warning {
+    background: var(--warning-bg);
+    color: var(--warning);
+    border-color: color-mix(in srgb, var(--warning) 20%, transparent);
+  }
+  .badge-danger {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border-color: color-mix(in srgb, var(--danger) 20%, transparent);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 24px;
+    padding: 0 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .link-accent {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    transition: color 0.15s;
+  }
+  .link-accent:hover { color: var(--accent-hover); }
+
   .link-muted {
     display: inline-flex;
     align-items: center;
@@ -293,6 +410,35 @@
     transition: color 0.15s;
   }
   .link-muted:hover { color: var(--brand-dark); }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    border-radius: 6px;
+    background: linear-gradient(
+      90deg,
+      var(--surface-2) 0%,
+      var(--border) 50%,
+      var(--surface-2) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+
+  .footer-geo-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image:
+      linear-gradient(var(--text) 1px, transparent 1px),
+      linear-gradient(90deg, var(--text) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
 
   .admin-input {
     width: 100%;
@@ -319,16 +465,17 @@
     left: 100%;
     margin-left: 12px;
     white-space: nowrap;
-    border-radius: 8px;
-    background: var(--brand-dark);
-    padding: 5px 10px;
+    border-radius: 10px;
+    background: var(--surface);
+    padding: 6px 10px;
     font-size: 12px;
-    font-weight: 600;
-    color: #ffffff;
+    font-weight: 500;
+    color: var(--text);
     opacity: 0;
     box-shadow: var(--shadow-md);
-    transition: opacity 0.18s ease, transform 0.18s ease;
-    transform: translateX(-6px);
+    border: 1px solid var(--border);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    transform: translateX(-4px);
     z-index: 60;
   }
   .group:hover .sidebar-tooltip {

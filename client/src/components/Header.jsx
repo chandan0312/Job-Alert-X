@@ -51,21 +51,24 @@ export default function Header({ onMenuClick = () => {} }) {
 
   return (
     <header
-      className="header-light fixed top-0 left-0 right-0 z-50 h-[72px]"
+      className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-3 sm:px-5 gap-3 sm:gap-4 transition-colors"
+      style={{
+        background: 'var(--header-bg)',
+        borderBottom: '1px solid var(--border)',
+      }}
       role="banner"
     >
-      <div className="mx-auto flex h-full w-full max-w-[1600px] items-center justify-between gap-3 px-3 sm:px-5">
 
         {/* === LEFT: BRAND === */}
         <div className="flex shrink-0 items-center gap-2.5">
-          {/* Mobile hamburger */}
           <button
             type="button"
             onClick={onMenuClick}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)] text-[var(--text-2)] transition-colors hover:bg-[var(--brand-primary)] hover:text-white hover:border-transparent lg:hidden"
-            aria-label="Open navigation menu"
+            className="btn-icon"
+            aria-label="Toggle navigation menu"
+            title="Toggle sidebar"
           >
-            <Menu size={20} />
+            <Menu size={20} aria-hidden="true" />
           </button>
 
           {/* Logo */}
@@ -74,7 +77,7 @@ export default function Header({ onMenuClick = () => {} }) {
             className="group/brand flex items-center gap-2.5 transition-transform duration-200 hover:scale-[1.015]"
             aria-label="Job Alert X — Home"
           >
-            <SarkariEmblem size={42} />
+            <SarkariEmblem size={40} />
 
             <div className="flex flex-col">
               <div className="flex items-center text-lg sm:text-xl font-black tracking-wider leading-none">
@@ -222,67 +225,45 @@ export default function Header({ onMenuClick = () => {} }) {
           {/* Articles */}
           <Link
             to="/articles"
-            className="group flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-semibold transition-all"
-            style={{
-              background: 'var(--surface-2)',
-              color: 'var(--text-2)',
-              border: '1px solid var(--border)',
-            }}
-            title="Career Articles & Exam Guides"
+            className="btn-icon"
+            aria-label="Career Guides & Strategy"
+            title="Guides & Strategy"
           >
-            <BookOpen
-              size={16}
-              className="transition-colors"
-              style={{ color: 'var(--brand-primary)' }}
-            />
-            <span className="hidden font-bold md:inline" style={{ color: 'var(--text)' }}>Guides</span>
+            <BookOpen size={16} aria-hidden="true" />
           </Link>
 
           {/* Search */}
           <Link
             to="/search"
-            className="flex h-9 w-9 items-center justify-center rounded-xl transition-all"
-            style={{
-              background: 'var(--surface-2)',
-              color: 'var(--text-2)',
-              border: '1px solid var(--border)',
-            }}
+            className="btn-icon"
             aria-label="Search jobs"
-            title="Search"
+            title="Search jobs"
           >
-            <Search size={16} />
+            <Search size={16} aria-hidden="true" />
           </Link>
 
           {/* Feedback */}
           <Link
             to="/feedback"
-            className="hidden sm:flex h-9 w-9 items-center justify-center rounded-xl transition-all hover:border-[color:var(--brand-flame)] hover:text-[color:var(--brand-flame)]"
-            style={{
-              background: 'var(--surface-2)',
-              color: 'var(--text-muted)',
-              border: '1px solid var(--border)',
-            }}
-            aria-label="Send Feedback"
+            className="btn-icon"
+            aria-label="Send feedback"
             title="Feedback"
           >
-            <MessageSquarePlus size={16} />
+            <MessageSquarePlus size={16} aria-hidden="true" />
           </Link>
 
           {/* Theme Toggle */}
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-xl transition-all"
-            style={{
-              background: 'var(--surface-2)',
-              color: 'var(--text-2)',
-              border: '1px solid var(--border)',
-            }}
+            className="btn-icon"
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-pressed={isDark}
+            title={isDark ? 'Light mode' : 'Dark mode'}
           >
             {isDark
-              ? <Sun size={16} style={{ color: 'var(--brand-gold)' }} />
-              : <MoonStar size={16} style={{ color: 'var(--brand-primary)' }} />
+              ? <Sun size={16} aria-hidden="true" />
+              : <MoonStar size={16} aria-hidden="true" />
             }
           </button>
 
@@ -396,9 +377,7 @@ export default function Header({ onMenuClick = () => {} }) {
                 </button>
               </div>
             )}
-          </div>
         </div>
-
       </div>
     </header>
   )
