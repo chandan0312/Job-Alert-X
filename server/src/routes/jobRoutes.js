@@ -21,6 +21,7 @@ router.get('/trending', cacheResponse(30_000), jobs.trending)
 router.get('/ticker', cacheResponse(30_000), jobs.ticker)
 router.get('/recent', cacheResponse(30_000), jobs.recent)
 router.get('/stats', cacheResponse(15_000), jobs.stats)
+router.get('/archive', cacheResponse(30_000), jobs.archive)
 
 router.get('/', cacheResponse(20_000), jobs.list)
 router.get('/:id', cacheResponse(30_000), jobs.byId)
@@ -28,6 +29,7 @@ router.post('/:id/view', jobs.registerView)
 
 // --- Admin (JWT required) with automatic cache invalidation ---
 router.post('/', authRequired, bustCache, jobs.create)
+router.delete('/bulk', authRequired, bustCache, jobs.bulkRemove)
 router.put('/:id', authRequired, bustCache, jobs.update)
 router.patch('/:id', authRequired, bustCache, jobs.update)
 router.delete('/:id', authRequired, bustCache, jobs.remove)

@@ -21,7 +21,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
-import { fetchJobs, deleteJob, updateJob, getCategories } from '../services/api.js'
+import { fetchJobs, deleteJob, bulkDeleteJobs, updateJob, getCategories } from '../services/api.js'
 import SEOHead from '../components/SEOHead.jsx'
 
 // Static kind labels (mirrors server /api/kinds)
@@ -55,6 +55,8 @@ export default function AdminPosts() {
   const [deletingId, setDeletingId] = useState(null)
   const [updatingId, setUpdatingId] = useState(null)
   const [limit, setLimit] = useState(15)
+  const [selectedIds, setSelectedIds] = useState(new Set())
+  const [bulkDeleting, setBulkDeleting] = useState(false)
 
   const loadPosts = async () => {
     setLoading(true)
@@ -91,6 +93,57 @@ export default function AdminPosts() {
       alert('Delete failed: ' + (err.message || 'Error'))
     } finally {
       setDeletingId(null)
+    }
+  }
+
+  // Toggle selection for a single post
+  const toggleSelect = (id) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  // Toggle all visible (paginated) posts
+  const toggleSelectAll = () => {
+    const currentPageIds = paginated.map((p) => p.id)
+    const allSelected = currentPageIds.every((id) => selectedIds.has(id))
+    if (allSelected) {
+      setSelectedIds((prev) => {
+        const next = new Set(prev)
+        currentPageIds.forEach((id) => next.delete(id))
+        return next
+      })
+    } else {
+      setSelectedIds((prev) => {
+        const next = new Set(prev)
+        currentPageIds.forEach((id) => next.add(id))
+        return next
+      })
+    }
+  }
+
+  // Bulk delete selected posts
+  const handleBulkDelete = async () => {
+    const count = selectedIds.size
+    if (count === 0) return
+    if (!window.confirm(`Are you sure you want to permanently delete ${count} selected post${count > 1 ? 's' : ''}?`)) return
+    setBulkDeleting(true)
+    try {
+      const ids = [...selectedIds]
+      if (token) {
+        await bulkDeleteJobs(token, ids)
+      }
+      setPosts((prev) => prev.filter((p) => !selectedIds.has(p.id)))
+      setSelectedIds(new Set())
+      setToast(`${count} post${count > 1 ? 's' : ''} deleted successfully.`)
+      setTimeout(() => setToast(''), 3000)
+    } catch (err) {
+      alert('Bulk delete failed: ' + (err.message || 'Error'))
+    } finally {
+      setBulkDeleting(false)
     }
   }
 
@@ -289,6 +342,34 @@ export default function AdminPosts() {
         </button>
       </div>
 
+      {/* Bulk Actions Bar — visible when items are selected */}
+      {selectedIds.size > 0 && (
+        <div className="flex items-center justify-between gap-3 rounded-2xl border border-red-500/30 bg-red-500/5 px-5 py-3 animate-fade-in shadow-xs">
+          <div className="flex items-center gap-2 text-xs font-bold text-red-600 dark:text-red-400">
+            <CheckCircle2 size={16} />
+            <span>{selectedIds.size} post{selectedIds.size > 1 ? 's' : ''} selected</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setSelectedIds(new Set())}
+              className="rounded-xl border border-hairline bg-surface px-3.5 py-2 text-xs font-bold text-ink-soft hover:bg-subtle transition-colors"
+            >
+              Clear Selection
+            </button>
+            <button
+              type="button"
+              onClick={handleBulkDelete}
+              disabled={bulkDeleting}
+              className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-red-500/20 transition-all hover:bg-red-700 active:scale-95 disabled:opacity-50"
+            >
+              <Trash2 size={14} />
+              {bulkDeleting ? 'Deleting…' : `Delete ${selectedIds.size} Post${selectedIds.size > 1 ? 's' : ''}`}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Filter & Search Bar */}
       <div className="card p-4">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -353,7 +434,16 @@ export default function AdminPosts() {
           <table className="w-full min-w-[940px] text-left text-xs">
             <thead>
               <tr className="border-b border-hairline bg-subtle/50 text-[11.5px] font-bold uppercase tracking-wider text-ink-muted">
-                <th className="py-3.5 pl-5 pr-3">Notification / Department</th>
+                <th className="py-3.5 pl-3 pr-1 w-10">
+                  <input
+                    type="checkbox"
+                    checked={paginated.length > 0 && paginated.every((p) => selectedIds.has(p.id))}
+                    onChange={toggleSelectAll}
+                    className="h-4 w-4 rounded border-hairline text-brand-600 focus:ring-brand-500/30 cursor-pointer accent-brand-600"
+                    title="Select all on this page"
+                  />
+                </th>
+                <th className="py-3.5 pl-2 pr-3">Notification / Department</th>
                 <th className="px-3 py-3.5">Category</th>
                 <th className="px-3 py-3.5">Type</th>
                 <th className="px-3 py-3.5 text-center">Trending Carousel</th>
@@ -361,12 +451,13 @@ export default function AdminPosts() {
                 <th className="px-3 py-3.5">Vacancies</th>
                 <th className="px-3 py-3.5">Posted On</th>
                 <th className="py-3.5 pl-3 pr-5 text-right">Actions</th>
+               {/* Note: extra column for checkbox, total = 9 columns */}
               </tr>
             </thead>
             <tbody className="divide-y divide-hairline">
               {paginated.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="py-12 text-center text-ink-muted">
+                  <td colSpan="9" className="py-12 text-center text-ink-muted">
                     No posts matched your filters.
                   </td>
                 </tr>
@@ -374,9 +465,18 @@ export default function AdminPosts() {
                 paginated.map((post) => {
                   const Icon = KIND_ICON[post.kind] || FileText
                   return (
-                    <tr key={post.id} className="group transition-colors hover:bg-subtle/50">
+                    <tr key={post.id} className={`group transition-colors ${selectedIds.has(post.id) ? 'bg-brand-50/40 dark:bg-brand-600/10' : 'hover:bg-subtle/50'}`}>
+                      {/* Checkbox */}
+                      <td className="py-4 pl-3 pr-1">
+                        <input
+                          type="checkbox"
+                          checked={selectedIds.has(post.id)}
+                          onChange={() => toggleSelect(post.id)}
+                          className="h-4 w-4 rounded border-hairline text-brand-600 focus:ring-brand-500/30 cursor-pointer accent-brand-600"
+                        />
+                      </td>
                       {/* Title & Org */}
-                      <td className="py-4 pl-5 pr-3 max-w-[300px]">
+                      <td className="py-4 pl-2 pr-3 max-w-[300px]">
                         <div className="flex items-center gap-3">
                           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-subtle text-ink-soft group-hover:bg-brand-50 group-hover:text-brand-600 dark:group-hover:bg-brand-600/20 dark:group-hover:text-brand-300 transition-colors">
                             <Icon size={16} />

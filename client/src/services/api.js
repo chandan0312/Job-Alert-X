@@ -147,6 +147,10 @@ export const getTickerJobs = () => http('GET', '/api/jobs/ticker', { ttl: 45_000
 export const getRecentlyPosted = (limit = 5) =>
   http('GET', '/api/jobs/recent', { params: { limit }, ttl: 30_000 })
 
+/** GET /api/jobs/archive — jobs whose application deadline has expired. */
+export const getArchivedJobs = (limit) =>
+  http('GET', '/api/jobs/archive', { params: limit ? { limit } : undefined, ttl: 30_000 })
+
 /** GET /api/jobs — list all jobs, optionally filtered. */
 export const getJobs = (params) => http('GET', '/api/jobs', { params, ttl: 30_000 })
 
@@ -226,6 +230,9 @@ export const updateJob = (token, id, payload) =>
 
 export const deleteJob = (token, id) =>
   http('DELETE', `/api/jobs/${encodeURIComponent(id)}`, { token })
+
+export const bulkDeleteJobs = (token, ids) =>
+  http('DELETE', '/api/jobs/bulk', { token, body: { ids } })
 
 // --- Admin Reads ---
 export const fetchJobs = (params) =>
@@ -370,6 +377,8 @@ export default {
   createJob,
   updateJob,
   deleteJob,
+  bulkDeleteJobs,
+  getArchivedJobs,
   fetchJobs,
   fetchJobStats,
   fetchJobById,

@@ -320,6 +320,16 @@ export const remove = asyncHandler(async (req, res) => {
   res.status(204).end()
 })
 
+/** DELETE /api/jobs/bulk  (admin) — Delete multiple posts at once. */
+export const bulkRemove = asyncHandler(async (req, res) => {
+  const { ids } = req.body
+  if (!Array.isArray(ids) || ids.length === 0) {
+    throw badRequest('`ids` must be a non-empty array of post IDs')
+  }
+  const deleted = await Job.destroy({ where: { id: { [Op.in]: ids } } })
+  res.json({ deleted })
+})
+
 /** GET /api/jobs/stats — counts for the admin dashboard tiles. */
 export const stats = asyncHandler(async (req, res) => {
   const grouped = await Job.findAll({
@@ -339,4 +349,93 @@ export const stats = asyncHandler(async (req, res) => {
   res.json({ total, byKind })
 })
 
-export default { list, trending, ticker, recent, search, byId, registerView, create, update, remove, stats }
+
+// ---------------------------------------------------------------------------
+// Archive - jobs whose application last date has passed
+// ---------------------------------------------------------------------------
+
+const MONTH_MAP = {
+  jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2,
+  apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6,
+  aug: 7, august: 7, sep: 8, sept: 8, september: 8,
+  oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11,
+}
+
+function parseDateRobust(val) {
+  if (!val || typeof val !== 'string') return null
+  const s = val.trim()
+  const ddmmyyyy = s.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/)
+  if (ddmmyyyy) {
+    const d = new Date(parseInt(ddmmyyyy[3], 10), parseInt(ddmmyyyy[2], 10) - 1, parseInt(ddmmyyyy[1], 10), 23, 59, 59)
+    if (!isNaN(d.getTime())) return d
+  }
+  const ddMonYear = s.match(/^(\d{1,2})\s+([A-Za-z]+)\s*,?\s*(\d{4})$/)
+  if (ddMonYear) {
+    const mKey = ddMonYear[2].toLowerCase()
+    if (MONTH_MAP[mKey] !== undefined) {
+      const d = new Date(parseInt(ddMonYear[3], 10), MONTH_MAP[mKey], parseInt(ddMonYear[1], 10), 23, 59, 59)
+      if (!isNaN(d.getTime())) return d
+    }
+  }
+  const yyyymmdd = s.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/)
+  if (yyyymmdd) {
+    const d = new Date(parseInt(yyyymmdd[1], 10), parseInt(yyyymmdd[2], 10) - 1, parseInt(yyyymmdd[3], 10), 23, 59, 59)
+    if (!isNaN(d.getTime())) return d
+  }
+  const d = new Date(s)
+  return isNaN(d.getTime()) ? null : d
+}
+
+function getLastDateFromJob(job) {
+  let rawDateStr = ''
+  const dates = job.importantDates
+  if (Array.isArray(dates)) {
+    const entry = dates.find((item) => {
+      const lbl = String(item?.label || '').toLowerCase()
+      return lbl.includes('last date') || lbl.includes('close') || lbl.includes('end date') || lbl.includes('closing') || lbl.includes('apply end') || lbl.includes('registration end')
+    })
+    if (entry?.value) rawDateStr = entry.value
+    if (!rawDateStr) {
+      const fallback = dates.find((item) => {
+        const lbl = String(item?.label || '').toLowerCase()
+        return lbl.includes('last') || lbl.includes('end')
+      })
+      if (fallback?.value) rawDateStr = fallback.value
+    }
+  }
+  if (!rawDateStr && job.endDate) rawDateStr = job.endDate
+  if (!rawDateStr && job.lastDate) rawDateStr = job.lastDate
+  return parseDateRobust(rawDateStr)
+}
+
+/** GET /api/jobs/archive - jobs whose application last date has passed. */
+export const archive = asyncHandler(async (req, res) => {
+  const rows = await Job.findAll({
+    where: { importantDates: { [Op.not]: null } },
+    order: NEWEST_FIRST,
+  })
+
+  const now = new Date()
+  now.setHours(0, 0, 0, 0)
+
+  const expired = []
+  for (const row of rows) {
+    const plain = row.get({ plain: true })
+    const lastDate = getLastDateFromJob(plain)
+    if (lastDate && lastDate < now) {
+      expired.push(plain)
+    }
+  }
+
+  expired.sort((a, b) => {
+    const da = getLastDateFromJob(a)
+    const db = getLastDateFromJob(b)
+    return (db?.getTime() || 0) - (da?.getTime() || 0)
+  })
+
+  const limit = parseLimit(req.query.limit, undefined)
+  const result = limit ? expired.slice(0, limit) : expired
+  res.json(serialize(result))
+})
+export default { list, trending, ticker, recent, search, byId, registerView, create, update, remove, bulkRemove, stats, archive }
+

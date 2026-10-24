@@ -4,7 +4,7 @@ import { Layers, Search } from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
 import RecentJobsTable from '../components/RecentJobsTable.jsx'
 import SEOHead from '../components/SEOHead.jsx'
-import { getJobsByCategory, getJobsByKind, getKindLabel, getCategories } from '../services/api.js'
+import { getJobsByCategory, getJobsByKind, getKindLabel, getCategories, getArchivedJobs } from '../services/api.js'
 
 // Static kind labels used for facet chips (matches server /api/kinds)
 const KIND_LABELS = {
@@ -33,10 +33,11 @@ function Chip({ active, onClick, children }) {
 
 export default function CategoryPage() {
   const { slug, kind } = useParams()
+  const isArchive = slug === 'archive'
   const mode = slug ? 'category' : 'kind'
 
   const [jobs, setJobs] = useState(null)
-  const [filter, setFilter] = useState(mode === 'category' ? 'job' : 'all')
+  const [filter, setFilter] = useState(isArchive ? 'all' : mode === 'category' ? 'job' : 'all')
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState([])
 
@@ -52,24 +53,44 @@ export default function CategoryPage() {
   useEffect(() => {
     let active = true
     setJobs(null)
-    setFilter(mode === 'category' ? 'job' : 'all')
+    setFilter(isArchive ? 'all' : mode === 'category' ? 'job' : 'all')
     setSearch('')
-    const load = mode === 'category' ? getJobsByCategory(slug, undefined, 'all') : getJobsByKind(kind)
+    const load = isArchive
+      ? getArchivedJobs()
+      : mode === 'category'
+      ? getJobsByCategory(slug, undefined, 'all')
+      : getJobsByKind(kind)
     load
       .then((data) => active && setJobs(data || []))
       .catch(() => active && setJobs([]))
     return () => {
       active = false
     }
-  }, [slug, kind, mode])
+  }, [slug, kind, mode, isArchive])
 
   const category = categories.find((c) => c.slug === slug)
 
   // Header content
-  const heading =
-    mode === 'category'
-      ? { title: category?.name || slug?.toUpperCase(), subtitle: category?.fullName || 'Latest notifications in this category', icon: category?.icon, color: category?.color || '#5558e6' }
-      : { title: KIND_LABELS[kind] || 'Latest Posts', subtitle: 'Freshly published notifications across all departments', icon: null, color: '#5558e6' }
+  const heading = isArchive
+    ? {
+        title: 'Archived Jobs (Last Date Over)',
+        subtitle: 'Government recruitment notifications whose application last date has expired',
+        icon: 'archive',
+        color: '#ef4444',
+      }
+    : mode === 'category'
+    ? {
+        title: category?.name || slug?.toUpperCase(),
+        subtitle: category?.fullName || 'Latest notifications in this category',
+        icon: category?.icon,
+        color: category?.color || '#5558e6',
+      }
+    : {
+        title: KIND_LABELS[kind] || 'Latest Posts',
+        subtitle: 'Freshly published notifications across all departments',
+        icon: null,
+        color: '#5558e6',
+      }
 
   // Sub-filter facet: in category mode we filter by kind; in kind mode by category.
   const facets = useMemo(() => {

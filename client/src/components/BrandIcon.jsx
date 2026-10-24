@@ -8,6 +8,7 @@ import {
   Siren,
   Anchor,
   Building2,
+  Archive,
 } from 'lucide-react'
 
 // Map seed-data icon keys to lucide-react components.
@@ -21,6 +22,7 @@ const ICONS = {
   siren: Siren,
   anchor: Anchor,
   building: Building2,
+  archive: Archive,
 }
 
 // Convert a #rrggbb hex to an rgba() string at the given alpha.

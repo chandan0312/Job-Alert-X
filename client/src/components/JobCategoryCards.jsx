@@ -13,6 +13,7 @@ import {
   GraduationCap,
   Building2,
   Sparkles,
+  Archive,
 } from 'lucide-react'
 
 import { getCategories } from '../services/api.js'
@@ -79,6 +80,12 @@ const CATEGORY_THEMES = {
     label: 'Rojgar Mela',
     sub: 'District Fairs & Recruitment Camps',
   },
+  archive: {
+    icon: Archive,
+    color: '#ef4444', // red/slate
+    label: 'Archived Jobs',
+    sub: 'Application Last Date Over',
+  },
   _default: {
     icon: ShieldCheck,
     color: '#0066f5',
@@ -133,17 +140,28 @@ export default function JobCategoryCards() {
     sliderRef.current.scrollBy({ left: dir === 'left' ? -w * 0.8 : w * 0.8, behavior: 'smooth' })
   }
 
-  /* Build display list — use real data from API or fall back to themes */
-  const displayList =
+  /* Build display list — use real data from API or fall back to themes, plus Archive category */
+  const baseList =
     categories.length > 0
       ? categories
       : Object.entries(CATEGORY_THEMES)
-          .filter(([slug]) => slug !== '_default')
+          .filter(([slug]) => slug !== '_default' && slug !== 'archive')
           .map(([slug, theme]) => ({
             slug,
             name: theme.label,
             fullName: theme.sub,
           }))
+
+  const displayList = baseList.some((c) => c.slug === 'archive')
+    ? baseList
+    : [
+        ...baseList,
+        {
+          slug: 'archive',
+          name: 'Archived Jobs',
+          fullName: 'Application Last Date Over',
+        },
+      ]
 
   return (
     <div className="space-y-3">

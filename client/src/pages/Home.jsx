@@ -4,10 +4,11 @@ import HeroBanner from '../components/HeroBanner.jsx'
 import JobCategoryCards from '../components/JobCategoryCards.jsx'
 import RecentJobsTable from '../components/RecentJobsTable.jsx'
 import HomeArticlesSection from '../components/HomeArticlesSection.jsx'
+import AttentionCard from '../components/AttentionCard.jsx'
 import RightSidebar from '../components/RightSidebar.jsx'
 import SEOHead from '../components/SEOHead.jsx'
-import { getTrending, getRecentlyPosted, getJobsByCategory } from '../services/api.js'
-import { Clock, Sparkles, Landmark, Scale, TrainFront, Shield, Building2 } from 'lucide-react'
+import { getTrending, getRecentlyPosted, getJobsByCategory, getArchivedJobs } from '../services/api.js'
+import { Clock, Sparkles, Archive } from 'lucide-react'
 
 
 function TableSkeleton({ rows = 3 }) {
@@ -44,14 +45,24 @@ function ComingSoonBlock({ icon: Icon, label }) {
   )
 }
 
+const CATEGORY_CONFIG = [
+  { key: 'jpsc', title: 'JPSC Recruitment 2026', viewAllTo: '/category/jpsc', viewAllText: 'View All JPSC Jobs' },
+  { key: 'jssc', title: 'JSSC Recruitment 2026', viewAllTo: '/category/jssc', viewAllText: 'View All JSSC Jobs' },
+  { key: 'rojgar-mela', title: 'Rojgar Mela & Camps', viewAllTo: '/category/rojgar-mela', viewAllText: 'View All Rojgar Mela' },
+  { key: 'private', title: 'Private Sector Jobs', viewAllTo: '/category/private', viewAllText: 'View All Private Jobs' },
+  { key: 'banking', title: 'Bank Jobs', viewAllTo: '/category/banking', viewAllText: 'View All Bank Jobs' },
+  { key: 'ssc', title: 'SSC Jobs', viewAllTo: '/category/ssc', viewAllText: 'View All SSC Jobs' },
+  { key: 'railway', title: 'Railway Jobs', viewAllTo: '/category/railway', viewAllText: 'View All Railway Jobs' },
+  { key: 'defence', title: 'Defence Jobs', viewAllTo: '/category/defence', viewAllText: 'View All Defence Jobs' },
+  { key: 'upsc', title: 'UPSC Jobs', viewAllTo: '/category/upsc', viewAllText: 'View All UPSC Jobs' },
+]
+
 export default function Home() {
   const [trending, setTrending] = useState(null)
   const [recentlyPosted, setRecentlyPosted] = useState(null)
-  const [bankJobs, setBankJobs] = useState(null)
-  const [sscJobs, setSscJobs] = useState(null)
-  const [railwayJobs, setRailwayJobs] = useState(null)
-  const [defenceJobs, setDefenceJobs] = useState(null)
-  const [upscJobs, setUpscJobs] = useState(null)
+  const [categoryJobs, setCategoryJobs] = useState({})
+  const [loadingCategories, setLoadingCategories] = useState(true)
+  const [archivedJobs, setArchivedJobs] = useState(null)
 
   useEffect(() => {
     let active = true
@@ -66,30 +77,31 @@ export default function Home() {
       .then((data) => active && setRecentlyPosted(data || []))
       .catch(() => active && setRecentlyPosted([]))
 
-    // 3. Bank Jobs (3 latest recruitment jobs)
-    getJobsByCategory('banking', 3, 'job')
-      .then((data) => active && setBankJobs(data || []))
-      .catch(() => active && setBankJobs([]))
+    // 4. Archived/expired jobs
+    getArchivedJobs(5)
+      .then((data) => active && setArchivedJobs(data || []))
+      .catch(() => active && setArchivedJobs([]))
 
-    // 4. SSC Jobs (3 latest recruitment jobs)
-    getJobsByCategory('ssc', 3, 'job')
-      .then((data) => active && setSscJobs(data || []))
-      .catch(() => active && setSscJobs([]))
-
-    // 5. Railway Jobs (3 latest recruitment jobs)
-    getJobsByCategory('railway', 3, 'job')
-      .then((data) => active && setRailwayJobs(data || []))
-      .catch(() => active && setRailwayJobs([]))
-
-    // 6. Defence Jobs (3 latest recruitment jobs)
-    getJobsByCategory('defence', 3, 'job')
-      .then((data) => active && setDefenceJobs(data || []))
-      .catch(() => active && setDefenceJobs([]))
-
-    // 7. UPSC Jobs (3 latest recruitment jobs)
-    getJobsByCategory('upsc', 3, 'job')
-      .then((data) => active && setUpscJobs(data || []))
-      .catch(() => active && setUpscJobs([]))
+    // 3. Category Jobs
+    Promise.allSettled(
+      CATEGORY_CONFIG.map((cat) =>
+        getJobsByCategory(cat.key, 3, 'job').then((jobs) => ({ key: cat.key, jobs: jobs || [] }))
+      )
+    )
+      .then((results) => {
+        if (!active) return
+        const map = {}
+        for (const res of results) {
+          if (res.status === 'fulfilled' && res.value) {
+            map[res.value.key] = res.value.jobs
+          }
+        }
+        setCategoryJobs(map)
+        setLoadingCategories(false)
+      })
+      .catch(() => {
+        if (active) setLoadingCategories(false)
+      })
 
     return () => { active = false }
   }, [])
@@ -171,86 +183,58 @@ export default function Home() {
           )}
         </section>
 
-        {/* 2. Job Categories in Professional Cards */}
+        {/* 2. Browse by Category */}
         <section>
           <JobCategoryCards />
         </section>
 
-        {/* 3. Recently Posted Jobs (5 latest) */}
-        <section>
-          <SectionHeader title="Recently Posted Jobs" viewAllTo="/latest/job" />
-          {recentlyPosted === null ? (
-            <TableSkeleton rows={4} />
-          ) : recentlyPosted.length === 0 ? (
-            <ComingSoonBlock icon={Clock} label="recent jobs" />
-          ) : (
-            <RecentJobsTable jobs={recentlyPosted} viewAllTo="/latest/job" viewAllText="View All Latest Jobs" />
-          )}
+        {/* 3. Attention Card — visible only on mobile, placed just below hero and browse category */}
+        <section className="xl:hidden">
+          <AttentionCard />
         </section>
 
-        {/* 4. Career Articles & Guides (New Section) */}
+        {/* 4. Recently Posted Jobs (hidden entirely when no jobs available) */}
+        {recentlyPosted === null ? (
+          <section>
+            <SectionHeader title="Recently Posted Jobs" viewAllTo="/latest/job" />
+            <TableSkeleton rows={4} />
+          </section>
+        ) : recentlyPosted.length > 0 ? (
+          <section>
+            <SectionHeader title="Recently Posted Jobs" viewAllTo="/latest/job" />
+            <RecentJobsTable jobs={recentlyPosted} viewAllTo="/latest/job" viewAllText="View All Latest Jobs" />
+          </section>
+        ) : null}
+
+        {/* 5. Category Job Sections (only shown when jobs exist) */}
+        {loadingCategories ? (
+          <TableSkeleton rows={3} />
+        ) : (
+          CATEGORY_CONFIG.filter(
+            (cat) => categoryJobs[cat.key] && categoryJobs[cat.key].length > 0
+          ).map((cat) => (
+            <section key={cat.key}>
+              <SectionHeader title={cat.title} viewAllTo={cat.viewAllTo} />
+              <RecentJobsTable
+                jobs={categoryJobs[cat.key]}
+                viewAllTo={cat.viewAllTo}
+                viewAllText={cat.viewAllText}
+              />
+            </section>
+          ))
+        )}
+
+        {/* 6. Archived / Expired Jobs (only when available) */}
+        {archivedJobs !== null && archivedJobs.length > 0 && (
+          <section>
+            <SectionHeader title="Archived — Last Date Over" viewAllTo="/category/archive" />
+            <RecentJobsTable jobs={archivedJobs} viewAllTo="/category/archive" viewAllText="View All Archived Jobs" />
+          </section>
+        )}
+
+        {/* 7. Career Articles & Guides (at the bottom) */}
         <section>
           <HomeArticlesSection />
-        </section>
-
-        {/* 5. Bank Jobs (3 latest) */}
-        <section>
-          <SectionHeader title="Bank Jobs" viewAllTo="/category/banking" />
-          {bankJobs === null ? (
-            <TableSkeleton rows={3} />
-          ) : bankJobs.length === 0 ? (
-            <ComingSoonBlock icon={Landmark} label="bank notifications" />
-          ) : (
-            <RecentJobsTable jobs={bankJobs} viewAllTo="/category/banking" viewAllText="View All Bank Jobs" />
-          )}
-        </section>
-
-        {/* 4. SSC Jobs (3 latest) */}
-        <section>
-          <SectionHeader title="SSC Jobs" viewAllTo="/category/ssc" />
-          {sscJobs === null ? (
-            <TableSkeleton rows={3} />
-          ) : sscJobs.length === 0 ? (
-            <ComingSoonBlock icon={Building2} label="SSC notifications" />
-          ) : (
-            <RecentJobsTable jobs={sscJobs} viewAllTo="/category/ssc" viewAllText="View All SSC Jobs" />
-          )}
-        </section>
-
-        {/* 5. Railway Jobs (3 latest) */}
-        <section>
-          <SectionHeader title="Railway Jobs" viewAllTo="/category/railway" />
-          {railwayJobs === null ? (
-            <TableSkeleton rows={3} />
-          ) : railwayJobs.length === 0 ? (
-            <ComingSoonBlock icon={TrainFront} label="railway notifications" />
-          ) : (
-            <RecentJobsTable jobs={railwayJobs} viewAllTo="/category/railway" viewAllText="View All Railway Jobs" />
-          )}
-        </section>
-
-        {/* 6. Defence Jobs (3 latest) */}
-        <section>
-          <SectionHeader title="Defence Jobs" viewAllTo="/category/defence" />
-          {defenceJobs === null ? (
-            <TableSkeleton rows={3} />
-          ) : defenceJobs.length === 0 ? (
-            <ComingSoonBlock icon={Shield} label="defence notifications" />
-          ) : (
-            <RecentJobsTable jobs={defenceJobs} viewAllTo="/category/defence" viewAllText="View All Defence Jobs" />
-          )}
-        </section>
-
-        {/* 7. UPSC Jobs (3 latest) */}
-        <section>
-          <SectionHeader title="UPSC Jobs" viewAllTo="/category/upsc" />
-          {upscJobs === null ? (
-            <TableSkeleton rows={3} />
-          ) : upscJobs.length === 0 ? (
-            <ComingSoonBlock icon={Scale} label="UPSC notifications" />
-          ) : (
-            <RecentJobsTable jobs={upscJobs} viewAllTo="/category/upsc" viewAllText="View All UPSC Jobs" />
-          )}
         </section>
       </main>
 
