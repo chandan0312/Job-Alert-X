@@ -6,6 +6,7 @@ import ResultsCard from './ResultsCard.jsx'
 import AdmitCardsCard from './AdmitCardsCard.jsx'
 import AnswerKeysCard from './AnswerKeysCard.jsx'
 import SyllabusCard from './SyllabusCard.jsx'
+import AdBanner from './AdBanner.jsx'
 
 function QuickSearch() {
   const [q, setQ] = useState('')
@@ -80,6 +81,8 @@ export default function RightSidebar() {
       <div className="hidden xl:block">
         <AttentionCard />
       </div>
+      {/* Sidebar Ad Unit — activates automatically after AdSense approval */}
+      <AdBanner variant="sidebar" />
       <ResultsCard />
       <AdmitCardsCard />
       <AnswerKeysCard />

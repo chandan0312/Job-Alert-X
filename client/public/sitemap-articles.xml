@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  sitemap-articles.xml — Career Guide & In-Depth Article Sitemap for Job Alert X
+  Includes all published comprehensive guides, how-to-apply tutorials, syllabus breakdowns, and career resources.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Articles Hub Index -->
+  <url>
+    <loc>https://jobalertx.com/articles</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- In-Depth Career Articles & Guides -->
+  <url>
+    <loc>https://jobalertx.com/article/how-to-apply-ssc-cgl-2026-online-form-guide</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://jobalertx.com/article/how-to-download-rrb-admit-card-city-intimation-slip</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://jobalertx.com/article/central-govt-jobs-document-verification-dv-checklist</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://jobalertx.com/article/upsc-civil-services-prelims-6-month-strategy</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://jobalertx.com/article/ssc-gd-constable-2026-syllabus-exam-pattern-breakdown</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://jobalertx.com/article/top-highest-paying-central-govt-jobs-graduates-2026</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+</urlset>

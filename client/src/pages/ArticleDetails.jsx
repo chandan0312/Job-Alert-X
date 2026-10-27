@@ -25,6 +25,7 @@ import {
 import { getArticleBySlug } from '../services/api.js'
 import SEOHead from '../components/SEOHead.jsx'
 import RichContentRenderer from '../components/RichContentRenderer.jsx'
+import AdBanner from '../components/AdBanner.jsx'
 import { CATEGORY_BADGES } from '../data/articleConstants.js'
 
 export default function ArticleDetails() {
@@ -300,6 +301,9 @@ export default function ArticleDetails() {
           <p className="text-slate-400 italic">No detailed content available for this article.</p>
         )}
       </article>
+
+      {/* In-Article / After-Article Ad */}
+      <AdBanner variant="horizontal" />
 
       {/* Tags Section */}
       {Array.isArray(article.tags) && article.tags.length > 0 && (

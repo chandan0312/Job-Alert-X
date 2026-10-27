@@ -1,12 +1,33 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt — Job Alert X (https://jobalertx.com)
+# Updated: 2026-10-27
+
 User-agent: *
 Allow: /
 
-# Block administrative backend and internal API routes
-Disallow: /admin/
+# Block administrative backend (private — not for indexing)
 Disallow: /admin
+Disallow: /admin/
+
+# Block internal API routes
 Disallow: /api/
+Disallow: /api
 
-# Sitemap index
+# Block user-personal pages (noindex already set in HTML, but reinforce here)
+Disallow: /login
+Disallow: /signup
+Disallow: /profile
+Disallow: /settings
+Disallow: /saved
+Disallow: /bookmarked
+Disallow: /recent
+Disallow: /logout
+Disallow: /notifications
+
+# Block search (dynamic generated, no standalone value)
+Disallow: /search
+
+# Block feedback form (noindex page)
+Disallow: /feedback
+
+# Sitemap index — tells Googlebot where all content is
 Sitemap: https://jobalertx.com/sitemap.xml
-

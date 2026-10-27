@@ -18,12 +18,14 @@ import {
   HelpCircle,
   Clock,
   RefreshCw,
+  ShieldCheck,
 } from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
 import CategoryBox from '../components/CategoryBox.jsx'
 import TableView from '../components/TableView.jsx'
 import SEOHead from '../components/SEOHead.jsx'
 import RichContentRenderer from '../components/RichContentRenderer.jsx'
+import AdBanner from '../components/AdBanner.jsx'
 import { getJobById, getJobsByCategory, getKindLabel, getCategories, getJobs } from '../services/api.js'
 
 /** Safely parse a date string; returns null if invalid. */
@@ -549,6 +551,35 @@ export default function JobDetails() {
               </p>
             </section>
           )}
+
+          {/* Editorial Verification — E-E-A-T trust signal */}
+          <section className="card p-5 sm:p-6">
+            <div className="flex items-start gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                <ShieldCheck size={18} />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-[13.5px] font-bold text-ink">Job Alert X Editorial Team</p>
+                <p className="mt-0.5 text-[12px] leading-relaxed text-ink-muted">
+                  This notification has been verified from the official government website or gazette notification.
+                  All dates, eligibility, and fee details are sourced directly from the official PDF/portal.
+                  Pages are updated whenever a corrigendum or new notice is issued by the recruiting authority.
+                </p>
+                {job.updatedAt && (
+                  <p className="mt-2 flex items-center gap-1 text-[11px] text-ink-faint">
+                    <RefreshCw size={11} />
+                    Last reviewed:{' '}
+                    <time dateTime={safeDate(job.updatedAt)?.toISOString()}>
+                      {formatDate(job.updatedAt)}
+                    </time>
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Contextual Ad Placement */}
+          <AdBanner variant="horizontal" />
         </main>
 
         {/* Sidebar */}

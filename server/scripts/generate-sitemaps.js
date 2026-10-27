@@ -8,7 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { Job, sequelize } from '../src/models/index.js';
+import { Job, Article, sequelize } from '../src/models/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -72,6 +72,34 @@ async function run() {
     } catch (err) {
       console.error(`[sitemaps] Error generating ${item.file}:`, err.message);
     }
+  }
+
+  // Generate sitemap-articles.xml
+  try {
+    const articles = await Article.findAll({
+      where: { status: 'published' },
+      attributes: ['slug', 'updatedAt', 'createdAt'],
+      order: [['updatedAt', 'DESC']],
+    });
+
+    const articleEntries = [
+      urlEntry(`${BASE_URL}/articles`, today, 'daily', '0.90'),
+      ...articles.map((a) =>
+        urlEntry(
+          `${BASE_URL}/article/${encodeURIComponent(a.slug)}`,
+          a.updatedAt || a.createdAt,
+          'weekly',
+          '0.85'
+        )
+      ),
+    ];
+
+    const articlesXml = buildSitemap(articleEntries);
+    const articlesDest = path.join(PUBLIC_DIR, 'sitemap-articles.xml');
+    fs.writeFileSync(articlesDest, articlesXml + '\n', 'utf-8');
+    console.log(`[sitemaps] Wrote sitemap-articles.xml with ${articleEntries.length} entries (${articlesXml.length} bytes)`);
+  } catch (err) {
+    console.error('[sitemaps] Error generating sitemap-articles.xml:', err.message);
   }
 
   // Update lastmod in sitemap.xml
