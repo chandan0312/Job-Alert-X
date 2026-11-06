@@ -52,6 +52,7 @@ export default function AdSense({
       ref={adRef}
       className={`adsense-wrapper overflow-hidden text-center ${className}`}
       style={style}
+      data-ad-status="loading"
     >
       <ins
         className="adsbygoogle"
@@ -61,6 +62,14 @@ export default function AdSense({
         data-ad-format={format}
         data-full-width-responsive={responsive ? 'true' : 'false'}
         {...(layoutKey ? { 'data-ad-layout-key': layoutKey } : {})}
+        onLoad={() => {
+          const wrapper = adRef.current
+          if (wrapper) wrapper.setAttribute('data-ad-status', 'loaded')
+        }}
+        onError={() => {
+          const wrapper = adRef.current
+          if (wrapper) wrapper.setAttribute('data-ad-status', 'error')
+        }}
       />
     </div>
   )

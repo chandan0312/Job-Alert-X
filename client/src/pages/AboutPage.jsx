@@ -340,6 +340,9 @@ export default function AboutPage() {
         <Link to="/terms" className="hover:text-brand-600 transition-colors">Terms of Service</Link>
         <Link to="/disclaimer" className="hover:text-brand-600 transition-colors">Disclaimer</Link>
         <Link to="/contact" className="hover:text-brand-600 transition-colors">Contact</Link>
+        <Link to="/editorial-policy" className="hover:text-brand-600 transition-colors">Editorial Policy</Link>
+        <Link to="/fact-checking-policy" className="hover:text-brand-600 transition-colors">Fact-Checking Policy</Link>
+        <Link to="/corrections-policy" className="hover:text-brand-600 transition-colors">Corrections Policy</Link>
       </div>
     </div>
   )

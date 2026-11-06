@@ -14,7 +14,13 @@
       gtag('config', 'G-4WPNYQW5Z5');
     </script>
 
-    <!-- Google AdSense -->
+    <!-- Google AdSense - preconnect for faster ad loading -->
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+    <link rel="preconnect" href="https://adservice.google.com" crossorigin />
+    <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin />
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+    <link rel="dns-prefetch" href="https://adservice.google.com" />
+    <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3267638418796867"
@@ -75,15 +81,13 @@
     <meta name="coverage" content="India" />
     <meta name="rating" content="general" />
 
-    <!-- Font Performance: DNS prefetch + preconnect for Google Fonts only -->
+    <!-- Font Performance: DNS prefetch + preconnect + preload for Google Fonts (Inter) -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/inter/v19/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2" />
+    <!-- Font loading via CSS @font-face with font-display: swap (see index.css) -->
 
     <!--
       JSON-LD for WebSite + Organization is injected by Home.jsx via SEOHead.jsx.

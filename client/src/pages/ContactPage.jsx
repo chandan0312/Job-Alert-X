@@ -150,6 +150,17 @@ export default function ContactPage() {
       <p className="text-center text-[12px] text-ink-faint">
         Response time: within 24 hours (Mon–Sat, 9 AM – 8 PM IST)
       </p>
+
+      {/* Legal links */}
+      <div className="flex flex-wrap justify-center gap-4 text-[12.5px] text-ink-faint py-2">
+        <Link to="/privacy" className="hover:text-brand-600 transition-colors">Privacy Policy</Link>
+        <Link to="/terms" className="hover:text-brand-600 transition-colors">Terms of Service</Link>
+        <Link to="/disclaimer" className="hover:text-brand-600 transition-colors">Disclaimer</Link>
+        <Link to="/about" className="hover:text-brand-600 transition-colors">About Us</Link>
+        <Link to="/editorial-policy" className="hover:text-brand-600 transition-colors">Editorial Policy</Link>
+        <Link to="/fact-checking-policy" className="hover:text-brand-600 transition-colors">Fact-Checking Policy</Link>
+        <Link to="/corrections-policy" className="hover:text-brand-600 transition-colors">Corrections Policy</Link>
+      </div>
     </div>
   )
 }

@@ -18,6 +18,8 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Newspaper,
+  Calculator,
+  Wrench,
 } from 'lucide-react'
 
 const MENU = [
@@ -25,6 +27,7 @@ const MENU = [
   { to: '/latest/job', label: 'Latest Jobs', icon: Briefcase, color: '#10b981' },
   { to: '/exams', label: 'All Exams', icon: ClipboardList, color: '#8b5cf6' },
   { to: '/articles', label: 'Articles & Blogs', icon: Newspaper, color: 'var(--brand-gold)' },
+  { to: '/tools', label: 'Free Tools', icon: Wrench, color: '#f59e0b' },
   { to: '/latest/admit-card', label: 'Admit Card', icon: Ticket, color: '#f43f5e' },
   { to: '/latest/result', label: 'Results', icon: Award, color: '#06b6d4' },
   { to: '/latest/answer-key', label: 'Answer Keys', icon: KeyRound, color: '#a855f7' },

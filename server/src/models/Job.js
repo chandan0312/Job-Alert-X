@@ -87,6 +87,34 @@ export default function defineJob(sequelize) {
 
       // Location / state or city for this posting (e.g. " All India\, \Delhi\)
       location: DataTypes.STRING(200),
+
+      // --- New professional content structure fields ---
+      // Advertisement / notification number from official source
+      advertisementNumber: DataTypes.STRING(100),
+
+      // Selection process stages (e.g., written exam, interview, document verification, medical)
+      selectionProcess: DataTypes.JSON, // [{ stage, description, weightage?, details? }]
+
+      // Step-by-step application procedure
+      applicationProcedure: DataTypes.JSON, // [{ step, title, description, url?, screenshot? }]
+
+      // Required documents for application
+      requiredDocuments: DataTypes.JSON, // [{ document, description, mandatory, format?, sizeLimit? }]
+
+      // Important instructions for candidates
+      importantInstructions: DataTypes.JSON, // [{ instruction, category? }]
+
+      // Source verification metadata
+      sourceUrl: DataTypes.STRING(1000), // Official source URL for this notification
+      sourceType: DataTypes.STRING(50), // 'official_website', 'gazette', 'newspaper', 'rt_response'
+      verifiedAt: DataTypes.DATE, // When this was last verified from official source
+
+      // Content quality status — only 'published' posts appear in sitemaps and public APIs
+      status: {
+        type: DataTypes.ENUM('draft', 'published'),
+        allowNull: false,
+        defaultValue: 'published',
+      },
     },
     {
       tableName: 'jobs',

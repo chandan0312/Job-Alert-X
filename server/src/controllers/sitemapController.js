@@ -6,11 +6,11 @@
 // so Googlebot knows which pages were recently modified.
 //
 // The static sitemap-core.xml (served from client/public) covers the
-// homepage, category pages, kind-index pages, and trust pages.
+// homepage, category pages, kind-index pages, trust pages, and tools page.
 // This file covers the long tail of individual post pages.
 // ---------------------------------------------------------------------------
 
-import { Job } from '../models/index.js'
+import { Job, Article } from '../models/index.js'
 import { Op } from 'sequelize'
 
 const BASE_URL = 'https://jobalertx.com'
@@ -35,18 +35,27 @@ function buildSitemap(urlEntries) {
 
 /**
  * Generic handler: fetch all posts of a given `kind`, return sitemap XML.
+ * Only includes published/valid posts - filters out drafts and placeholder content.
  * Cache-Control: 1 hour public cache so Googlebot gets fresh data regularly
  * but we don't hammer the DB on every request.
  */
 async function generateKindSitemap(res, kind, changefreq, priority) {
   try {
     const posts = await Job.findAll({
-      where: { kind },
-      attributes: ['id', 'updatedAt', 'createdAt'],
+      where: { kind, status: 'published' },
+      attributes: ['id', 'updatedAt', 'createdAt', 'detailedDescription', 'applyUrl', 'notificationPdfUrl', 'officialWebsiteUrl'],
       order: [['updatedAt', 'DESC']],
     })
 
-    const entries = posts.map((p) =>
+    // Filter out posts with thin/placeholder content (no detailed description AND no official links)
+    const validPosts = posts.filter((p) => {
+      const hasContent = p.detailedDescription && p.detailedDescription.length > 100
+      const hasOfficialLinks = p.applyUrl || p.notificationPdfUrl || p.officialWebsiteUrl
+      // Include if it has meaningful content OR official links
+      return hasContent || hasOfficialLinks
+    })
+
+    const entries = validPosts.map((p) =>
       urlEntry(
         `${BASE_URL}/job/${encodeURIComponent(p.id)}`,
         p.updatedAt || p.createdAt,
@@ -63,6 +72,36 @@ async function generateKindSitemap(res, kind, changefreq, priority) {
     res.send(buildSitemap(entries))
   } catch (err) {
     console.error(`[sitemap] error generating kind=${kind} sitemap:`, err.message)
+    res.status(500).set('Content-Type', 'text/plain').send('Sitemap generation error')
+  }
+}
+
+/** GET /sitemap-articles.xml — Articles/blog posts sitemap */
+export async function articlesSitemap(req, res) {
+  try {
+    const articles = await Article.findAll({
+      where: { status: 'published' },
+      attributes: ['slug', 'updatedAt', 'createdAt'],
+      order: [['updatedAt', 'DESC']],
+    })
+
+    const entries = articles.map((a) =>
+      urlEntry(
+        `${BASE_URL}/article/${encodeURIComponent(a.slug)}`,
+        a.updatedAt || a.createdAt,
+        'weekly',
+        '0.80'
+      )
+    )
+
+    res.set({
+      'Content-Type': 'application/xml; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+      'X-Sitemap-Count': String(entries.length),
+    })
+    res.send(buildSitemap(entries))
+  } catch (err) {
+    console.error('[sitemap] error generating articles sitemap:', err.message)
     res.status(500).set('Content-Type', 'text/plain').send('Sitemap generation error')
   }
 }

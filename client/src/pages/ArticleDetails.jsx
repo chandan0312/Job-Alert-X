@@ -26,6 +26,7 @@ import { getArticleBySlug } from '../services/api.js'
 import SEOHead from '../components/SEOHead.jsx'
 import RichContentRenderer from '../components/RichContentRenderer.jsx'
 import AdBanner from '../components/AdBanner.jsx'
+import { Skeleton } from '../components/Skeleton.jsx'
 import { CATEGORY_BADGES } from '../data/articleConstants.js'
 
 export default function ArticleDetails() {
@@ -80,10 +81,10 @@ export default function ArticleDetails() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-4xl space-y-6 py-8">
-        <div className="h-6 w-48 rounded-lg bg-white/5 animate-pulse" />
-        <div className="h-12 w-3/4 rounded-2xl bg-white/5 animate-pulse" />
-        <div className="h-96 rounded-3xl bg-white/5 animate-pulse" />
+      <div className="mx-auto max-w-4xl space-y-8 py-8">
+        <Skeleton.Hero />
+        <Skeleton.Text lines={4} />
+        <div className="aspect-[16/9] w-full rounded-3xl bg-subtle/60 animate-pulse" />
       </div>
     )
   }

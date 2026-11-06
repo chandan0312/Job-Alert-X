@@ -19,6 +19,13 @@ import {
   Clock,
   RefreshCw,
   ShieldCheck,
+  CheckSquare,
+  ListOrdered,
+  FileCheck,
+  AlertTriangle,
+  Hash,
+  BadgePercent,
+  Stamp,
 } from 'lucide-react'
 import BrandIcon from '../components/BrandIcon.jsx'
 import CategoryBox from '../components/CategoryBox.jsx'
@@ -26,6 +33,7 @@ import TableView from '../components/TableView.jsx'
 import SEOHead from '../components/SEOHead.jsx'
 import RichContentRenderer from '../components/RichContentRenderer.jsx'
 import AdBanner from '../components/AdBanner.jsx'
+import { Skeleton } from '../components/Skeleton.jsx'
 import { getJobById, getJobsByCategory, getKindLabel, getCategories, getJobs } from '../services/api.js'
 
 /** Safely parse a date string; returns null if invalid. */
@@ -138,8 +146,8 @@ export default function JobDetails() {
 
   if (job === undefined) {
     return (
-      <div className="flex h-64 items-center justify-center text-[14px] text-ink-muted">
-        Loading post…
+      <div className="animate-fade-in">
+        <Skeleton.Page />
       </div>
     )
   }
@@ -164,14 +172,13 @@ export default function JobDetails() {
   // Determine primary action URL (either applyUrl or the primary link)
   const primaryActionUrl = job.applyUrl || job.links?.find((l) => l.primary && l.href && l.href !== '#')?.href
 
-  // Find expiration date from important dates if present
+  // Find expiration date from important dates if present (only use actual dates from official notification)
   const lastDateEntry = job.importantDates?.find(
     (d) => d.label?.toLowerCase().includes('last') || d.label?.toLowerCase().includes('close')
   )
   const parsedLastDate = lastDateEntry?.value ? safeDate(lastDateEntry.value) : null
-  const validThroughDate = parsedLastDate
-    ? parsedLastDate.toISOString().split('T')[0]
-    : new Date(Date.now() + 45 * 86400000).toISOString().split('T')[0]
+  // Only include validThrough when we have a real last date from official source - no fabricated dates
+  const validThroughDate = parsedLastDate ? parsedLastDate.toISOString().split('T')[0] : undefined
 
   // ── Structured Data ────────────────────────────────────────────────────────
   // JobPosting schema is ONLY valid for actual job recruitment posts.
@@ -201,7 +208,7 @@ export default function JobDetails() {
           sameAs: job.officialWebsiteUrl || undefined,
         },
         datePosted: datePostedIso,
-        validThrough: validThroughDate,
+        ...(validThroughDate ? { validThrough: validThroughDate } : {}),
         employmentType: 'FULL_TIME',
         directApply: Boolean(primaryActionUrl),
         applicantLocationRequirements: {
@@ -296,6 +303,18 @@ export default function JobDetails() {
     primaryActionUrl && {
       q: `How to apply for ${job.title}?`,
       a: `To apply for ${job.title}: 1. Visit the official website at ${job.officialWebsiteUrl || 'the official recruitment portal'}. 2. Click on the Apply Online link. 3. Register with your email and mobile number. 4. Fill in the application form with correct details. 5. Upload required documents and pay the application fee. 6. Submit and download the confirmation page.`,
+    },
+    job.advertisementNumber && {
+      q: `What is the advertisement number for ${job.title}?`,
+      a: `The advertisement/notification number for ${job.title} is ${job.advertisementNumber}.`,
+    },
+    job.selectionProcess?.length && {
+      q: `What is the selection process for ${job.title}?`,
+      a: `The selection process for ${job.title} consists of ${job.selectionProcess.length} stages: ${job.selectionProcess.map((s, i) => `${i + 1}. ${s.title || `Stage ${i + 1}`}`).join(', ')}. Refer to the official notification for detailed scheme.`,
+    },
+    job.requiredDocuments?.length && {
+      q: `What documents are required for ${job.title} application?`,
+      a: `Required documents for ${job.title} include: ${job.requiredDocuments.map(d => d.document).join(', ')}. Keep scanned copies ready as per the specified format and size limits.`,
     },
   ].filter(Boolean) : []
 
@@ -522,6 +541,176 @@ export default function JobDetails() {
             </section>
           )}
 
+          {/* Detailed Eligibility (if different from eligibility) */}
+          {job.detailedEligibility && job.detailedEligibility !== job.eligibility && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-500/10 text-brand-600">
+                  <BadgePercent size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Detailed Eligibility Requirements</h2>
+              </div>
+              <RichContentRenderer content={job.detailedEligibility} />
+            </section>
+          )}
+
+          {/* Selection Process */}
+          {job.selectionProcess?.length && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-purple-500/10 text-purple-600">
+                  <CheckSquare size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Selection Process</h2>
+              </div>
+              <div className="space-y-4">
+                {job.selectionProcess.map((stage, idx) => (
+                  <div key={idx} className="group flex items-start gap-4 rounded-xl border border-hairline bg-subtle/30 p-4 transition-all hover:border-brand-500/30 hover:bg-brand-500/5">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-500/10 text-purple-600">
+                      <span className="text-lg font-black">{idx + 1}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[14px] font-semibold text-ink">{stage.title || `Stage ${idx + 1}`}</p>
+                      {stage.description && <p className="mt-1 text-[13px] leading-relaxed text-ink-soft">{stage.description}</p>}
+                      {stage.weightage && <p className="mt-1 text-[12px] text-brand-600 font-medium">Weightage: {stage.weightage}</p>}
+                      {stage.details && <p className="mt-1 text-[12px] text-ink-muted">{stage.details}</p>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Application Procedure - Step by Step */}
+          {job.applicationProcedure?.length && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600">
+                  <ListOrdered size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Step-by-Step Application Procedure</h2>
+              </div>
+              <div className="space-y-4">
+                {job.applicationProcedure.map((step, idx) => (
+                  <div key={idx} className="group flex items-start gap-4 rounded-xl border border-hairline bg-subtle/30 p-4 transition-all hover:border-emerald-500/30 hover:bg-emerald-500/5">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600">
+                      <span className="text-lg font-black">{idx + 1}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[14px] font-semibold text-ink">{step.title || `Step ${idx + 1}`}</p>
+                      {step.description && <p className="mt-1 text-[13px] leading-relaxed text-ink-soft">{step.description}</p>}
+                      {step.url && (
+                        <a href={step.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 hover:underline">
+                          <ExternalLink size={12} /> Official Link
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-[11px] text-ink-faint">
+                Always complete the application on the official portal. Keep a copy of the submitted form and fee receipt.
+              </p>
+            </section>
+          )}
+
+          {/* Required Documents */}
+          {job.requiredDocuments?.length && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
+                  <FileCheck size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Required Documents Checklist</h2>
+              </div>
+              <div className="space-y-3">
+                {job.requiredDocuments.map((doc, idx) => (
+                  <div key={idx} className="flex items-center gap-3 rounded-lg border border-hairline bg-subtle/30 p-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
+                      <FileCheck size={14} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] font-semibold text-ink">{doc.document}</p>
+                      {doc.description && <p className="text-[12px] text-ink-muted">{doc.description}</p>}
+                    </div>
+                    <div className="flex items-center gap-2 text-[11px]">
+                      {doc.mandatory && <span className="rounded bg-red-500/10 px-2 py-0.5 text-red-600 font-bold">Mandatory</span>}
+                      {doc.format && <span className="rounded bg-brand-500/10 px-2 py-0.5 text-brand-600 font-medium">{doc.format}</span>}
+                      {doc.sizeLimit && <span className="rounded bg-slate-500/10 px-2 py-0.5 text-slate-600 font-medium">{doc.sizeLimit}</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Important Instructions */}
+          {job.importantInstructions?.length && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600">
+                  <AlertTriangle size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Important Instructions for Candidates</h2>
+              </div>
+              <div className="space-y-3">
+                {job.importantInstructions.map((instr, idx) => (
+                  <div key={idx} className="flex items-start gap-3 rounded-lg border border-hairline bg-amber-500/5 p-3">
+                    <AlertTriangle size={16} className="mt-0.5 shrink-0 text-amber-600" />
+                    <p className="text-[13px] leading-relaxed text-ink-soft">{instr.instruction}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Official Source Verification */}
+          {(job.sourceUrl || job.sourceType || job.verifiedAt) && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600">
+                  <Stamp size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Source Verification</h2>
+              </div>
+              <div className="space-y-2 text-[13px] text-ink-soft">
+                {job.sourceType && <p><span className="font-semibold">Source Type:</span> {job.sourceType}</p>}
+                {job.sourceUrl && (
+                  <p>
+                    <span className="font-semibold">Official Source:</span>{' '}
+                    <a href={job.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-brand-600 underline">
+                      {job.sourceUrl}
+                    </a>
+                  </p>
+                )}
+                {job.verifiedAt && (
+                  <p>
+                    <span className="font-semibold">Last Verified:</span>{' '}
+                    <time dateTime={new Date(job.verifiedAt).toISOString()}>
+                      {new Date(job.verifiedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    </time>
+                  </p>
+                )}
+                <p className="text-[11px] text-ink-faint mt-2">
+                  This information was verified from the official source listed above. Always cross-check with the official notification before applying.
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* Advertisement Number */}
+          {job.advertisementNumber && (
+            <section className="card p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-2 border-b border-hairline pb-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-500/10 text-violet-600">
+                  <Hash size={15} />
+                </span>
+                <h2 className="text-[15px] font-bold text-ink">Advertisement / Notification Number</h2>
+              </div>
+              <p className="text-[14px] font-mono text-ink-soft">{job.advertisementNumber}</p>
+            </section>
+          )}
+
           {/* FAQ Section — auto-generated for job posts */}
           {faqItems.length > 0 && (
             <section className="card p-5 sm:p-6">
@@ -716,13 +905,22 @@ export default function JobDetails() {
           )}
 
           {/* Related posts in same category */}
-          {related.length > 0 && (
+          {related.length > 0 ? (
             <CategoryBox
               title={`More in ${category?.name || 'this category'}`}
               icon={category?.icon}
               color={category?.color}
               items={related}
               viewAllTo={`/category/${job.category}`}
+            />
+          ) : (
+            <CategoryBox
+              title={`More in ${category?.name || 'this category'}`}
+              icon={category?.icon}
+              color={category?.color}
+              items={[]}
+              viewAllTo={`/category/${job.category}`}
+              isLoading
             />
           )}
         </aside>

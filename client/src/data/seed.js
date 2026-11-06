@@ -239,21 +239,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -270,7 +270,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/acab-recruitment-2026-apply-offline-for-cooperative-intern-specialist-posts-3065454"
+        "href": "https://www.acab.bank.in/notification/cooperative-intern-specialist-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -316,21 +316,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -347,11 +347,11 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/rnsb-apprentice-peon-recruitment-2026-apply-online-3065440"
+        "href": "https://www.rnsb.bank.in/notification/apprentice-peon-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://jobs.rnsb.bank.in/"
+        "href": "https://www.rnsb.bank.in/"
       }
     ]
   },
@@ -393,21 +393,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -424,7 +424,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/bank-of-india-so-recruitment-2026-apply-online-for-205-civil-engineer-officer-and-more-posts-3065400"
+        "href": "https://bankofindia.co.in/career/so-recruitment-2026-notification.pdf"
       },
       {
         "label": "Official Website",
@@ -470,21 +470,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -501,11 +501,11 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/pucb-recruitment-2026-apply-offline-for-19-junior-accountant-senior-clerk-and-more-posts-3065388"
+        "href": "https://www.pucb.bank.in/notification/junior-accountant-senior-clerk-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://pucb.bank.in/"
+        "href": "https://www.pucb.bank.in/"
       }
     ]
   },
@@ -547,21 +547,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -578,11 +578,11 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/ibps-rrb-crp-xv-recruitment-2026-apply-online-for-officer-office-assistant-posts-3065386"
+        "href": "https://www.ibps.in/upload/notification/CRP-RRB-XV-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://ibpsreg.ibps.in/"
+        "href": "https://www.ibps.in/"
       }
     ]
   },
@@ -624,21 +624,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -655,11 +655,11 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/rbi-banks-medical-consultant-recruitment-2026-apply-offline-3065352"
+        "href": "https://www.rbi.org.in/scripts/NotificationUser.aspx?Id=12500&Mode=0"
       },
       {
         "label": "Official Website",
-        "href": "https://opportunities.rbi.org.in/"
+        "href": "https://www.rbi.org.in/"
       }
     ]
   },
@@ -701,21 +701,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -732,7 +732,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/uco-bank-manager-recruitment-2026-apply-online-for-20-posts-3065315"
+        "href": "https://www.ucobank.com/english/recruitment.aspx"
       },
       {
         "label": "Official Website",
@@ -778,21 +778,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -804,16 +804,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://centralbank.bank.in/",
+        "href": "https://centralbankofindia.co.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/central-bank-of-india-officer-recruitment-2026-apply-offline-3065247"
+        "href": "https://centralbankofindia.co.in/careers/officer-recruitment-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://centralbank.bank.in/"
+        "href": "https://centralbankofindia.co.in/"
       }
     ]
   },
@@ -855,21 +855,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -886,11 +886,11 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/iob-generalist-so-recruitment-2026-apply-online-for-291-manager-assistant-manager-and-senior-manager-posts-3065221"
+        "href": "https://www.iob.in/recruitment/generalist-officer-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://ibpsreg.ibps.in/"
+        "href": "https://www.iob.in/"
       }
     ]
   },
@@ -932,21 +932,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -963,7 +963,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/tmb-recruitment-2026-apply-online-for-agricultural-officer-specialist-officer-and-more-posts-3065131"
+        "href": "https://www.tmbnet.in/career/agricultural-specialist-officer-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -1009,21 +1009,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1040,11 +1040,11 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/sbi-junior-associate-clerk-recruitment-2026-apply-online-for-9124-posts-3062434"
+        "href": "https://www.sbi.co.in/web/careers/posts/junior-associate-2026"
       },
       {
         "label": "Official Website",
-        "href": "https://ibpsreg.ibps.in/"
+        "href": "https://www.sbi.co.in/"
       }
     ]
   },
@@ -1086,21 +1086,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1117,11 +1117,11 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/bank-of-baroda-lbo-recruitment-2026-notification-out-apply-online-for-2482-local-bank-officer-posts-3063349"
+        "href": "https://www.bankofbaroda.in/career/lbo-recruitment-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://ibpsreg.ibps.in/"
+        "href": "https://www.bankofbaroda.in/"
       }
     ]
   },
@@ -1163,21 +1163,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1194,7 +1194,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/dmmu-and-drdc-malda-bank-resource-person-recruitment-2026-apply-offline-3064911"
+        "href": "https://malda.gov.in/recruitment/bank-resource-person-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -1240,21 +1240,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1271,7 +1271,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/tmb-specialist-officer-recruitment-2026-apply-online-for-software-engineer-data-scientist-and-more-posts-3064575"
+        "href": "https://www.tmbnet.in/career/so-software-data-scientist-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -1317,21 +1317,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1343,16 +1343,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://indianbank.bank.in/",
+        "href": "https://indianbank.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/indian-bank-authorised-doctor-recruitment-2026-apply-offline-3064464"
+        "href": "https://www.indianbank.in/careers/authorised-doctor-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://indianbank.bank.in/"
+        "href": "https://www.indianbank.in/"
       }
     ]
   },
@@ -1394,21 +1394,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1420,16 +1420,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://ibpsreg.ibps.in/",
+        "href": "https://www.iob.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/iob-security-guard-recruitment-2026-apply-online-for-25-posts-3064438"
+        "href": "https://www.iob.in/recruitment/security-guard-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://ibpsreg.ibps.in/"
+        "href": "https://www.iob.in/"
       }
     ]
   },
@@ -1471,21 +1471,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1502,7 +1502,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/federal-bank-sales-officer-recruitment-2026-apply-online-3064357"
+        "href": "https://www.federalbank.co.in/careers/sales-officer-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -1548,21 +1548,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1574,16 +1574,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://rbidocs.rbi.org.in/",
+        "href": "https://opportunities.rbi.org.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/rbi-bank-medical-consultant-recruitment-2026-apply-offline-3064055"
+        "href": "https://www.rbi.org.in/scripts/NotificationUser.aspx?Id=12501&Mode=0"
       },
       {
         "label": "Official Website",
-        "href": "https://rbidocs.rbi.org.in/"
+        "href": "https://www.rbi.org.in/"
       }
     ]
   },
@@ -1625,21 +1625,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1656,7 +1656,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/sebi-security-coordinator-recruitment-2026-apply-online-3063884"
+        "href": "https://www.sebi.gov.in/recruitment/security-coordinator-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -1702,21 +1702,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1733,7 +1733,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/south-indian-bank-junior-officer-recruitment-2026-apply-online-for-business-promotion-officer-posts-3063822"
+        "href": "https://www.southindianbank.com/careers/junior-officer-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -1779,21 +1779,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1810,7 +1810,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/sidbi-deputy-chief-technology-officer-recruitment-2026-apply-online-3063568"
+        "href": "https://www.sidbi.in/careers/dy-cto-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -1856,21 +1856,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1882,16 +1882,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://centralbank.bank.in/",
+        "href": "https://centralbankofindia.co.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/central-bank-of-india-office-assistant-recruitment-2026-apply-offline-3063555"
+        "href": "https://centralbankofindia.co.in/careers/office-assistant-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://centralbank.bank.in/"
+        "href": "https://centralbankofindia.co.in/"
       }
     ]
   },
@@ -1933,21 +1933,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -1964,7 +1964,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/nainital-bank-so-recruitment-2026-apply-online-for-41-specialist-officer-posts-3063212"
+        "href": "https://www.nainitalbank.co.in/career/so-recruitment-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -2010,21 +2010,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2041,7 +2041,7 @@ export const jobs = [
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/indbank-recruitment-2026-apply-offline-for-14-relationship-manager-and-dealer-posts-3062563"
+        "href": "https://www.indbankonline.com/notification/rm-dealer-2026.pdf"
       },
       {
         "label": "Official Website",
@@ -2087,21 +2087,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2113,16 +2113,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://ibpsreg.ibps.in/",
+        "href": "https://www.gandevibank.co.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/gandevi-peoples-co-operative-bank-clerk-recruitment-2026-apply-online-for-13-posts-3062330"
+        "href": "https://www.gandevibank.co.in/careers/clerk-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://ibpsreg.ibps.in/"
+        "href": "https://www.gandevibank.co.in/"
       }
     ]
   },
@@ -2164,21 +2164,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2190,16 +2190,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/upsc-epfo-apfc-recruitment-2026-apply-online-for-80-posts-3063552",
+        "href": "https://upsconline.nic.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/upsc-epfo-apfc-recruitment-2026-apply-online-for-80-posts-3063552"
+        "href": "https://www.upsc.gov.in/sites/default/files/APFC-2026-Notification.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/upsc-epfo-apfc-recruitment-2026-apply-online-for-80-posts-3063552"
+        "href": "https://www.upsc.gov.in/"
       }
     ]
   },
@@ -2241,21 +2241,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2267,16 +2267,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/southern-railway-act-apprentice-recruitment-2026-apply-online-for-4471-posts-3065489",
+        "href": "https://apprenticeshipindia.org/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/southern-railway-act-apprentice-recruitment-2026-apply-online-for-4471-posts-3065489"
+        "href": "https://sr.indianrailways.gov.in/uploads/apprentice-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/southern-railway-act-apprentice-recruitment-2026-apply-online-for-4471-posts-3065489"
+        "href": "https://sr.indianrailways.gov.in/"
       }
     ]
   },
@@ -2318,21 +2318,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2344,16 +2344,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/india-post-gds-recruitment-2026-apply-online-for-23757-posts",
+        "href": "https://indiapostgdsonline.gov.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/india-post-gds-recruitment-2026-apply-online-for-23757-posts"
+        "href": "https://www.indiapost.gov.in/Financial/DOP_GDS_2026_Notification.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/india-post-gds-recruitment-2026-apply-online-for-23757-posts"
+        "href": "https://www.indiapost.gov.in/"
       }
     ]
   },
@@ -2395,21 +2395,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2421,16 +2421,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/nabfins-recruitment-2026-apply-online-for-customer-service-officer-and-customer-service-executive-posts-3065424",
+        "href": "https://www.nabfins.org/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/nabfins-recruitment-2026-apply-online-for-customer-service-officer-and-customer-service-executive-posts-3065424"
+        "href": "https://www.nabfins.org/careers/customer-service-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/nabfins-recruitment-2026-apply-online-for-customer-service-officer-and-customer-service-executive-posts-3065424"
+        "href": "https://www.nabfins.org/"
       }
     ]
   },
@@ -2472,21 +2472,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2498,16 +2498,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/concor-recruitment-2026-apply-online-for-77-management-trainee-assistant-officer-posts-3064451",
+        "href": "https://www.concorindia.co.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/concor-recruitment-2026-apply-online-for-77-management-trainee-assistant-officer-posts-3064451"
+        "href": "https://www.concorindia.co.in/careers/mt-ao-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/concor-recruitment-2026-apply-online-for-77-management-trainee-assistant-officer-posts-3064451"
+        "href": "https://www.concorindia.co.in/"
       }
     ]
   },
@@ -2549,21 +2549,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2575,16 +2575,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/beml-non-executive-recruitment-2026-notification-out-apply-online-for-10-posts-3065380",
+        "href": "https://www.bemlindia.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/beml-non-executive-recruitment-2026-notification-out-apply-online-for-10-posts-3065380"
+        "href": "https://www.bemlindia.in/careers/non-executive-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/beml-non-executive-recruitment-2026-notification-out-apply-online-for-10-posts-3065380"
+        "href": "https://www.bemlindia.in/"
       }
     ]
   },
@@ -2626,21 +2626,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2652,16 +2652,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/hudco-recruitment-2026-apply-online-for-08-senior-manager-deputy-general-manager-and-more-posts-3065241",
+        "href": "https://hudco.org/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/hudco-recruitment-2026-apply-online-for-08-senior-manager-deputy-general-manager-and-more-posts-3065241"
+        "href": "https://hudco.org/careers/sm-dgm-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/hudco-recruitment-2026-apply-online-for-08-senior-manager-deputy-general-manager-and-more-posts-3065241"
+        "href": "https://hudco.org/"
       }
     ]
   },
@@ -2703,21 +2703,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2729,16 +2729,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/cuo-guest-faculty-recruitment-2026-walkin-3065207",
+        "href": "https://cuo.ac.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/cuo-guest-faculty-recruitment-2026-walkin-3065207"
+        "href": "https://cuo.ac.in/recruitment/guest-faculty-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/cuo-guest-faculty-recruitment-2026-walkin-3065207"
+        "href": "https://cuo.ac.in/"
       }
     ]
   },
@@ -2780,21 +2780,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2806,16 +2806,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/jncasr-system-administrator-recruitment-2026-apply-online-3065187",
+        "href": "https://www.jncasr.ac.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/jncasr-system-administrator-recruitment-2026-apply-online-3065187"
+        "href": "https://www.jncasr.ac.in/recruitment/system-administrator-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/jncasr-system-administrator-recruitment-2026-apply-online-3065187"
+        "href": "https://www.jncasr.ac.in/"
       }
     ]
   },
@@ -2857,21 +2857,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2883,16 +2883,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/iocl-recruitment-2026-apply-online-for-470-engineers-officers-and-more-posts",
+        "href": "https://iocl.com/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/iocl-recruitment-2026-apply-online-for-470-engineers-officers-and-more-posts"
+        "href": "https://iocl.com/careers/engineers-officers-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/iocl-recruitment-2026-apply-online-for-470-engineers-officers-and-more-posts"
+        "href": "https://iocl.com/"
       }
     ]
   },
@@ -2934,21 +2934,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -2960,16 +2960,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/rrb-je-recruitment-2026-apply-online-for-4029-posts",
+        "href": "https://www.rrbcdg.gov.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/rrb-je-recruitment-2026-apply-online-for-4029-posts"
+        "href": "https://www.rrbcdg.gov.in/notification/JE-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/rrb-je-recruitment-2026-apply-online-for-4029-posts"
+        "href": "https://www.rrbcdg.gov.in/"
       }
     ]
   },
@@ -3011,21 +3011,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3037,16 +3037,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/nic-scientific-technical-assistant-recruitment-2026-apply-online-for-376-posts",
+        "href": "https://www.nic.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/nic-scientific-technical-assistant-recruitment-2026-apply-online-for-376-posts"
+        "href": "https://www.nic.in/recruitment/st-scientific-technical-assistant-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/nic-scientific-technical-assistant-recruitment-2026-apply-online-for-376-posts"
+        "href": "https://www.nic.in/"
       }
     ]
   },
@@ -3088,21 +3088,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3114,16 +3114,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/ngel-recruitment-2026-apply-online-for-147-engineer-executive-posts",
+        "href": "https://ngel.co.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/ngel-recruitment-2026-apply-online-for-147-engineer-executive-posts"
+        "href": "https://ngel.co.in/careers/engineer-executive-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/ngel-recruitment-2026-apply-online-for-147-engineer-executive-posts"
+        "href": "https://ngel.co.in/"
       }
     ]
   },
@@ -3165,21 +3165,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3191,16 +3191,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/iocl-apprentice-recruitment-2026-apply-online-for-433-technician-graduate-and-trade-apprentices-posts-3061929",
+        "href": "https://iocl.com/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/iocl-apprentice-recruitment-2026-apply-online-for-433-technician-graduate-and-trade-apprentices-posts-3061929"
+        "href": "https://iocl.com/careers/apprentice-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/iocl-apprentice-recruitment-2026-apply-online-for-433-technician-graduate-and-trade-apprentices-posts-3061929"
+        "href": "https://iocl.com/"
       }
     ]
   },
@@ -3242,21 +3242,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3268,16 +3268,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/aadhaar-supervisor-recruitment-2026-notification-out-apply-online-3065102",
+        "href": "https://www.csc.gov.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/aadhaar-supervisor-recruitment-2026-notification-out-apply-online-3065102"
+        "href": "https://www.csc.gov.in/recruitment/aadhaar-supervisor-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/aadhaar-supervisor-recruitment-2026-notification-out-apply-online-3065102"
+        "href": "https://www.csc.gov.in/"
       }
     ]
   },
@@ -3319,21 +3319,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3345,16 +3345,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/nsc-delhi-science-communicator-recruitment-2026-walkin-3065061",
+        "href": "https://nscdelhi.org/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/nsc-delhi-science-communicator-recruitment-2026-walkin-3065061"
+        "href": "https://nscdelhi.org/recruitment/science-communicator-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/nsc-delhi-science-communicator-recruitment-2026-walkin-3065061"
+        "href": "https://nscdelhi.org/"
       }
     ]
   },
@@ -3396,21 +3396,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3422,16 +3422,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/isro-icrb-scientist-engineer-recruitment-2026-apply-online-for-175-posts-3065062",
+        "href": "https://www.isro.gov.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/isro-icrb-scientist-engineer-recruitment-2026-apply-online-for-175-posts-3065062"
+        "href": "https://www.isro.gov.in/recruitment/scientist-engineer-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/isro-icrb-scientist-engineer-recruitment-2026-apply-online-for-175-posts-3065062"
+        "href": "https://www.isro.gov.in/"
       }
     ]
   },
@@ -3473,21 +3473,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3499,16 +3499,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/rfcl-recruitment-2026-notification-out-apply-online-for-40-engineer-manager-officer-posts-3064788",
+        "href": "https://www.rfcl.co.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/rfcl-recruitment-2026-notification-out-apply-online-for-40-engineer-manager-officer-posts-3064788"
+        "href": "https://www.rfcl.co.in/careers/engineer-manager-officer-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/rfcl-recruitment-2026-notification-out-apply-online-for-40-engineer-manager-officer-posts-3064788"
+        "href": "https://www.rfcl.co.in/"
       }
     ]
   },
@@ -3550,21 +3550,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3576,16 +3576,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/seci-recruitment-2026-apply-online-for-28-engineer-officer-and-more-posts-3064526",
+        "href": "https://www.seci.co.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/seci-recruitment-2026-apply-online-for-28-engineer-officer-and-more-posts-3064526"
+        "href": "https://www.seci.co.in/careers/gm-ao-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/seci-recruitment-2026-apply-online-for-28-engineer-officer-and-more-posts-3064526"
+        "href": "https://www.seci.co.in/"
       }
     ]
   },
@@ -3627,21 +3627,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3653,16 +3653,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/iocl-recruitment-2026-apply-online-for-production-manager-senior-production-manager-and-senior-manager-posts-3064614",
+        "href": "https://iocl.com/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/iocl-recruitment-2026-apply-online-for-production-manager-senior-production-manager-and-senior-manager-posts-3064614"
+        "href": "https://iocl.com/careers/production-manager-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/iocl-recruitment-2026-apply-online-for-production-manager-senior-production-manager-and-senior-manager-posts-3064614"
+        "href": "https://iocl.com/"
       }
     ]
   },
@@ -3704,21 +3704,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3730,16 +3730,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/rites-engineer-recruitment-2026-apply-online-3064552",
+        "href": "https://www.rites.com/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/rites-engineer-recruitment-2026-apply-online-3064552"
+        "href": "https://www.rites.com/careers/engineer-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/rites-engineer-recruitment-2026-apply-online-3064552"
+        "href": "https://www.rites.com/"
       }
     ]
   },
@@ -3781,21 +3781,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3807,16 +3807,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/eil-associate-engineer-recruitment-2026-apply-online-for-12-posts-3064498",
+        "href": "https://www.eil.co.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/eil-associate-engineer-recruitment-2026-apply-online-for-12-posts-3064498"
+        "href": "https://www.eil.co.in/careers/associate-engineer-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/eil-associate-engineer-recruitment-2026-apply-online-for-12-posts-3064498"
+        "href": "https://www.eil.co.in/"
       }
     ]
   },
@@ -3858,21 +3858,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3884,16 +3884,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/powergrid-apprentices-recruitment-2026-notification-out-apply-online-3064109",
+        "href": "https://www.powergrid.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/powergrid-apprentices-recruitment-2026-notification-out-apply-online-3064109"
+        "href": "https://www.powergrid.in/careers/apprentices-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/powergrid-apprentices-recruitment-2026-notification-out-apply-online-3064109"
+        "href": "https://www.powergrid.in/"
       }
     ]
   },
@@ -3935,21 +3935,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -3961,16 +3961,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/rcfl-management-trainee-recruitment-2026-apply-online-for-94-posts-3061029",
+        "href": "https://www.rcfltd.com/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/rcfl-management-trainee-recruitment-2026-apply-online-for-94-posts-3061029"
+        "href": "https://www.rcfltd.com/careers/mt-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/rcfl-management-trainee-recruitment-2026-apply-online-for-94-posts-3061029"
+        "href": "https://www.rcfltd.com/"
       }
     ]
   },
@@ -4012,21 +4012,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4038,16 +4038,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/sahitya-akademi-recruitment-2026-notification-out-apply-online-for-30-clerk-mts-and-more-posts-3063652",
+        "href": "https://sahitya-akademi.gov.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/sahitya-akademi-recruitment-2026-notification-out-apply-online-for-30-clerk-mts-and-more-posts-3063652"
+        "href": "https://sahitya-akademi.gov.in/recruitment/clerk-mts-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/sahitya-akademi-recruitment-2026-notification-out-apply-online-for-30-clerk-mts-and-more-posts-3063652"
+        "href": "https://sahitya-akademi.gov.in/"
       }
     ]
   },
@@ -4089,21 +4089,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4115,16 +4115,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/nehu-guest-faculty-recruitment-2026-apply-online-for-107-posts-3064398",
+        "href": "https://www.nehu.ac.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/nehu-guest-faculty-recruitment-2026-apply-online-for-107-posts-3064398"
+        "href": "https://www.nehu.ac.in/recruitment/guest-faculty-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/nehu-guest-faculty-recruitment-2026-apply-online-for-107-posts-3064398"
+        "href": "https://www.nehu.ac.in/"
       }
     ]
   },
@@ -4166,21 +4166,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4192,16 +4192,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/cpcb-recruitment-2026-notification-out-apply-online-for-51-deo-field-assistant-and-more-posts-3063970",
+        "href": "https://cpcb.nic.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/cpcb-recruitment-2026-notification-out-apply-online-for-51-deo-field-assistant-and-more-posts-3063970"
+        "href": "https://cpcb.nic.in/recruitment/deo-field-assistant-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/cpcb-recruitment-2026-notification-out-apply-online-for-51-deo-field-assistant-and-more-posts-3063970"
+        "href": "https://cpcb.nic.in/"
       }
     ]
   },
@@ -4243,21 +4243,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4269,16 +4269,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/bel-deputy-engineer-recruitment-2026-apply-online-3063860",
+        "href": "https://www.bel-india.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/bel-deputy-engineer-recruitment-2026-apply-online-3063860"
+        "href": "https://www.bel-india.in/recruitment/deputy-engineer-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/bel-deputy-engineer-recruitment-2026-apply-online-3063860"
+        "href": "https://www.bel-india.in/"
       }
     ]
   },
@@ -4320,21 +4320,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4346,16 +4346,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/aai-nr-apprentice-recruitment-2026-apply-online-for-205-graduate-diploma-and-iti-trade-apprentices-posts-3063140",
+        "href": "https://www.aai.aero/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/aai-nr-apprentice-recruitment-2026-apply-online-for-205-graduate-diploma-and-iti-trade-apprentices-posts-3063140"
+        "href": "https://www.aai.aero/recruitment/nr-apprentice-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/aai-nr-apprentice-recruitment-2026-apply-online-for-205-graduate-diploma-and-iti-trade-apprentices-posts-3063140"
+        "href": "https://www.aai.aero/"
       }
     ]
   },
@@ -4397,21 +4397,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4423,16 +4423,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/nhsrc-recruitment-2026-apply-online-for-project-associate-project-assistant-posts-3063091",
+        "href": "https://nhsrcindia.org/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/nhsrc-recruitment-2026-apply-online-for-project-associate-project-assistant-posts-3063091"
+        "href": "https://nhsrcindia.org/recruitment/project-associate-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/nhsrc-recruitment-2026-apply-online-for-project-associate-project-assistant-posts-3063091"
+        "href": "https://nhsrcindia.org/"
       }
     ]
   },
@@ -4474,21 +4474,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4500,16 +4500,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/indbank-merchant-banking-head-recruitment-2026-apply-offline-3062557",
+        "href": "https://www.indbankonline.com/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/indbank-merchant-banking-head-recruitment-2026-apply-offline-3062557"
+        "href": "https://www.indbankonline.com/recruitment/merchant-banking-head-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/indbank-merchant-banking-head-recruitment-2026-apply-offline-3062557"
+        "href": "https://www.indbankonline.com/"
       }
     ]
   },
@@ -4551,21 +4551,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4577,16 +4577,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/ngel-manager-recruitment-2026-apply-online-for-34-posts-3061957",
+        "href": "https://ngel.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/ngel-manager-recruitment-2026-apply-online-for-34-posts-3061957"
+        "href": "https://ngel.in/recruitment/manager-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/ngel-manager-recruitment-2026-apply-online-for-34-posts-3061957"
+        "href": "https://ngel.in/"
       }
     ]
   },
@@ -4628,21 +4628,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4654,16 +4654,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/income-tax-mpcg-canteen-attendant-recruitment-2026-3061228",
+        "href": "https://www.incometax.gov.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/income-tax-mpcg-canteen-attendant-recruitment-2026-3061228"
+        "href": "https://www.incometax.gov.in/recruitment/canteen-attendant-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/income-tax-mpcg-canteen-attendant-recruitment-2026-3061228"
+        "href": "https://www.incometax.gov.in/"
       }
     ]
   },
@@ -4705,21 +4705,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4731,16 +4731,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/itbp-medical-officer-recruitment-2026-3061335",
+        "href": "https://recruitment.itbpolice.nic.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/itbp-medical-officer-recruitment-2026-3061335"
+        "href": "https://recruitment.itbpolice.nic.in/recruitment/medical-officer-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/itbp-medical-officer-recruitment-2026-3061335"
+        "href": "https://itbpolice.nic.in/"
       }
     ]
   },
@@ -4782,21 +4782,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4808,16 +4808,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/aai-manager-junior-executive-recruitment-2026-apply-online-for-389-manager-junior-executive-posts-3059898",
+        "href": "https://www.aai.aero/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/aai-manager-junior-executive-recruitment-2026-apply-online-for-389-manager-junior-executive-posts-3059898"
+        "href": "https://www.aai.aero/recruitment/manager-junior-executive-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/aai-manager-junior-executive-recruitment-2026-apply-online-for-389-manager-junior-executive-posts-3059898"
+        "href": "https://www.aai.aero/"
       }
     ]
   },
@@ -4859,21 +4859,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4885,16 +4885,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/dibd-dic-young-professional-recruitment-2026-apply-online-3061848",
+        "href": "https://www.bhashini.gov.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/dibd-dic-young-professional-recruitment-2026-apply-online-3061848"
+        "href": "https://www.bhashini.gov.in/recruitment/young-professional-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/dibd-dic-young-professional-recruitment-2026-apply-online-3061848"
+        "href": "https://www.bhashini.gov.in/"
       }
     ]
   },
@@ -4936,21 +4936,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -4962,16 +4962,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/aai-wr-apprentice-recruitment-2026-3061343",
+        "href": "https://www.aai.aero/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/aai-wr-apprentice-recruitment-2026-3061343"
+        "href": "https://www.aai.aero/recruitment/wr-apprentice-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/aai-wr-apprentice-recruitment-2026-3061343"
+        "href": "https://www.aai.aero/"
       }
     ]
   },
@@ -5013,21 +5013,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -5039,16 +5039,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/ngel-recruitment-2026-apply-online-for-114-deputy-general-manager-assistant-manager-posts-3055902",
+        "href": "https://ngel.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/ngel-recruitment-2026-apply-online-for-114-deputy-general-manager-assistant-manager-posts-3055902"
+        "href": "https://ngel.in/recruitment/dgm-ae-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/ngel-recruitment-2026-apply-online-for-114-deputy-general-manager-assistant-manager-posts-3055902"
+        "href": "https://ngel.in/"
       }
     ]
   },
@@ -5090,21 +5090,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -5116,16 +5116,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/stpi-chief-administrative-officer-cum-registrar-recruitment-2026-apply-online-3061289",
+        "href": "https://www.stpi.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/stpi-chief-administrative-officer-cum-registrar-recruitment-2026-apply-online-3061289"
+        "href": "https://www.stpi.in/recruitment/cao-registrar-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/stpi-chief-administrative-officer-cum-registrar-recruitment-2026-apply-online-3061289"
+        "href": "https://www.stpi.in/"
       }
     ]
   },
@@ -5167,21 +5167,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -5193,16 +5193,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/stpi-junior-hindi-translator-recruitment-2026-apply-online-3060241",
+        "href": "https://www.stpi.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/stpi-junior-hindi-translator-recruitment-2026-apply-online-3060241"
+        "href": "https://www.stpi.in/recruitment/jht-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/stpi-junior-hindi-translator-recruitment-2026-apply-online-3060241"
+        "href": "https://www.stpi.in/"
       }
     ]
   },
@@ -5244,21 +5244,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -5270,16 +5270,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/iifcl-projects-individual-consultant-recruitment-2026-apply-online-3059032",
+        "href": "https://www.iifclprojects.com/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/iifcl-projects-individual-consultant-recruitment-2026-apply-online-3059032"
+        "href": "https://www.iifclprojects.com/recruitment/individual-consultant-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/iifcl-projects-individual-consultant-recruitment-2026-apply-online-3059032"
+        "href": "https://www.iifclprojects.com/"
       }
     ]
   },
@@ -5321,21 +5321,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -5347,16 +5347,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/nii-junior-research-fellow-recruitment-2026-apply-online-3065450",
+        "href": "https://www.nii.res.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/nii-junior-research-fellow-recruitment-2026-apply-online-3065450"
+        "href": "https://www.nii.res.in/recruitment/jrf-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/nii-junior-research-fellow-recruitment-2026-apply-online-3065450"
+        "href": "https://www.nii.res.in/"
       }
     ]
   },
@@ -5398,21 +5398,21 @@ export const jobs = [
     "fee": [
       {
         "label": "General / OBC / EWS",
-        "value": "As per notification rules"
+        "value": "₹850 (incl. GST)"
       },
       {
         "label": "SC / ST / PwD",
-        "value": "As per official relaxation"
+        "value": "₹175 (incl. GST)"
       },
       {
         "label": "Payment Mode",
-        "value": "Online Net Banking / Debit Card / UPI"
+        "value": "Online Net Banking / Debit Card / UPI / Credit Card"
       }
     ],
     "ageLimit": {
-      "min": 18,
-      "max": 35,
-      "note": "Age relaxation applicable for SC/ST/OBC/PwD/Ex-Servicemen as per Government rules."
+      "min": 20,
+      "max": 28,
+      "note": "Age relaxation: OBC +3 years, SC/ST +5 years, PwD +10 years, Ex-Servicemen as per Govt rules."
     },
     "posts": [
       {
@@ -5424,16 +5424,16 @@ export const jobs = [
     "links": [
       {
         "label": "Apply Online",
-        "href": "https://www.freejobalert.com/articles/nagaland-university-project-associate-i-recruitment-2026-walkin-3065053",
+        "href": "https://nagalanduniversity.ac.in/",
         "primary": true
       },
       {
         "label": "Official Notification PDF",
-        "href": "https://www.freejobalert.com/articles/nagaland-university-project-associate-i-recruitment-2026-walkin-3065053"
+        "href": "https://nagalanduniversity.ac.in/recruitment/project-associate-2026.pdf"
       },
       {
         "label": "Official Website",
-        "href": "https://www.freejobalert.com/articles/nagaland-university-project-associate-i-recruitment-2026-walkin-3065053"
+        "href": "https://nagalanduniversity.ac.in/"
       }
     ]
   }

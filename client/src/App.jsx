@@ -24,11 +24,17 @@ const ArticlesPage   = lazy(() => import('./pages/ArticlesPage.jsx'))
 const ArticleDetails = lazy(() => import('./pages/ArticleDetails.jsx'))
 
 // Trust & Legal pages (new standalone pages replacing /exams stubs)
-const AboutPage      = lazy(() => import('./pages/AboutPage.jsx'))
-const ContactPage    = lazy(() => import('./pages/ContactPage.jsx'))
-const PrivacyPage    = lazy(() => import('./pages/PrivacyPage.jsx'))
-const TermsPage      = lazy(() => import('./pages/TermsPage.jsx'))
-const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage.jsx'))
+const AboutPage            = lazy(() => import('./pages/AboutPage.jsx'))
+const ContactPage          = lazy(() => import('./pages/ContactPage.jsx'))
+const PrivacyPage          = lazy(() => import('./pages/PrivacyPage.jsx'))
+const TermsPage            = lazy(() => import('./pages/TermsPage.jsx'))
+const DisclaimerPage       = lazy(() => import('./pages/DisclaimerPage.jsx'))
+const EditorialPolicyPage  = lazy(() => import('./pages/EditorialPolicyPage.jsx'))
+const FactCheckingPolicyPage = lazy(() => import('./pages/FactCheckingPolicyPage.jsx'))
+const CorrectionsPolicyPage = lazy(() => import('./pages/CorrectionsPolicyPage.jsx'))
+
+// Tools page
+const ToolsPage = lazy(() => import('./pages/ToolsPage.jsx'))
 
 // Lazy-loaded Admin Pages (isolated from public users)
 const AdminLogin       = lazy(() => import('./pages/AdminLogin.jsx'))
@@ -110,6 +116,12 @@ function AppRoutes() {
           <Route path="privacy"           element={<PrivacyPage />} />
           <Route path="terms"             element={<TermsPage />} />
           <Route path="disclaimer"        element={<DisclaimerPage />} />
+          <Route path="editorial-policy"  element={<EditorialPolicyPage />} />
+          <Route path="fact-checking-policy" element={<FactCheckingPolicyPage />} />
+          <Route path="corrections-policy" element={<CorrectionsPolicyPage />} />
+
+          {/* Tools page — free calculators and utilities for govt job aspirants */}
+          <Route path="tools"             element={<ToolsPage />} />
 
           {/* Feedback — noindex (form page, not a search landing page) */}
           <Route path="feedback"          element={<FeedbackPage />} />

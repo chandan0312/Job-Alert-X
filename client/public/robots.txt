@@ -1,5 +1,5 @@
 # robots.txt — Job Alert X (https://jobalertx.com)
-# Updated: 2026-10-27
+# Updated: 2026-11-06
 
 User-agent: *
 Allow: /
@@ -31,3 +31,9 @@ Disallow: /feedback
 
 # Sitemap index — tells Googlebot where all content is
 Sitemap: https://jobalertx.com/sitemap.xml
+
+# Crawl-delay for respectful crawling (optional)
+Crawl-delay: 10
+
+# Host directive (deprecated but still useful)
+Host: https://jobalertx.com

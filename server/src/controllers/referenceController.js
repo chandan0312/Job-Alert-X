@@ -20,6 +20,7 @@ export const listCategories = asyncHandler(async (req, res) => {
         [sequelize.fn('COUNT', sequelize.col('id')), 'postsCount'],
         [sequelize.fn('SUM', sequelize.col('vacancies')), 'totalVacancies'],
       ],
+      where: { status: 'published' },
       group: ['category'],
     }),
   ])
@@ -61,7 +62,7 @@ export const categoryBySlug = asyncHandler(async (req, res) => {
       [sequelize.fn('COUNT', sequelize.col('id')), 'postsCount'],
       [sequelize.fn('SUM', sequelize.col('vacancies')), 'totalVacancies'],
     ],
-    where: { category: slug },
+    where: { category: slug, status: 'published' },
   })
 
   const postsCount = stats ? parseInt(stats.get('postsCount'), 10) || 0 : 0

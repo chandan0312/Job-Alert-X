@@ -197,7 +197,7 @@ export const create = asyncHandler(async (req, res) => {
   const baseSlug = slugify(body.slug || body.title)
   const finalSlug = await uniqueSlug(baseSlug, async (candidate) => {
     const existing = await Article.findOne({ where: { slug: candidate } })
-    return !existing
+    return Boolean(existing)
   })
 
   const readTime = body.readTime || estimateReadTime((body.content || '') + ' ' + (body.excerpt || ''))
@@ -241,9 +241,9 @@ export const update = asyncHandler(async (req, res) => {
   if (body.slug && body.slug !== article.slug) {
     const newBaseSlug = slugify(body.slug)
     const finalSlug = await uniqueSlug(newBaseSlug, async (candidate) => {
-      if (candidate === article.slug) return true
+      if (candidate === article.slug) return false
       const existing = await Article.findOne({ where: { slug: candidate } })
-      return !existing
+      return Boolean(existing)
     })
     article.slug = finalSlug
   }

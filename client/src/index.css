@@ -8,6 +8,19 @@
    All colors driven by CSS custom properties per UI_DESIGN_PROMPT.md
    ============================================================ */
 
+/* ============================================================
+   FONT LOADING OPTIMIZATION — Core Web Vitals (CLS/LCP)
+   ============================================================ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: local('Inter'), local('Inter Variable'),
+       url('https://fonts.gstatic.com/s/inter/v19/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @layer base {
   :root {
     color-scheme: light;
@@ -767,5 +780,164 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   AD BANNER STYLES — Core Web Vitals & AdSense Compliance
+   ============================================================ */
+.ad-banner-wrapper {
+  min-height: 90px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--surface-2);
+  transition: background 0.2s;
+}
+
+.ad-banner-wrapper[data-ad-status="loading"] {
+  background: var(--surface-2);
+}
+
+.ad-banner-wrapper[data-ad-status="loaded"] {
+  background: transparent;
+}
+
+.ad-banner-wrapper[data-ad-status="error"] {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger);
+}
+
+/* Ensure AdSense ins elements don't cause layout shift */
+.adsense-wrapper {
+  contain: layout;
+}
+
+.adsense-wrapper ins {
+  min-height: inherit;
+  display: block;
+}
+
+/* Prevent ads from pushing content - reserve space */
+.ad-banner-wrapper:has([data-ad-status="loading"]) {
+  min-height: 90px;
+}
+
+@media (min-width: 768px) {
+  .ad-banner-wrapper[aria-label="Advertisement"]:has([data-ad-status="loading"]) {
+    min-height: 250px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE OPTIMIZATIONS
+   ============================================================ */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Reduce CLS on mobile */
+  .card, .rjt-wrapper {
+    border-radius: 8px;
+  }
+
+  /* Better touch targets */
+  .btn-primary, .btn-ghost, .rjt-apply-btn {
+    min-height: 44px;
+  }
+
+  .input {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* ============================================================
+   LAYOUT SHIFT PREVENTION
+   ============================================================ */
+.adsense-wrapper {
+  /* Reserve space to prevent CLS */
+  min-height: 90px;
+}
+
+/* ============================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================================ */
+@media (prefers-contrast: high) {
+  :root {
+    --border: #000;
+    --border-strong: #000;
+  }
+  [data-theme="dark"] {
+    --border: #fff;
+    --border-strong: #fff;
+  }
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--brand-primary);
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus visible for better keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   PERFORMANCE: Content Visibility
+   ============================================================ */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* ============================================================
+   SKELETON LOADERS — Zero-CLS Placeholders
+   ============================================================ */
+@keyframes skeleton-wave {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--surface-3) 37%,
+    var(--surface-2) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-wave 1.4s ease-in-out infinite;
+}
+
+[data-theme="dark"] .animate-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--surface-3) 37%,
+    var(--surface-2) 63%
+  );
+  background-size: 400% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-skeleton,
+  .animate-pulse,
+  .animate-skeleton-wave {
+    animation: none !important;
+    opacity: 0.6;
   }
 }

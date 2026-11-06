@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AlertTriangle, Clock, ArrowRight } from 'lucide-react'
 import { getJobs } from '../services/api.js'
+import { Skeleton } from './Skeleton.jsx'
 
 const MONTH_MAP = {
   jan: 0, january: 0,
@@ -122,18 +123,18 @@ function getDeadlineInfo(job) {
 }
 
 /**
- * Zero-layout-shift Skeleton Loader for 5 rows
+ * Zero-layout-shift Skeleton Loader for 5 rows - uses shared Skeleton component
  */
 function AttentionSkeleton() {
   return (
-    <div className="divide-y divide-hairline animate-pulse" aria-hidden="true">
+    <div className="divide-y divide-hairline" aria-hidden="true">
       {[1, 2, 3, 4, 5].map((i) => (
         <div key={i} className="flex items-center justify-between px-4 sm:px-5 py-3.5 gap-3">
-          <div className="flex-1 space-y-1.5">
-            <div className="h-4 bg-subtle/90 rounded w-4/5" />
-            <div className="h-3 bg-subtle/60 rounded w-1/2" />
+          <div className="flex-1 space-y-1.5 min-w-0">
+            <Skeleton.Primitive className="h-4 rounded w-4/5" variant="default" animation="wave" />
+            <Skeleton.Primitive className="h-3 rounded w-1/2" variant="muted" animation="wave" />
           </div>
-          <div className="h-7 w-24 rounded-lg bg-rose-500/10 shrink-0" />
+          <Skeleton.Primitive className="h-7 w-24 rounded-lg shrink-0" variant="brand" animation="wave" />
         </div>
       ))}
     </div>

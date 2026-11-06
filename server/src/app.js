@@ -54,6 +54,7 @@ export function createApp() {
   app.get('/sitemap-results.xml',     sitemap.resultsSitemap)
   app.get('/sitemap-answer-keys.xml', sitemap.answerKeysSitemap)
   app.get('/sitemap-syllabus.xml',    sitemap.syllabusSitemap)
+  app.get('/sitemap-articles.xml',    sitemap.articlesSitemap)
 
   // Serve uploaded documents statically
   const uploadDir = fileURLToPath(new URL('../uploads', import.meta.url))

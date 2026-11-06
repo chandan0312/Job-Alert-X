@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { BookOpen, ArrowRight, ArrowUpRight } from 'lucide-react'
 import BrandIcon from './BrandIcon.jsx'
 import { getJobsByKind } from '../services/api.js'
+import { Skeleton } from './Skeleton.jsx'
 
 export default function SyllabusCard({ viewAllTo = '/latest/syllabus' }) {
   const [syllabusList, setSyllabusList] = useState(null)
@@ -36,18 +37,9 @@ export default function SyllabusCard({ viewAllTo = '/latest/syllabus' }) {
 
       {/* ── Content ── */}
       {syllabusList === null ? (
-        <div className="divide-y divide-hairline animate-pulse" aria-hidden="true">
+        <div className="divide-y divide-hairline" aria-hidden="true">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="flex items-center justify-between p-3.5 gap-2.5">
-              <div className="flex items-start gap-2.5 flex-1 min-w-0">
-                <div className="h-7 w-7 rounded-lg bg-subtle/80 shrink-0 mt-0.5" />
-                <div className="flex-1 min-w-0 space-y-1.5">
-                  <div className="h-3.5 bg-subtle/90 rounded w-3/4" />
-                  <div className="h-2.5 bg-subtle/70 rounded w-1/3" />
-                </div>
-              </div>
-              <div className="h-7 w-12 rounded-lg bg-subtle/80 shrink-0" />
-            </div>
+            <Skeleton.ListItem key={i} withIcon={true} lines={2} className="p-3.5" />
           ))}
         </div>
       ) : syllabusList.length === 0 ? (

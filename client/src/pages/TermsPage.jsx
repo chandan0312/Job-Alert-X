@@ -76,10 +76,14 @@ export default function TermsPage() {
           </section>
         ))}
 
-        <div className="flex gap-4 pt-2 text-[13px] flex-wrap">
-          <Link to="/privacy" className="text-brand-600 hover:underline">Privacy Policy</Link>
-          <Link to="/disclaimer" className="text-brand-600 hover:underline">Disclaimer</Link>
-          <Link to="/contact" className="text-brand-600 hover:underline">Contact Us</Link>
+        <div className="flex flex-wrap justify-center gap-4 text-[12.5px] text-ink-faint py-2">
+          <Link to="/privacy" className="hover:text-brand-600 transition-colors">Privacy Policy</Link>
+          <Link to="/disclaimer" className="hover:text-brand-600 transition-colors">Disclaimer</Link>
+          <Link to="/contact" className="hover:text-brand-600 transition-colors">Contact Us</Link>
+          <Link to="/about" className="hover:text-brand-600 transition-colors">About Us</Link>
+          <Link to="/editorial-policy" className="hover:text-brand-600 transition-colors">Editorial Policy</Link>
+          <Link to="/fact-checking-policy" className="hover:text-brand-600 transition-colors">Fact-Checking Policy</Link>
+          <Link to="/corrections-policy" className="hover:text-brand-600 transition-colors">Corrections Policy</Link>
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import { getArticles } from '../services/api.js'
 import { CATEGORY_BADGES } from '../data/articleConstants.js'
+import { Skeleton } from './Skeleton.jsx'
 
 export default function HomeArticlesSection() {
   const [articles, setArticles] = useState([])
@@ -119,7 +120,7 @@ export default function HomeArticlesSection() {
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="h-64 rounded-2xl bg-white/[0.04] animate-pulse border border-white/5" />
+            <Skeleton.Article key={n} />
           ))}
         </div>
       ) : (

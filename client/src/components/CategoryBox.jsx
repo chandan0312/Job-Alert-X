@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import BrandIcon from './BrandIcon.jsx'
+import { Skeleton } from './Skeleton.jsx'
 
 /**
  * A titled "box" listing links to posts — the classic sarkari layout unit used
@@ -12,9 +13,36 @@ import BrandIcon from './BrandIcon.jsx'
  *   items      array of job objects
  *   viewAllTo  route for the footer link (optional)
  *   accent     hex colour for the header underline (optional)
+ *   isLoading  show skeleton placeholders instead of content
  */
-export default function CategoryBox({ title, icon, color = '#5558e6', items = [], viewAllTo, accent }) {
+export default function CategoryBox({ title, icon, color = '#5558e6', items = [], viewAllTo, accent, isLoading }) {
   const bar = accent || color
+
+  // Loading skeleton state
+  if (isLoading) {
+    return (
+      <section className="card flex flex-col overflow-hidden" aria-hidden="true">
+        <header className="flex items-center gap-2.5 border-b border-hairline px-4 py-3">
+          <Skeleton.Primitive className="h-6 w-6 rounded-lg" variant="brand" animation="wave" />
+          <Skeleton.Primitive className="h-5 w-24 rounded" variant="default" animation="wave" />
+          <Skeleton.Primitive className="h-5 w-12 rounded-full ml-auto" variant="muted" animation="wave" />
+        </header>
+
+        <ul className="flex-1 divide-y divide-hairline">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <li key={i} className="px-4 py-2.5">
+              <Skeleton.ListItem withIcon={true} lines={2} />
+            </li>
+          ))}
+        </ul>
+
+        {viewAllTo && (
+          <Skeleton.Primitive className="h-8 w-32 rounded-lg border-t border-hairline mx-4 my-2" variant="muted" animation="wave" />
+        )}
+      </section>
+    )
+  }
+
   return (
     <section className="card flex flex-col overflow-hidden">
       <header className="flex items-center gap-2.5 border-b border-hairline px-4 py-3">

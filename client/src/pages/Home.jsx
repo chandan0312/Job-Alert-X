@@ -7,29 +7,10 @@ import HomeArticlesSection from '../components/HomeArticlesSection.jsx'
 import AttentionCard from '../components/AttentionCard.jsx'
 import RightSidebar from '../components/RightSidebar.jsx'
 import SEOHead from '../components/SEOHead.jsx'
+import { Skeleton } from '../components/Skeleton.jsx'
 import { getTrending, getRecentlyPosted, getJobsByCategory, getArchivedJobs } from '../services/api.js'
 import { Clock, Sparkles, Archive } from 'lucide-react'
 
-
-function TableSkeleton({ rows = 3 }) {
-  return (
-    <div className="rounded-2xl border border-hairline bg-surface p-4 space-y-3 animate-pulse shadow-xs" aria-hidden="true">
-      <div className="h-4 bg-subtle/80 rounded w-1/4 mb-3" />
-      {Array.from({ length: rows }).map((_, i) => (
-        <div key={i} className="flex items-center justify-between gap-4 py-2 border-b border-hairline/60 last:border-b-0">
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <div className="h-8 w-8 rounded-lg bg-subtle/90 shrink-0" />
-            <div className="flex-1 space-y-1.5 min-w-0">
-              <div className="h-3.5 bg-subtle/90 rounded w-3/5" />
-              <div className="h-2.5 bg-subtle/60 rounded w-1/3" />
-            </div>
-          </div>
-          <div className="h-7 w-20 rounded-lg bg-subtle/70 shrink-0" />
-        </div>
-      ))}
-    </div>
-  )
-}
 
 function ComingSoonBlock({ icon: Icon, label }) {
   return (
@@ -175,7 +156,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Trending This Week" />
           {trending === null ? (
-            <div className="h-48 rounded-2xl bg-subtle/70 animate-pulse border border-hairline shadow-xs" aria-hidden="true" />
+            <Skeleton.Hero />
           ) : trending.length === 0 ? (
             <ComingSoonBlock icon={Sparkles} label="trending posts" />
           ) : (
@@ -197,7 +178,7 @@ export default function Home() {
         {recentlyPosted === null ? (
           <section>
             <SectionHeader title="Recently Posted Jobs" viewAllTo="/latest/job" />
-            <TableSkeleton rows={4} />
+            <Skeleton.Table rows={4} cols={3} />
           </section>
         ) : recentlyPosted.length > 0 ? (
           <section>
@@ -208,7 +189,7 @@ export default function Home() {
 
         {/* 5. Category Job Sections (only shown when jobs exist) */}
         {loadingCategories ? (
-          <TableSkeleton rows={3} />
+          <Skeleton.Table rows={3} cols={3} />
         ) : (
           CATEGORY_CONFIG.filter(
             (cat) => categoryJobs[cat.key] && categoryJobs[cat.key].length > 0

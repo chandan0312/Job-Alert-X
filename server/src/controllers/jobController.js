@@ -60,7 +60,7 @@ function searchClause(query) {
 export const list = asyncHandler(async (req, res) => {
   const { category, kind, featured, inTicker, q, limit, offset } = req.query
 
-  const where = {}
+  const where = { status: 'published' }
   if (category) where.category = String(category).toLowerCase()
 
   if (kind) {
@@ -93,13 +93,13 @@ export const list = asyncHandler(async (req, res) => {
 /** GET /api/jobs/trending — featured posts for the home-page hero carousel. */
 export const trending = asyncHandler(async (req, res) => {
   let rows = await Job.findAll({
-    where: { featured: true, kind: 'job' },
+    where: { featured: true, kind: 'job', status: 'published' },
     order: NEWEST_FIRST,
     limit: parseLimit(req.query.limit, undefined),
   })
   if (rows.length === 0) {
     rows = await Job.findAll({
-      where: { kind: 'job' },
+      where: { kind: 'job', status: 'published' },
       order: NEWEST_FIRST,
       limit: parseLimit(req.query.limit, 6),
     })
@@ -110,20 +110,21 @@ export const trending = asyncHandler(async (req, res) => {
 /** GET /api/jobs/ticker — posts displayed in the moving header marquee ticker. */
 export const ticker = asyncHandler(async (req, res) => {
   let rows = await Job.findAll({
-    where: { inTicker: true },
+    where: { inTicker: true, status: 'published' },
     order: NEWEST_FIRST,
     limit: parseLimit(req.query.limit, 10),
   })
   // Fallback to featured or recent if none marked as inTicker yet
   if (rows.length === 0) {
     rows = await Job.findAll({
-      where: { featured: true },
+      where: { featured: true, status: 'published' },
       order: NEWEST_FIRST,
       limit: parseLimit(req.query.limit, 10),
     })
   }
   if (rows.length === 0) {
     rows = await Job.findAll({
+      where: { status: 'published' },
       order: NEWEST_FIRST,
       limit: parseLimit(req.query.limit, 10),
     })
@@ -134,7 +135,7 @@ export const ticker = asyncHandler(async (req, res) => {
 /** GET /api/jobs/recent — "Recently Posted Jobs" strip. */
 export const recent = asyncHandler(async (req, res) => {
   const rows = await Job.findAll({
-    where: { kind: 'job' },
+    where: { kind: 'job', status: 'published' },
     order: NEWEST_FIRST,
     limit: parseLimit(req.query.limit, DEFAULT_RECENT_LIMIT),
   })
@@ -149,7 +150,10 @@ export const search = asyncHandler(async (req, res) => {
   if (!query) return res.json([])
 
   const rows = await Job.findAll({
-    where: searchClause(query),
+    where: {
+      ...searchClause(query),
+      status: 'published',
+    },
     order: NEWEST_FIRST,
     limit: parseLimit(req.query.limit, undefined),
   })
@@ -207,6 +211,15 @@ const WRITABLE = [
   'links',
   'salary',
   'location',
+  'advertisementNumber',
+  'selectionProcess',
+  'applicationProcedure',
+  'requiredDocuments',
+  'importantInstructions',
+  'sourceUrl',
+  'sourceType',
+  'verifiedAt',
+  'status',
 ]
 
 function pickWritable(body) {

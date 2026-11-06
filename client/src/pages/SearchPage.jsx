@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import JobCard from '../components/JobCard.jsx'
 import SEOHead from '../components/SEOHead.jsx'
+import { Skeleton } from '../components/Skeleton.jsx'
 import { searchJobs } from '../services/api.js'
 
 export default function SearchPage() {
@@ -81,22 +82,10 @@ export default function SearchPage() {
         {!query ? (
           <p className="text-[13.5px] text-ink-muted">Enter a keyword to begin.</p>
         ) : results === null ? (
-          <div className="space-y-4 animate-pulse" aria-hidden="true">
-            <div className="h-4 bg-subtle/80 rounded w-36 mb-4" />
+          <div className="space-y-4" aria-hidden="true">
+            <Skeleton.Text lines={1} width="36px" />
             {[1, 2, 3].map((i) => (
-              <div key={i} className="rounded-2xl border border-hairline bg-surface p-5 space-y-4 shadow-sm">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3 flex-1">
-                    <div className="h-12 w-12 rounded-xl bg-subtle/90 shrink-0" />
-                    <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-subtle/90 rounded w-3/4" />
-                      <div className="h-3 bg-subtle/60 rounded w-1/3" />
-                    </div>
-                  </div>
-                  <div className="h-6 w-20 rounded-full bg-subtle/70 shrink-0" />
-                </div>
-                <div className="h-14 rounded-xl bg-subtle/60" />
-              </div>
+              <Skeleton.Card key={i} withImage={true} withMeta={true} variant="horizontal" />
             ))}
           </div>
         ) : results.length === 0 ? (

@@ -25,6 +25,7 @@ import {
 } from 'lucide-react'
 import { getArticles } from '../services/api.js'
 import SEOHead from '../components/SEOHead.jsx'
+import { Skeleton } from '../components/Skeleton.jsx'
 import { CATEGORY_BADGES } from '../data/articleConstants.js'
 
 const CATEGORY_TABS = [
@@ -273,11 +274,7 @@ export default function ArticlesPage() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-80 rounded-2xl bg-subtle/60 animate-pulse border border-hairline dark:border-white/5 dark:bg-white/[0.03]" />
-            ))}
-          </div>
+          <Skeleton.PageGrid count={6} />
         ) : error ? (
           <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-6 text-center text-red-400">
             <p className="font-semibold">{error}</p>
