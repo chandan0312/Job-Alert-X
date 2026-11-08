@@ -78,6 +78,70 @@ async function start() {
       })
       console.log('[db] added location column to jobs table')
     }
+    if (desc && !desc.advertisementNumber) {
+      await qi.addColumn('jobs', 'advertisementNumber', {
+        type: sequelize.Sequelize.DataTypes.STRING(100),
+        allowNull: true,
+      })
+      console.log('[db] added advertisementNumber column to jobs table')
+    }
+    if (desc && !desc.selectionProcess) {
+      await qi.addColumn('jobs', 'selectionProcess', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added selectionProcess column to jobs table')
+    }
+    if (desc && !desc.applicationProcedure) {
+      await qi.addColumn('jobs', 'applicationProcedure', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added applicationProcedure column to jobs table')
+    }
+    if (desc && !desc.requiredDocuments) {
+      await qi.addColumn('jobs', 'requiredDocuments', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added requiredDocuments column to jobs table')
+    }
+    if (desc && !desc.importantInstructions) {
+      await qi.addColumn('jobs', 'importantInstructions', {
+        type: sequelize.Sequelize.DataTypes.JSON,
+        allowNull: true,
+      })
+      console.log('[db] added importantInstructions column to jobs table')
+    }
+    if (desc && !desc.sourceUrl) {
+      await qi.addColumn('jobs', 'sourceUrl', {
+        type: sequelize.Sequelize.DataTypes.STRING(1000),
+        allowNull: true,
+      })
+      console.log('[db] added sourceUrl column to jobs table')
+    }
+    if (desc && !desc.sourceType) {
+      await qi.addColumn('jobs', 'sourceType', {
+        type: sequelize.Sequelize.DataTypes.STRING(50),
+        allowNull: true,
+      })
+      console.log('[db] added sourceType column to jobs table')
+    }
+    if (desc && !desc.verifiedAt) {
+      await qi.addColumn('jobs', 'verifiedAt', {
+        type: sequelize.Sequelize.DataTypes.DATE,
+        allowNull: true,
+      })
+      console.log('[db] added verifiedAt column to jobs table')
+    }
+    if (desc && !desc.status) {
+      await qi.addColumn('jobs', 'status', {
+        type: sequelize.Sequelize.DataTypes.ENUM('draft', 'published'),
+        allowNull: false,
+        defaultValue: 'published',
+      })
+      console.log('[db] added status column to jobs table')
+    }
   } catch (err) {
     console.warn('[db] column check notice:', err.message)
   }
